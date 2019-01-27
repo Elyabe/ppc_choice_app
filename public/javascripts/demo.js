@@ -299,7 +299,7 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
 
         jsPlumb.fire("jsPlumbDemoLoaded", instance);
        // $("#" + bar_progress ).closest('.progress').fadeOut();
-        $("#"+bar_progress).show()
+        $("#"+bar_progress).hide()
         }
         });
         
