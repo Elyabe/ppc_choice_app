@@ -152,6 +152,13 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
     
                         $("#"  + d.cod_comp_curricular ).css("background-color","rgba(0,255,0," + d.percentual_corresp + ")");    
                         $("#"  + d.cod_comp_curricular ).css("color", "black" )
+                    } else if ( perc[ d.cod_cc_corresp % 100 ] > 0 )
+                    {
+                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(0,255,0," + perc[ d.cod_cc_corresp % 100 ] % 2 + ")")
+                        $("#"  + d.cod_cc_corresp ).css("color","white");
+    
+                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(0,255,0," + d.percentual_corresp + ")");    
+                        $("#"  + d.cod_comp_curricular ).css("color", "black" )
                     }
                 }
             }
