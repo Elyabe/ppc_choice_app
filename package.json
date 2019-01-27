@@ -10,8 +10,6 @@
     "start": "node serverApp.js"
   },
   "dependencies": {
-    "cookie-parser": "~1.0.1",
-    "debug": "~0.7.4",
     "ejs": "^2.6.1",
     "ejs-locals": "^1.0.2",
     "express": "^4.15.2",
