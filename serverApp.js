@@ -5,7 +5,7 @@ var engine = require('ejs-locals');
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./routes/controller')
-const index = require('./routes/index')
+const index = require('./routes/controller')
 
 /*const bdFireRoute = require('./routes/db_firestore')
 
