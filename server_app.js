@@ -6,9 +6,6 @@ var engine = require('ejs-locals');
 const PORT = process.env.PORT || 3000
 const comparison = require('./routes/controller')
 const statistics = require('./routes/controller')
-const bdFireRoute = require('./routes/db_firestore')
-
-require('dotenv').config()
 
 
 express()
