@@ -35,7 +35,8 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
     $("#"+nome_seletor).change(function(){
 
         var cursoSelecionado = $(this).children("option:selected").val();
- 
+        
+        $("#"+bar_progress).show()
         $("#"+bar_progress).css("width", "25%");
 
         $.ajax({
@@ -297,7 +298,8 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
         // instance.connect({ source: "1", target: "6", type:"basic" })
 
         jsPlumb.fire("jsPlumbDemoLoaded", instance);
-       $("#" + bar_progress ).closest('.progress').fadeOut();
+       // $("#" + bar_progress ).closest('.progress').fadeOut();
+        $("#"+bar_progress).show()
         }
         });
         
