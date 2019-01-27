@@ -14,11 +14,13 @@
     "ejs-locals": "^1.0.2",
     "express": "^4.15.2",
     "pg": "^7.7.1",
-    "static-favicon": "~1.0.0"
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4"
   },
   "devDependencies": {
-    "dotenv": "^6.2.0",
-    "nodemon": "^1.18.9",
     "request": "^2.81.0",
     "tape": "^4.7.0"
   },
