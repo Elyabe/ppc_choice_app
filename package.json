@@ -7,7 +7,7 @@
   },
   "main": "server_app.js",
   "scripts": {
-    "start": "node serverApp.js"
+    "start": "node server_app.js"
   },
   "dependencies": {
     "ejs": "^2.6.1",
