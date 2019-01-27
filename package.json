@@ -5,15 +5,13 @@
   "engines": {
     "node": "10.x"
   },
-  "main": "server_app.js",
+  "main": "serverApp.js",
   "scripts": {
-    "start": "node server_app.js"
+    "start": "node serverApp.js"
   },
   "dependencies": {
     "ejs": "^2.6.1",
-    "ejs-locals": "^1.0.2",
     "express": "^4.15.2",
-    "pg": "^7.7.1",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
     "cookie-parser": "~1.0.1",

@@ -10,10 +10,3 @@ npm-debug.log
 # Docker
 Dockerfile
 docker-compose.yml
-
-
-#DB teste
-routes/db_firebase.js
-routes/db_firestore.js
-routes/database.js
-routes/key_app.json

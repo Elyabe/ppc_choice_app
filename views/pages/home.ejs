@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title><%=blocks.title%></title>
-
-    <link rel="stylesheet" href="/public/stylesheets/bootstrap.css"/>
-</head>
-<body>
-<header>
-    <%-blocks.header%>
-</header>
-<section class="container">
-
-    <%-partial('views/partials/topNavigation')%>
-
-    <h1><%=blocks.title%></h1>
-
-    <%-body -%>
-</section>
-<footer>
-    <%-blocks.footer%>
-</footer>
-</body>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Bem-Vindo ao <%= title %></p>
+    <p>Statu: Em construção</p>
+    <h2>Entendeu? Sim ou Não?</h2>
+  </body>
 </html>
