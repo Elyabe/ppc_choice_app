@@ -1,0 +1,49 @@
+body {
+  padding: 50px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+
+
+
+/**
+  * Name: ComparaÃ§ÃĢo
+  * Version: 1.0
+  * Author: HÃĄdamo
+
+  SÃģ para fins de teste, depois pode colocar dentro do arquivo style.css ou usar este arquivo para todas as alteraÃ§Ãĩes que fizermos aqui
+*/
+.comparacao 
+{
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  height: 500px;
+  background-color: #DCE0D0;
+}
+.espaco-comp 
+{ 
+  margin-top:20px; 
+}
+.espaco-btn
+{
+  margin-left: 40px;
+}
+/*
+.btn.btn-danger
+{
+    width: 100px;
+}*/

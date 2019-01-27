@@ -1,0 +1,36 @@
+{
+  "name": "ppcchoice.app",
+  "version": "0.1.0",
+  "description": "No description",
+  "engines": {
+    "node": "10.x"
+  },
+  "main": "server_app.js",
+  "scripts": {
+    "start": "nodemon serverApp.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "ejs": "^2.6.1",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.15.2",
+    "firebase": "^5.7.2",
+    "firebase-admin": "^6.4.0",
+    "morgan": "~1.0.0",
+    "pg": "^7.7.1",
+    "static-favicon": "~1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.9",
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppc-choice/ppcchoice.app"
+  },
+  "license": "MIT"
+}

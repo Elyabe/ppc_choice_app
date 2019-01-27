@@ -1,0 +1,103 @@
+<% layout('layout') -%>
+
+ <div class="jtk-page-container" id="export-pdf">
+                    <div class="row ">
+                        <div class="col-md-12">     
+                            <form>
+                            <div class="form-group" style="">
+                            <select class="form-control " id = "curso-atual"">
+                             <option selected id = "0">Selecione seu curso</option>
+                                <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) { 
+                                    if ( cursos[idDisc].status == "ATIVO ANTERIOR" ) { %>
+                                    <option value = "<%= cursos[idDisc].cod_ppc %>" >
+                                      <%= cursos[idDisc].nome %> ( <%= cursos[idDisc].ch_total_curso %> horas )
+                                    </option>
+                                <% } 
+                                } %>
+                            </select> 
+                            </div>
+                            </form>
+                        </div>    
+                    </div><!-- /.row -->           
+                    
+                    <!-- <div class="row"> -->
+                        <div class="progress" >
+                          <div class="progress-bar progress-bar-striped progress-bar-animated"" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-curso-atual"></div>
+                        </div>
+                    <!-- </div> -->
+                    
+                    <div class="row">
+                        <div class="col-md-12">     
+                            <!-- <div class="comparacao"> -->
+                              <!-- <div class="jtk-demo-main"> -->
+                                          <!-- demo -->
+                                          <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas" >
+                                          
+
+
+                                        </div>
+                                <!-- </div> -->
+                                
+
+                            <!-- </div>  comparacao -->
+                        </div><!-- col-md-12 -->
+                    </div><!-- /.row -->     
+
+                    <br>
+
+                    <div class="row ">
+                        <div class="col-md-12">     
+                            <form>
+                            <div class="form-group" style="">
+                            <select class="form-control " id = "curso-alvo"">
+                             <option selected id = "0">Selecione seu curso-alvo </option>
+                                <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
+                                    if ( cursos[idDisc].status == "CORRENTE" ) { %>
+                                <option value = "<%= cursos[idDisc].cod_ppc %>" >
+                                  <%= cursos[idDisc].nome %> ( <%= cursos[idDisc].ch_total_curso %> horas )
+                                </option>
+                                <% } } %>
+                            </select> 
+                            </div>
+                            </form>
+                        </div>    
+                    </div><!-- /.row -->           
+                    
+                    <!-- <div class="row"> -->
+                        <div class="progress" >
+                          <div class="progress-bar progress-bar-striped progress-bar-animated"" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-curso-alvo"></div>
+                        </div>
+                    <!-- </div> -->
+                    
+                    <div class="row">
+                        <div class="col-md-12">     
+                            <!-- <div class="comparacao"> -->
+                              <!-- <div class="jtk-demo-main"> -->
+                                          <!-- demo -->
+                                          <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="grade-alvo" >
+                                          
+
+
+                                        </div>
+                                <!-- </div> -->
+                                
+
+                            <!-- </div>  comparacao -->
+                        </div><!-- col-md-12 -->
+                    </div><!-- /.row -->     
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">     <!-- style="background:yellow" -->
+                           
+                            
+                      </div> <!-- col-md-12 -->
+                    </div>               
+                    <div class="row espaco-comp">
+                        <button class="btn btn-primary center-block " type="submit" action="comparar_grades( 'curso-atual', 'curso-alvo');" id = "comparar" >Comparar</button>
+
+                        <a href="javascript:getPDF()" >Salvar</a>
+                    </div>      
+                  
+                </div><!-- /.container -->  
