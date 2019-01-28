@@ -106,7 +106,8 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
     });
 */
     instance.on(canvas, "dblclick", function(e) {
-        instance.select({"source": "1"}).setHover(true);
+        // instance.select({"source": "1"}).setHover(true);
+        alert("Hádamo Eva & Adão! Agora diga rápido")
         // instance.getConnections("1").setHover(true);
     });
 
