@@ -257,8 +257,9 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
             novaCC( data[i], k )
         }
 
-        data.forEach( (item) => {
-            instance.on( document.getElementById(item.cod_comp_curricular), "click", function(e) {
+         data.forEach( (item) => {
+            let el_disciplina = document.getElementById(item.cod_comp_curricular);
+            instance.on( el_disciplina, "click", function(e) {
             
             var pos = disc_sel.indexOf(item.cod_comp_curricular)
             if ( pos > -1 )
@@ -277,6 +278,14 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
 
             console.log("Clicado " + item.cod_comp_curricular + disc_sel )
             })
+
+            instance.on(el_disciplina, "mouseover", function(e) {
+            instance.select({"source": item.cod_comp_curricular}).setHover(true);
+            });
+
+            instance.on(el_disciplina, "mouseout", function(e) {
+            instance.select({"source": item.cod_comp_curricular}).setHover(false);
+            });
         })
 
 
