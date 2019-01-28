@@ -95,9 +95,13 @@
                       </div> <!-- col-md-12 -->
                     </div>               
                     <div class="row espaco-comp">
-                        <button class="btn btn-primary center-block " type="submit" action="comparar_grades( 'curso-atual', 'curso-alvo');" id = "comparar" >Comparar</button>
+                        <div class="col-md-4">     <!-- style="background:yellow" -->
+                            <button class="btn btn-primary center-block " type="submit" action="comparar_grades( 'curso-atual', 'curso-alvo');" id = "comparar" >Comparar</button>                            
+                        </div> <!-- col-md-12 -->
 
-                        <a href="javascript:getPDF()" >Salvar</a>
+                        <div class="col-md-4">     <!-- style="background:yellow" -->
+                            <a href="javascript:window.print()" >Salvar</a>
+                        </div> <!-- col-md-12 -->
                     </div>      
                   
                 </div><!-- /.container -->  
