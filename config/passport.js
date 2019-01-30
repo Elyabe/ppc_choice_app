@@ -8,26 +8,23 @@ const bcrypt = require('bcryptjs');
 module.exports = function(passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-      // Match user
-      /*User.findOne({
-        email: email
-      }).then(user => {
-        if (!user) {
-          return done(null, false, { message: 'That email is not registered' });
-        }
+      const get_users = "SELECT * FROM usuario WHERE email = '" + email + "';"
 
-        // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {*/
-            if ( email == process.env.ROOT && password == process.env.PASSWD )
-            { user = { "id": '1', "name": 'teste', "email": 'teste@ppc', "password": '123', "date": null }
-              return done(null, user);
-          } else {
-            return done(null, false, { message: 'Password incorrect' });
-          }/*
-        });
-      });*/
+        db.getRecords( get_users, (result) => {
+            if ( result.rows.length > 0 )
+            {
+              if ( password == result.rows[0].senha )
+              { 
+                // user = { "id": '1', "name": 'teste', "email": 'teste@ppc', "password": '123', "date": null }
+                user = result.rows[0]
+                return done(null, user);
+              } else
+                return done(null, false, { message: 'Password incorrect' });
+            } else
+            {
+              return done(null, false, { message: 'That email is not registered' });
+            }
+        })
     })
   );
 
