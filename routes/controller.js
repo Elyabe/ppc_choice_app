@@ -1,19 +1,54 @@
 const express = require('express');
 const router = express.Router();
-// const pg = require('pg');
-
 const db = require('./db_functions');
+const bodyParser = require('body-parser')
+
+router.use(bodyParser.urlencoded({ extended: false }))
+router.use(bodyParser.json())
+
+const { ensureAuthenticated } = require('../config/auth');
+const passport = require('passport');
+
+router.post( '/login', (req, res, next) => {
+    passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+    failureFlash: true
+  })(req, res, next);
+  },
+);
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/');
+});
+
 
 router.get( '/', function( req, res ) {
-    const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
+    // const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
 
-    db.getRecords( get_qtd_cursos, (result) => {
-        res.render( './pages/home_construcao', { title: "Seus putos", qtd_cursos: result.rows[0].count });
-    })
+    // db.getRecords( get_qtd_cursos, (result) => {
+        res.render( './pages/login', { title: "Logue, seus putos", qtd_cursos: 0});
+    // })
 
 });
 
-router.get( '/comparison', function( req, res ) {
+router.get( '/home', ensureAuthenticated, function( req, res ) {
+    
+    
+    const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
+
+        db.getRecords( get_qtd_cursos, (result) => {
+            res.render( './pages/home_construcao', { title: "Seus putos", qtd_cursos: result.rows[0].count });
+        })
+    
+
+});
+
+
+
+router.get( '/comparison', ensureAuthenticated, function( req, res ) {
     const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
     const get_disciplinas = "SELECT D.nome, D.carga_horaria, CC.cod_comp_curricular, CC.periodo from disciplina as D, componente_curricular as CC \
         WHERE CC.cod_ppc = " + req.params.idCurso + " AND CC.cod_disciplina = D.cod_disciplina AND CC.cod_departamento = D.cod_departamento ORDER BY CC.cod_comp_curricular;"
@@ -509,19 +544,23 @@ INSERT INTO corresponde ( cod_comp_curricular, cod_cc_corresp, percentual_corres
 (20,  75,  1);"
 
 
-const add = "INSERT INTO corresponde ( cod_comp_curricular, cod_cc_corresp, percentual_corresp ) VALUES \
-(53,95,1);"
+/*const add = "INSERT INTO corresponde ( cod_comp_curricular, cod_cc_corresp, percentual_corresp ) VALUES \
+(51,89,1), (52,93,1), (53,95,1);"
+*/
+const add = "INSERT INTO dependencia ( cod_comp_curricular, cod_cc_pre_requisito) VALUES \
+(49,41);"
 
 /*const add = "INSERT INTO disciplina ( cod_disciplina, cod_departamento, nome, carga_horaria ) VALUES \
 (10166, 4, 'Pesquisa Operacional I', 60);"
 */
 
 const empty = "";
-const del = "DELETE FROM corresponde WHERE cod_comp_curricular = 53 AND cod_cc_corresp = 101;"
+// const del = "DELETE FROM corresponde WHERE cod_comp_curricular = 44 AND cod_cc_corresp = 89;"
+const del = "DELETE FROM dependencia WHERE cod_comp_curricular = 49 AND cod_cc_pre_requisito = 40;"
 
 const query = create_db + "\n" + charge_db;
 
-    db.getRecords( empty, (result) => {
+    db.getRecords( del, (result) => {
         res.send( "BD criado e populado com sucesso!");
     })
 
