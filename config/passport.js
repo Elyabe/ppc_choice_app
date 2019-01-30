@@ -21,7 +21,8 @@ module.exports = function(passport) {
           if (err) throw err;
           if (isMatch) {*/
             if ( email == process.env.ROOT && password == process.env.PASSWD )
-            { user = { "id": '1', "name": 'admin', "email": 'admin@ppc', "password": '123', "date": null }              return done(null, user);
+            { user = { "id": '1', "name": 'teste', "email": 'teste@ppc', "password": '123', "date": null }
+              return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });
           }/*
