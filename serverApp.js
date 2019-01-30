@@ -1,24 +1,19 @@
 const express = require('express')
 const path = require('path')
 var engine = require('ejs-locals');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-const passport = require('passport');
-const flash = require('connect-flash');
-const session = require('express-session');
 
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./routes/controller')
-const statistics = require('./routes/controller')
-const bdFireRoute = require('./routes/db_firestore')
+const index = require('./routes/controller')
 
-require('./config/passport')(passport);
+/*const bdFireRoute = require('./routes/db_firestore')
+
 require('dotenv').config()
-
+*/
 
 express()
-  .use(
+.use(
   session({
     secret: 'secret',
     resave: true,
@@ -37,12 +32,9 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .engine('ejs', engine)
   .set('view engine', 'ejs')
-  .use(bodyParser.json())
-  .use(bodyParser.urlencoded({ extended: false }))
-  .use(cookieParser())
   // .get('/', (req, res) => res.render('pages/index'))
   // .get('/', (req, res) => res.render('pages/home_construcao', { title: 'Seus putos' } ) )
-  .get('/', statistics )
+  .get('/', index )
   .post('/login', statistics )
   .get('/logout', statistics )
   .get('/home', statistics )
