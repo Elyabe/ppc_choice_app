@@ -1,25 +1,51 @@
 const express = require('express')
 const path = require('path')
 var engine = require('ejs-locals');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./routes/controller')
-const index = require('./routes/controller')
+const statistics = require('./routes/controller')
+const bdFireRoute = require('./routes/db_firestore')
 
-/*const bdFireRoute = require('./routes/db_firestore')
-
+require('./config/passport')(passport);
 require('dotenv').config()
-*/
+
 
 express()
+  .use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  }))
+  .use(passport.initialize())
+  .use(passport.session())
+  .use(flash())
+  .use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+  })
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .engine('ejs', engine)
   .set('view engine', 'ejs')
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: false }))
+  .use(cookieParser())
   // .get('/', (req, res) => res.render('pages/index'))
   // .get('/', (req, res) => res.render('pages/home_construcao', { title: 'Seus putos' } ) )
-  .get('/', index )
+  .get('/', statistics )
+  .post('/login', statistics )
+  .get('/logout', statistics )
+  .get('/home', statistics )
   .get('/database', comparison )
   .get('/comparison', comparison )
   .get('/getGrade/:idCurso', comparison )
@@ -42,4 +68,4 @@ express()
         });
       })
   .listen(PORT, () => console.log(`Listening on ${ PORT } \n 
-  	dotenv: ${ process.env.TESTE}`))
+    dotenv: ${ process.env.TESTE}`))
