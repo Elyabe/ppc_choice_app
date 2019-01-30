@@ -2,6 +2,14 @@ const express = require('express')
 const path = require('path')
 var engine = require('ejs-locals');
 
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
+
+require('./config/passport')(passport);
+
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./routes/controller')
