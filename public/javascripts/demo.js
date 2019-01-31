@@ -55,7 +55,7 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
     var instance = jsPlumb.getInstance({
         Endpoint: ["Dot", {radius: 2}],
         Connector:"StateMachine",
-        HoverPaintStyle: {stroke: "#1e8151", strokeWidth: 2 },
+        HoverPaintStyle: {stroke: "#1e8151", strokeWidth: 1 },
         ConnectionOverlays: [
             [ "Arrow", {
                 location: 1,
@@ -180,12 +180,12 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
     var initNode = function(el) {
 
         // initialise draggable elements.
-        instance.draggable(el);
+        // instance.draggable(el);
 
         instance.makeSource(el, {
             filter: ".ep",
             anchor: "Continuous",
-            connectorStyle: { stroke: "#a0a0a0", strokeWidth: 2, outlineStroke: "transparent", outlineWidth: 4 },
+            connectorStyle: { stroke: "#e9e9e9", strokeWidth: 1, outlineStroke: "transparent", outlineWidth: 4 },
             connectionType:"basic",
             extract:{
                 "action":"the-action"
