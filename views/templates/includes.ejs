@@ -9,26 +9,3 @@
 
 <!--  demo code -->
 <script src="/javascripts/demo.js"></script> 
-
-<!-- <script language="javascript"> 
-        var cache_width = $('#export-pdf').width(); //Criado um cache do CSS
-        var a4  =[ 595.28,  841.89]; // Widht e Height de uma folha a4
-
-        function getPDF(){
-        // Setar o width da div no formato a4
-        $("#export-pdf").width((a4[0]*1.33333) -80).css('max-width','none');
-
-        // Aqui ele cria a imagem e cria o pdf
-        html2canvas($('#export-pdf'), {
-          onrendered: function(canvas) {
-            var img = canvas.toDataURL("image/png",1.0);  
-            var doc = new jsPDF({unit:'px', format:'a4'});
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('NOME-DO-PDF.pdf');
-            //Retorna ao CSS normal
-            $('#export-pdf').width(cache_width);
-          }
-        });
-        }
-    </script>
- -->
