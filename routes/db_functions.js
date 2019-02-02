@@ -13,12 +13,7 @@ module.exports = {
                 client.query( query )
                     .then( result => {
                         client.release()
-                        // console.log( result.rows )
                         callback( result )
-                        // res.render('index', { title: 'Seus putos', cursos : result_curso } )
-                        // res.render('pages/home_construcao', { title: 'Seus putos', data : result.rows } )
-                        // res.send( result.rows )
-                        // return result.rows;
                     }) 
                     .catch(e => console.error(e.stack)) 
                     .then(() => client.end(console.log('Conexao fechada')))
