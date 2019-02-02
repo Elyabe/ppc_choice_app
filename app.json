@@ -2,7 +2,7 @@
   "name": "PPC Choice",
   "description": "",
   "repository": "https://github.com",
-  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "logo": "http://ppcchoice.herokuapp.com/images/logo_ppc.png",
   "keywords": ["node", "express", "heroku"],
   "image": "heroku/nodejs"
 }
