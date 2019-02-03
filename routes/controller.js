@@ -90,4 +90,8 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
     })
 });
 
+router.get( '/settings/password', ensureAuthenticated, function( req, res ) {
+        res.render('/pages/password_change', { title: 'Settings: Password'} )
+});
+
 module.exports = router;
