@@ -44,6 +44,7 @@ express()
   .get('/getGrade/:idCurso', comparison )
   .get('/compare/:idCursoAtual/:idCursoAlvo', comparison )
   .get('/settings/password', comparison )
+  .post('/update/password', comparison )
   .use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
