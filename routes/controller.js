@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('./db_functions');
 const bodyParser = require('body-parser')
  const bcrypt = require('bcryptjs');
- 
+
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 
@@ -108,8 +108,6 @@ router.post( '/update/password', ensureAuthenticated, (req, res, next) => {
         if ( result.rows.length > 0 )
         {
               user = result.rows[0];
-              console.log(user)
-              console.log(user_form)
             bcrypt.compare(user_form.current_password, user.senha, (err, isMatch) => 
             {
               if (err) throw err;
