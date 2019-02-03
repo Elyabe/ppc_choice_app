@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('./db_functions');
 const bodyParser = require('body-parser')
-
+ const bcrypt = require('bcryptjs');
+ 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 
@@ -114,7 +115,6 @@ router.post( '/update/password', ensureAuthenticated, (req, res, next) => {
               if (err) throw err;
               if (isMatch) 
               {
-                const bcrypt = require('bcryptjs');
                 bcrypt.genSalt(10, (err, salt) => 
                 {
                     bcrypt.hash( user_form.new_password, salt, (err, hash) => 
