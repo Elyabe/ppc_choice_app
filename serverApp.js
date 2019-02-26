@@ -10,7 +10,7 @@ const session = require('express-session');
 
 require('./config/passport')(passport);
 
-// require('dotenv').config();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./route/controller')
@@ -34,7 +34,7 @@ express()
   })
   .use(express.static(path.join(__dirname, 'public')))
   .use( function(req, res, next){
-    res.locals.login = req.isAuthenticated();
+    res.locals.login = req.isAuthenticated() ? true : false;
     next()
   })
   .set('views', path.join(__dirname, 'view'))
