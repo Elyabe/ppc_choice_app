@@ -23,8 +23,8 @@ router.get('/logout', (req, res) => {
   req.logout();
   // req.session = null;
   // req.flash('success_msg', 'You are logged out');
-  req.user = null;
-  req.session.destroy();
+  // req.user = null;
+  // req.session.destroy();
   res.redirect('/home')
 });
 
