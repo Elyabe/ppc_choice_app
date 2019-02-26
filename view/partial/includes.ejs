@@ -1,0 +1,40 @@
+
+
+
+<!-- <script src="/js/bootstrap/jquery-1.6.2.min.js"></script> -->
+<!-- <script src="/js/bootstrap/bootstrap.min.js"></script>  -->
+<!-- JS -->
+    <script src="/js/jsplumb/jsplumb.js"></script>
+<!-- /JS -->
+
+<!--  demo code -->
+<script src="/js/jsplumb/demo.js"></script> 
+
+
+<script> 
+$(document).ready(function(){
+$('.pass_show').append('<span class="ptxt">Show</span>');  
+});
+  
+
+$(document).on('click','.pass_show .ptxt', function(){ 
+
+$(this).text($(this).text() == "Show" ? "Hide" : "Show"); 
+
+$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
+
+});  
+</script>
+
+
+
+<!-- START JAVASCRIPT -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script type="text/javascript" src="/js/bootstrap/jquery.min.js"></script> -->
+    <!-- <script src="/js/bootstrap/bootstrap.min.js"></script> -->
+    
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="/js/bootstrap/buttons.js"></script>
+
+    <!-- Bootsnavs -->
+    <script src="/js/bootstrap/bootsnav.js"></script>

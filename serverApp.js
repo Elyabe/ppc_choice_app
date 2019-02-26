@@ -10,16 +10,16 @@ const session = require('express-session');
 
 require('./config/passport')(passport);
 
-
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
-const comparison = require('./routes/controller')
-const index = require('./routes/controller')
+const comparison = require('./route/controller')
+const index = require('./route/controller')
 
 express()
 .use(
   session({
-    secret: 'secret',
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true
   }))
@@ -33,10 +33,15 @@ express()
   next();
   })
   .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
+  .use( function(req, res, next){
+    res.locals.login = req.isAuthenticated();
+    next()
+  })
+  .set('views', path.join(__dirname, 'view'))
   .engine('ejs', engine)
   .set('view engine', 'ejs')
   .get('/', index )
+  .get('/login', index )
   .post('/login', index )
   .get('/logout', index )
   .get('/home', index )

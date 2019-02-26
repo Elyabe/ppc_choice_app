@@ -6,6 +6,6 @@ module.exports = {
     req.flash('error_msg', 'Please log in to view that resource');
     res.set({
     	'method': 'GET'
-    }).redirect('/');
+    }).redirect('/login');
   }
 };
