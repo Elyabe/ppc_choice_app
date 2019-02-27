@@ -10,17 +10,20 @@ const session = require('express-session');
 
 require('./config/passport')(passport);
 
-// require('dotenv').config();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./route/controller')
 const index = require('./route/controller')
 
+var num;
+
 express()
+.use(express.static(path.join(__dirname, 'public')))
 .use(
   session({
     secret: process.env.SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true
   }))
   .use(passport.initialize())
@@ -30,13 +33,16 @@ express()
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  if ( req.isAuthenticated() )
+    res.locals.login  = true;
+  else
+    res.locals.login = false;
   next();
   })
-  .use(express.static(path.join(__dirname, 'public')))
-  .use( function(req, res, next){
-    res.locals.login = req.isAuthenticated() ? true : false;
-    next()
-  })
+  // .use( function(req, res, next){
+  //   res.locals.login = req.isAuthenticated() ? true : false;
+  //   next()
+  // })
   .set('views', path.join(__dirname, 'view'))
   .engine('ejs', engine)
   .set('view engine', 'ejs')

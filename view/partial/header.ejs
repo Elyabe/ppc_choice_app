@@ -17,11 +17,11 @@
             <!-- Start Atribute Navigation -->
             <div class="attr-nav">
                 <ul>
-                    <% if (login) { %> 
+                    <% if (typeof user !== 'undefined') { %> 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-cog"></i>
-                            <span class="badge">2</span>
+                            <!-- <span class="badge">2</span> -->
                         </a>
                         <ul class="dropdown-menu cart-list animated fadeOutUp" style="display: none; opacity: 1;">
                             
@@ -34,8 +34,8 @@
                         </ul>
                     </li>
                     <% } %>
-                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
-                    <li class="side-menu"><a href="#"><i class="fa fa-bars"></i></a></li>
+                    <li class="search"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+                    <li class="side-menu"><a href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>
                 </ul>
             </div>
             <!-- End Atribute Navigation -->
@@ -56,99 +56,10 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="/home">Home</a></li>
+                    <li><a href="#">Contato</a></li>
                     <li><a href="/comparison">Comparar PPCs</a></li>
-                    <li class="dropdown megamenu-fw">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Megamenu</a>
-                        <ul class="dropdown-menu megamenu-content animated fadeOutUp" role="menu" style="display: none; opacity: 1;">
-                            <li>
-                                <div class="row">
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu One</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Two</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Three</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>    
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Four</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                </div><!-- end row -->
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdowns</a>
-                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                            <li><a href="#">Custom Menu</a></li>
-                            <li><a href="#">Custom Menu</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
-                                <ul class="dropdown-menu animated">
-                                    <li><a href="#">Custom Menu</a></li>
-                                    <li><a href="#">Custom Menu</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
-                                        <ul class="dropdown-menu animated">
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Custom Menu</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Custom Menu</a></li>
-                            <li><a href="#">Custom Menu</a></li>
-                            <li><a href="#">Custom Menu</a></li>
-                            <li><a href="#">Custom Menu</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Portfolio</a></li>
                      <li><a href="#"> <span class="glyphicon glyphicon-user"></span>  
-                    <% if (login) { %>  <%-user.email%> 
+                    <% if (login) { %>  <%=user.email%> 
                     <%} else {%> Lebre Saltitante <% } %>
                     </a></li>
                 </ul>
@@ -157,7 +68,7 @@
 
         <!-- Start Side Menu -->
         <div class="side">
-            <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+            <a href="#" class="close-side"><span class="glyphicon glyphicon-remove"></span></a>
             <div class="widget">
                 <h6 class="title">Mais</h6>
                 <ul class="link">

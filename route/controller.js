@@ -12,12 +12,14 @@ const passport = require('passport');
 
 router.post( '/login', (req, res, next) => {
     passport.authenticate('local', {
+    session: true,
     successRedirect: '/home',
     failureRedirect: '/login',
     failureFlash: true
   })(req, res, next);
   },
 );
+
 
 router.get('/logout', (req, res) => {
   req.logout();
@@ -43,7 +45,7 @@ router.get( '/home', function( req, res ) {
     const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
 
         db.getRecords( get_qtd_cursos, (result) => {
-            res.render( './page/home_construcao', { title: "Seus putos", qtd_cursos: result.rows[0].count });
+            res.render( './page/home_construcao', { title: "Seus putos", qtd_cursos: result.rows[0].count, user: req.user });
         })
     
 
@@ -55,7 +57,7 @@ router.get( '/comparison', ensureAuthenticated, function( req, res ) {
     const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
 
     db.getRecords( get_cursos, (result) => {
-        res.render('index', { title: 'Seus putos', cursos : result.rows } )
+        res.render('index', { title: 'Seus putos', cursos : result.rows, user: req.user } )
     })
 
 });

@@ -23,12 +23,12 @@ module.exports = function(passport) {
 
                   return done(null, user);
               } else {
-                return done(null, false, { message: 'Password incorrect' });
+                return done(null, false, { error_msg: 'Password incorrect' });
               }
             });
           } else
             {
-              return done(null, false, { message: 'That email is not registered' });
+              return done(null, false, {error_msg: 'That email is not registered' });
             }
         })
     })
@@ -38,7 +38,8 @@ module.exports = function(passport) {
     done(null, user.email);
   });
 
-  passport.deserializeUser(function(user, done) {
+  passport.deserializeUser(function(email, done) {
+      var user = { 'email': email };
       done(null, user);
   });
 };
