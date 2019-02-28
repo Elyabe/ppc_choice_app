@@ -10,7 +10,7 @@ const session = require('express-session');
 
 require('./config/passport')(passport);
 
-// require('dotenv').config();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 const comparison = require('./route/controller')

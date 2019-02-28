@@ -314,11 +314,12 @@ Affiliates
 Footer
 =========================== */
 footer{
-    border-top: solid 1px #efefef;
+    border-top: solid 2px #333;
 }
 
 footer .container{
     padding: 25px 15px;
+    text-align: center;
 }
 
 /*
