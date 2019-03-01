@@ -168,8 +168,26 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
             
             }
             });
-        
+
+
+         $.ajax({
+         url: '/getReaprov/' + id_curso_alvo,
+         type:'GET',
+         cache:true,
+         success: function (response) {
+            disciplina = response;
+
+            disciplina.forEach( (item )=> {
+            if ( disc_sel.indexOf(item.cod_comp_curricular) > -1 ) 
+            {
+                $("#"  + item.cod_comp_curricular ).css("background-color","#ff0");    
+                $("#"  + item.cod_comp_curricular ).css("color", "black" )
+            }
+            })
+        } 
+        })
     });
+        
 
 
 

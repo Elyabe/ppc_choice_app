@@ -85,6 +85,18 @@ router.get( '/getGrade/:idCurso', function( req, res ) {
         })
     })
     
+
+router.get( '/getReaprov/:idCurso', function( req, res ) {
+    
+    const get_reaprov = "SELECT * FROM reaproveitamento WHERE cod_ppc_destino = " + req.params.idCurso + ";"
+
+        db.getRecords( get_reaprov, (result) => {
+            res.send( result.rows );
+             });
+        })
+
+
+
 router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
    
     const get_ppc = "SELECT cod_ppc FROM curso WHERE cod_curso = " + req.params.idCursoAtual;
