@@ -127,7 +127,8 @@
     Assigned to a Surface widget when panning is disabled (and therefore the app is relying on scrollbars when the content overflows).
 */
 .jtk-surface-nopan {
-    overflow: scroll !important;
+    /*overflow: scroll !important;*/
+    overflow: auto !important;
     cursor:default;
 }
 
