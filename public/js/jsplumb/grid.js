@@ -303,10 +303,12 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
 
             instance.on(el_disciplina, "mouseover", function(e) {
             instance.select({"source": item.cod_comp_curricular}).setHover(true);
+            instance.select({"target": item.cod_comp_curricular}).setHover(true);
             });
 
             instance.on(el_disciplina, "mouseout", function(e) {
             instance.select({"source": item.cod_comp_curricular}).setHover(false);
+            instance.select({"target": item.cod_comp_curricular}).setHover(false);
             });
         })
 
