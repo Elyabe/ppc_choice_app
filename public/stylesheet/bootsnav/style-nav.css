@@ -27,6 +27,10 @@ body {
 	color:#6f6f6f;
 }
 
+.wraper {
+    overflow: hidden;
+}
+
 a{
     color: #6f6f6f;
 }
@@ -141,7 +145,7 @@ footer a:hover,
 
 .pageheader{
     padding: 70px 0;
-    background-image: url(../image/brick-wall-dark.png);
+    background-image: url(/image/layout/brick-wall-dark.png);
     background-color: #f43438;
 }
 
@@ -183,17 +187,19 @@ hr{
     margin: 60px 0 50px;
 }
 
+
+
 /*
 Home
 =========================== */
 .section.home{
     padding: 100px 0;
-    background-image: url(../image/brick-wall-dark.png);
+    background-image: url(/image/layout/brick-wall-dark.png);
     background-color: #f43438;
 }
 
 .section.home.dark{
-    background-image: url(../image/brick-wall-dark.png);
+    background-image: url(/image/layout/brick-wall-dark.png);
     background-color: #fff;
 }
 

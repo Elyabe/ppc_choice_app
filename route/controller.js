@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db_functions');
+const db = require('../config/db_functions');
 const bodyParser = require('body-parser')
  const bcrypt = require('bcryptjs');
 
@@ -26,7 +26,7 @@ router.get('/logout', (req, res) => {
   // req.session = null;
   // req.flash('success_msg', 'You are logged out');
   // req.user = null;
-  // req.session.destroy();
+  req.session.destroy();
   res.redirect('/home')
 });
 
@@ -36,7 +36,7 @@ router.get( '/', function( req, res ) {
 });
 
 router.get( '/login', function( req, res ) {
-    res.render( './page/login', { title: "Login" } );
+    res.render( './page/db/login', { title: "Login" } );
 });
 
 router.get( '/home', function( req, res ) {
@@ -45,7 +45,7 @@ router.get( '/home', function( req, res ) {
     const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
 
         db.getRecords( get_qtd_cursos, (result) => {
-            res.render( './page/home_construcao', { title: "Seus putos", qtd_cursos: result.rows[0].count, user: req.user });
+            res.render( './page/ws/home', { title: "Seus putos", qtd_cursos: result.rows[0].count, user: req.user });
         })
     
 
@@ -57,7 +57,7 @@ router.get( '/comparison', ensureAuthenticated, function( req, res ) {
     const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
 
     db.getRecords( get_cursos, (result) => {
-        res.render('index', { title: 'Seus putos', cursos : result.rows, user: req.user } )
+        res.render('./page/ws/comparison', { title: 'Seus putos', cursos : result.rows, user: req.user } )
     })
 
 });
@@ -102,7 +102,7 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
 });
 
 router.get( '/settings/password', ensureAuthenticated, function( req, res ) {
-        res.render('./page/password_change', { title: 'Settings: Password'} )
+        res.render('./page/db/password_change', { title: 'Settings: Password'} )
 });
 
 
