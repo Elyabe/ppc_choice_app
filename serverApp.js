@@ -10,7 +10,7 @@ const session = require('express-session');
 
 require('./config/passport')(passport);
 
-// require('dotenv').config();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 const controller = require('./route/controller')
@@ -42,7 +42,8 @@ express()
   .post('/*', controller )
   .use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.render('./page/error', {
+            title: "Oops! Ocorreu um erro",
             message: err.message,
             error: {}
         });
