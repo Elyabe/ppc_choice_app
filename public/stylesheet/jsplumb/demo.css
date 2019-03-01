@@ -13,7 +13,7 @@
 .w {
     padding: 4px;
     position: absolute;
-    z-index: 20;
+    z-index: 15;
     border: 1px solid #2e6f9a;
     box-shadow: 2px 2px 19px #e0e0e0;
     -o-box-shadow: 2px 2px 19px #e0e0e0;

@@ -4,7 +4,7 @@ const db = require('./db_functions');
 
 module.exports = function(passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    new LocalStrategy({ usernameField: 'email', passReqToCallback: true}, (req, email, password, done) => {
       
       const get_users = "SELECT * FROM usuario WHERE email = '" + email + "';"
         db.getRecords( get_users, (result) => {
@@ -23,11 +23,13 @@ module.exports = function(passport) {
 
                   return done(null, user);
               } else {
+                req.flash('error_msg', 'Senha incorreta.');
                 return done(null, false, { error_msg: 'Password incorrect' });
               }
             });
           } else
             {
+                req.flash('error_msg', 'O e-mail não está registrado.');
               return done(null, false, {error_msg: 'That email is not registered' });
             }
         })
