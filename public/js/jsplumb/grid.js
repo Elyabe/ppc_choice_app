@@ -149,17 +149,17 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
                     perc[ d.cod_cc_corresp % 100 ] += d.percentual_corresp;
                     if ( perc[ d.cod_cc_corresp % 100 ] >= 1 ) 
                     {   
-                        $("#"  + d.cod_cc_corresp ).css("background-color","green");    
+                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(33,94,33)");    
                         $("#"  + d.cod_cc_corresp ).css("color","white");
     
-                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(0,255,0," + d.percentual_corresp + ")");    
-                        $("#"  + d.cod_comp_curricular ).css("color", "black" )
+                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(33,94,33," + d.percentual_corresp + ")");    
+                        $("#"  + d.cod_comp_curricular ).css("color", "white" )
                     } else if ( perc[ d.cod_cc_corresp % 100 ] > 0 )
                     {
-                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(0,255,0," + perc[ d.cod_cc_corresp % 100 ] % 2 + ")")
-                        $("#"  + d.cod_cc_corresp ).css("color","white");
+                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(33,94,33," + perc[ d.cod_cc_corresp % 100 ] % 2 + ")")
+                        $("#"  + d.cod_cc_corresp ).css("color","black");
     
-                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(0,255,0," + d.percentual_corresp + ")");    
+                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(33,94,33," + d.percentual_corresp + ")");    
                         $("#"  + d.cod_comp_curricular ).css("color", "black" )
                     }
                 }
@@ -252,7 +252,7 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
         d.id = id;
         d.innerHTML = /*id.substring(0, 7) +*/ data.nome + "<br>(" + data.carga_horaria + " horas)" /*<div class=\"ep\"></div>"*/;
         d.style.left = (data.periodo - 1)*140 + "px";
-        d.style.top = num*80 + "px";
+        d.style.top = num*85 + "px";
         instance.getContainer().appendChild(d);
         initNode(d);
         return d;
