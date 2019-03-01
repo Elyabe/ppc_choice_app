@@ -1,12 +1,17 @@
+/**
+  * Name: style
+  * Version: 1.0
+  * Author: hadamo egito
+
+*/
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   padding-top: 60px;
-  padding-bottom: 40px;
+  /*padding-bottom: 40px;
   /* Margin bottom by footer height */
   /*margin-bottom: 60px;*/
   /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
 }
-
 
 .footer {
   position: absolute;
@@ -21,13 +26,7 @@ body {
 
 
 
-/**
-  * Name: ComparaÃ§ÃĢo
-  * Version: 1.0
-  * Author: HÃĄdamo
 
-  SÃģ para fins de teste, depois pode colocar dentro do arquivo style.css ou usar este arquivo para todas as alteraÃ§Ãĩes que fizermos aqui
-*/
 .comparacao 
 {
   border: 1px solid #ccc;
@@ -75,7 +74,6 @@ transition: .3s ease all;
 
 .pass_show .ptxt:hover{color: #333333;} 
 
-
 /* card das legendas*/
 .card
 {
@@ -93,7 +91,7 @@ transition: .3s ease all;
 }
  .panel-default >.panel-heading > h4
  {
-  color: #696969;
+  color: white;
   cursor: pointer;
   position: center;
  }
@@ -119,12 +117,12 @@ color: #7e8582c9;
 -------------------------------------------------------------------*/
 .flat-footer {
   text-align: center;
-  background-image: url(../image/bg-footer-komodo.png); /* IMAGEM NO FOOTNOTE*/
+  background-image: url(/image/layout/bg-footer-qb-250.jpg); /* IMAGEM NO FOOTNOTE*/
   color: #222;
   padding: 198px 0 100px;
-  background-size: cover;
+  /*background-size: cover;*/
   background-position: top center;
-  background-repeat: repeat-x;
+  /*background-repeat: repeat-x;*/
   background-color: #ebebeb;
   position: relative;
 }
@@ -176,6 +174,10 @@ position: absolute;
 color: #7e8582c9;
 }
 
+/*Gambiarra do komodo no footer*/
+.copyright {
+  padding-right: 60px;
+}
 /*#goTop Button
 -------------------------------------------------------------- */
 #go-top {
@@ -220,7 +222,7 @@ visibility: visible;
  content: "";
  width: 1px;
  height: 100%;
- background: #cccccc;
+ background: #000000;
  position: absolute;
  top: 0; 
   -webkit-transition: all 0.3s ease-in-out;
@@ -246,6 +248,13 @@ left: 7px;
      -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
          transform: rotate(45deg);
+}
+.img-komodo-footer{ /* Referente ao Drag. Komodo preto no footer*/
+  background-image: url(/image/layout/komodo.png); /*Imagem do Drag. Komodo (pequeno) no rodapé */
+  /*(Referente a imagem da pasta)*/
+  width: 120px; /*Tamanho exato da imagem*/
+  height: 58px; /*Tamanho exato da imagem*/
+  vertical-align: 38px;  /*Alinhamento com o texto do desgraçado do Drag. Komodo  ou mudar para (middle)*/ 
 }
 
 /* botao ppcbutton*/

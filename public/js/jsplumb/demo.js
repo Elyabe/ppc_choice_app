@@ -29,6 +29,7 @@ $(document).ready( function() {
 
 function  carregar( nome_seletor, nome_container, bar_progress ) {
     var disc_sel = []
+    var perc = new Array(100);
 
     
 
@@ -137,7 +138,6 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
             //     console.log("Adicionado", disc_sel)   
             // })
             
-            var perc = new Array(100);
             perc.fill(0,0,100);
 
             for (var i = 0; i < data.length; i++) 
@@ -180,8 +180,11 @@ function  carregar( nome_seletor, nome_container, bar_progress ) {
             disciplina.forEach( (item )=> {
             if ( disc_sel.indexOf(item.cod_comp_curricular) > -1 ) 
             {
-                $("#"  + item.cod_comp_curricular ).css("background-color","#ff0");    
-                $("#"  + item.cod_comp_curricular ).css("color", "black" )
+                // if ( perc[ % 100 ] < 1 )
+                {
+                    $("#"  + item.cod_comp_curricular ).css("background-color","#ff0");    
+                    $("#"  + item.cod_comp_curricular ).css("color", "black" )
+                }
             }
             })
         } 
