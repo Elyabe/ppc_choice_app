@@ -53,7 +53,7 @@ router.get( '/home', function( req, res ) {
 
 
 
-router.get( '/comparison', ensureAuthenticated, function( req, res ) {
+router.get( '/comparison', function( req, res ) {
     const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
 
     db.getRecords( get_cursos, (result) => {
@@ -64,26 +64,25 @@ router.get( '/comparison', ensureAuthenticated, function( req, res ) {
 
 router.get( '/getGrade/:idCurso', function( req, res ) {
     
-    const get_dp = "SELECT * FROM dependencia WHERE cod_comp_curricular IN (\
-                    SELECT cod_comp_curricular FROM componente_curricular WHERE cod_ppc = " + req.params.idCurso + " );"
-
     const get_grade = "SELECT D.nome, D.carga_horaria, CC.cod_comp_curricular, CC.periodo from disciplina as D, componente_curricular as CC \
         WHERE CC.cod_ppc = " + req.params.idCurso + " AND CC.cod_disciplina = D.cod_disciplina AND CC.cod_departamento = D.cod_departamento ORDER BY CC.cod_comp_curricular;"
     
 
-   var returnVals, ret, data;
-
     db.getRecords( get_grade, (result) => {
-        ret = result.rows
-
-        db.getRecords( get_dp, (result) => {
-            ret_dp = result.rows    
-        
-            data = { grade : ret, depend: ret_dp }
-            res.send( data );
-             });
+            res.send( result.rows );
         })
-    })
+})
+
+    
+router.get( '/getDep/:idCurso', function( req, res ) {
+  
+  const get_dp = "SELECT * FROM dependencia WHERE cod_comp_curricular IN (\
+                  SELECT cod_comp_curricular FROM componente_curricular WHERE cod_ppc = " + req.params.idCurso + " );"
+
+  db.getRecords( get_dp, (result) => {
+      res.send( result.rows );
+   });
+})
     
 
 router.get( '/getReaprov/:idCurso', function( req, res ) {
@@ -91,6 +90,7 @@ router.get( '/getReaprov/:idCurso', function( req, res ) {
     const get_reaprov = "SELECT * FROM reaproveitamento WHERE cod_ppc_destino = " + req.params.idCurso + ";"
 
         db.getRecords( get_reaprov, (result) => {
+            console.log(result.rows)
             res.send( result.rows );
              });
         })
@@ -109,7 +109,7 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
     var returnVals, ret, data;
 
     db.getRecords( get_dp, (result) => {
-        res.send({ equiv: result.rows })
+        res.send( result.rows )
     })
 });
 

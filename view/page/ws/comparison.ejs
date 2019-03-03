@@ -30,7 +30,7 @@
         <div class="col-sm-11">     
             <form>
             <!-- <div class="form-group" style=""> -->
-            <select class="form-control " id = "curso-atual"">
+            <select class="form-control " id = "sl-current-grid"">
              <option selected id = "0">Selecione seu curso</option>
                 <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) { 
                     if ( cursos[idDisc].status == "ATIVO ANTERIOR" ) { %>
@@ -44,7 +44,7 @@
             </form>
         </div>
         <div class="col-md-1">
-            <button id="toggle-button" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvasPpcAtual" aria-expanded="true" title="Ocultar/Mostrar PPC">
+            <button id="toggle-button-current-grid" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-current-grid" aria-expanded="true" title="Ocultar/Mostrar PPC">
                 <span  class="glyphicon glyphicon-eye-open"></span>
             </button>
         </div> <!--Botao Ocultar/Mostrar-->   
@@ -52,8 +52,8 @@
                     
     <div class="row">
         <div class="col-md-12" style="margin-top: 10px;">     
-            <div class="progress" id="barcurrent">
-              <div class="progress-bar progress-bar-striped progress-bar-animated"" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-curso-atual"></div>
+            <div class="progress" id = "cont-bar-progress-current-grid">
+              <div class="progress-bar progress-bar-striped progress-bar-animated"" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-current-grid"></div>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
             <!-- <div class="comparacao"> -->
               <!-- <div class="jtk-demo-main"> -->
                 
-                <div id="canvasPpcAtual" class="collapse in">
+                <div id="canvas-current-grid" class="collapse in">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <!-- container ppc atual -->
-                    <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas"></div>     
+                    <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="current-grid"></div>     
                 </div><!-- ocultado pelo botao hideshow-->
             <!-- </div>  comparacao -->
         </div><!-- col-md-12 -->
@@ -125,7 +125,7 @@
                         <div class="col-md-11" >     
                             <form>
                             <div class="form-group" style="">
-                            <select class="form-control " id = "curso-alvo"">
+                            <select class="form-control " id = "sl-target-grid"">
                              <option selected id = "0">Selecione seu curso-alvo </option>
                                 <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
                                     if ( cursos[idDisc].status == "CORRENTE" ) { %>
@@ -138,7 +138,7 @@
                             </form>
                         </div><!--col md 12-->
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvasPpcAlvo" aria-expanded="true" title="Ocultar/Mostrar PPC">
+                            <button  id="toggle-button-target-grid" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-target-grid" aria-expanded="true" title="Ocultar/Mostrar PPC">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </button>
                         </div> <!--Botao Ocultar/Mostrar-->   
@@ -146,15 +146,15 @@
                     
                     <div class="row">
                         <div class="col-md-12" style="margin-top: 10px;">     
-                            <div class="progress" >
-                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-curso-alvo"></div>
+                            <div class="progress" id="cont-bar-progress-target-grid" >
+                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id = "bar-progress-target-grid"></div>
                          </div>
                         </div>
                     </div>
                     
                     <div class="row">
                         <div class="col-md-12">     
-                            <div id="canvasPpcAlvo" class="collapse in">
+                            <div id="canvas-target-grid" class="collapse in">
                                 <!-- <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -166,7 +166,7 @@
                                     </div>
                                 </div> -->
                                 <!-- canvas ppc alvo -->
-                                <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="grade-alvo" ></div>
+                                <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="target-grid" ></div>
                                   <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title"> 
