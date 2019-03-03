@@ -53,7 +53,7 @@ router.get( '/home', function( req, res ) {
 
 
 
-router.get( '/comparison', function( req, res ) {
+router.get( '/comparison', ensureAuthenticated, function( req, res ) {
     const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
 
     db.getRecords( get_cursos, (result) => {
