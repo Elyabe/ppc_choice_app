@@ -2,8 +2,11 @@ var disciplinas_selec = new Map(), percentual_corresp = new Map(), corresp = new
 var perc = new Array(100);
 
 $(document).ready( function() {
-        carregar("sl-current-grid","current-grid","bar-progress-current-grid");
-        carregar("sl-target-grid","target-grid", "bar-progress-target-grid");
+        var instance_current_grid;
+        var instance_targe_grid;
+
+        carregar(instance_current_grid, "sl-current-grid","current-grid","bar-progress-current-grid");
+        carregar(instance_targe_grid, "sl-target-grid","target-grid", "bar-progress-target-grid");
         
          $("#comparar").click( function(e) {
                     
@@ -156,14 +159,14 @@ var novaCC = function(instance, data, num ) {
 };
 
 
-function  carregar( nome_seletor, nome_container, bar_progress ) 
+function  carregar(instance, nome_seletor, nome_container, bar_progress ) 
 {
     var grid = new Map();
 
         $("#cont-"+bar_progress).hide()
         $("#canvas-"+nome_container).hide()
         $("#toggle-button-" + nome_container).prop("disabled",true);
-    var instance = create_instance_jsplumb( nome_container );
+        
 
     $("#"+nome_seletor).change(function(){
 
@@ -172,9 +175,11 @@ function  carregar( nome_seletor, nome_container, bar_progress )
         
         if ( cursoSelecionado > 0 )
         {
+            instance = create_instance_jsplumb( nome_container );
             $("#cont-"+bar_progress).show()
             $("#"+bar_progress).show()
             $("#"+bar_progress).css("width", "25%");
+            $("#"+nome_container).empty();
 
 
             $.ajax({
@@ -190,7 +195,6 @@ function  carregar( nome_seletor, nome_container, bar_progress )
 
                 console.log(grid)
 
-                $("#"+nome_container).empty();
             
 
                 window.jsp = instance;
