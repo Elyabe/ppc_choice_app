@@ -44,6 +44,14 @@ router.get( '/home', function( req, res ) {
      // res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
 
+    if ( !res.locals.login )
+    {
+      var nome = ['Gazela', 'Corno', 'Lebre'], sobrenome = ['Saltitante', 'Alegre', 'do Norte'];
+      var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
+      var nick = nome[i] + ' ' + sobrenome[j];
+
+      req.user = { 'email': nick }
+    }
         db.getRecords( get_qtd_cursos, (result) => {
             res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });
         })

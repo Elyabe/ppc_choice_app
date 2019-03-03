@@ -1,12 +1,13 @@
 var disciplinas_selec = new Map(), percentual_corresp = new Map(), corresp = new Map();
-var perc = new Array(100);
 
 $(document).ready( function() {
         var instance_current_grid;
         var instance_targe_grid;
+        var current_grid = new Map();
+        var target_grid = new Map();
 
-        carregar(instance_current_grid, "sl-current-grid","current-grid","bar-progress-current-grid");
-        carregar(instance_targe_grid, "sl-target-grid","target-grid", "bar-progress-target-grid");
+        carregar(instance_current_grid, current_grid, "sl-current-grid","current-grid","bar-progress-current-grid");
+        carregar(instance_targe_grid, target_grid, "sl-target-grid","target-grid", "bar-progress-target-grid");
         
          $("#comparar").click( function(e) {
                     
@@ -58,7 +59,7 @@ $(document).ready( function() {
                                 }
 
                             }
-                            console.log( disciplinas_selec.get(1) )
+                            // console.log( disciplinas_selec.get(1) )
                             console.log(percentual_corresp)
                             
                         } });
@@ -82,12 +83,12 @@ $(document).ready( function() {
                             } })
 
                         } })
+                    
                 } else
                 {
                     alert('Um curso atual deve ser selecionado.')
                 }
             });
-
         });
 
 
@@ -159,10 +160,8 @@ var novaCC = function(instance, data, num ) {
 };
 
 
-function  carregar(instance, nome_seletor, nome_container, bar_progress ) 
+function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress ) 
 {
-    var grid = new Map();
-
         $("#cont-"+bar_progress).hide()
         $("#canvas-"+nome_container).hide()
         $("#toggle-button-" + nome_container).prop("disabled",true);
