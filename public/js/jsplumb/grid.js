@@ -1,4 +1,6 @@
 var disciplinas_selec = new Map(), percentual_corresp = new Map(), corresp = new Map();
+var opt_pendentes = new Map(); 
+
 
 $(document).ready( function() {
         var instance_current_grid;
@@ -26,7 +28,11 @@ $(document).ready( function() {
                             data = response
 
                             percentual_corresp.clear();
-                            data.forEach( (item) => { percentual_corresp.set( Number( item.cod_cc_corresp), 0 ) })
+                            corresp.clear();
+                            data.forEach( (item) => { 
+                                percentual_corresp.set( Number( item.cod_cc_corresp), 0 );
+                                corresp.set( Number(item.cod_comp_curricular), item )
+                            })
 
 
                             for (var i = 0; i < data.length; i++) 
@@ -61,20 +67,32 @@ $(document).ready( function() {
                             }
                             // console.log( disciplinas_selec.get(1) )
                             console.log(percentual_corresp)
+                            console.log(corresp)
                             
-                        } });
 
-                         $.ajax({
-                         url: '/getReaprov/' + id_curso_alvo,
-                         type:'GET',
-                         cache:true,
-                         success: function (response) 
-                         {
+                        opt_pendentes.clear();
+                        var qtd_horas = 0.0;
+                        for( var [k,v] of current_grid )
+                        {
+                            if ( !disciplinas_selec.has(k) && v.nome.includes("Optativa") )
+                            {
+                                opt_pendentes.set( k, v );
+                            }
+                        }
+
+
+                        $.ajax({
+                        url: '/getReaprov/' + id_curso_alvo,
+                        type:'GET',
+                        cache:true,
+                        success: function (response) 
+                        {
                             disciplina = response;
 
                             disciplina.forEach( (item )=> {
                             if ( disciplinas_selec.has( Number(item.cod_comp_curricular) ) ) 
                             {
+                                qtd_horas +=  Number( disciplinas_selec.get( Number(item.cod_comp_curricular) ).carga_horaria );
                                 // if ( perc[ % 100 ] < 1 )
                                 {
                                     $("#"  + item.cod_comp_curricular ).css("background-color","#ff0");    
@@ -82,7 +100,31 @@ $(document).ready( function() {
                                 }
                             } })
 
-                        } })
+                            var mit = opt_pendentes.keys();
+                            for ( var i = 0; i < Math.floor( qtd_horas / 60 ); i++ )
+                            {
+                                var id = mit.next().value;
+
+                                if ( corresp.has(id) )
+                                {
+                                var j =  corresp.get(id).cod_cc_corresp ;
+
+                                $("#"  + j ).css("background-color","#ff0");    
+                                $("#"  + j ).css("color", "black" )
+                                    
+                                }
+                            }
+                            
+                            console.log(qtd_horas)
+
+                        } 
+
+                        })
+
+                        } });
+
+                        console.log("optativas")
+                        console.log(opt_pendentes)
                     
                 } else
                 {
@@ -187,12 +229,12 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
             cache:true,
             success: function(response) 
             {
-                console.log(response)
+                // console.log(response)
                 response.forEach( (item) => {
                     grid.set( Number(item.cod_comp_curricular), item );
                 })
 
-                console.log(grid)
+                // console.log(grid)
 
             
 
@@ -249,7 +291,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                     $("#"+item.cod_comp_curricular).css("color","white")
                                 }
                                 
-                                console.log(disciplinas_selec)
+                                // console.log(disciplinas_selec)
                                 })
                             })
                         }    
@@ -282,7 +324,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                     $("#cont-"+bar_progress).hide()
                     $('#canvas-' + nome_container).show()
 
-                    console.log(response)
+                    // console.log(response)
                     response.forEach( (dep) =>
                     {
                         instance.connect({ source: dep.cod_cc_pre_requisito, target: dep.cod_comp_curricular, type:"basic" })
