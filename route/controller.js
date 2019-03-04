@@ -50,7 +50,7 @@ router.get( '/home', function( req, res ) {
       var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
       var nick = nome[i] + ' ' + sobrenome[j];
 
-      req.user = { 'email': nick }
+      req.user = { 'email': 'john.doe@ppc', 'nickname': nick }
     }
         db.getRecords( get_qtd_cursos, (result) => {
             res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });

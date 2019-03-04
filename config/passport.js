@@ -37,11 +37,11 @@ module.exports = function(passport) {
   );
 
   passport.serializeUser(function(user, done) {
-    done(null, user.email);
+    done(null, user);
   });
 
-  passport.deserializeUser(function(email, done) {
-      var user = { 'email': email };
+  passport.deserializeUser(function(user, done) {
+      // var user = { 'email': email };
       done(null, user);
   });
 };
