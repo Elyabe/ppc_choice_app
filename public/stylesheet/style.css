@@ -263,7 +263,7 @@ left: 7px;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    cursor: default;
+    cursor: pointer;
 }
 
 .card {

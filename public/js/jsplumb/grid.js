@@ -13,11 +13,13 @@ $(document).ready( function() {
         
          $("#comparar").click( function(e) {
                     
-                    var id_curso_atual = $("#sl-current-grid").children("option:selected").val();
-                    var id_curso_alvo = $("#sl-target-grid").children("option:selected").val();
+                var id_curso_atual = $("#sl-current-grid").children("option:selected").val();
+                var id_curso_alvo = $("#sl-target-grid").children("option:selected").val();
                     
-                    if ( id_curso_atual > 0 )
-                    {
+                if ( id_curso_atual > 0 )
+                {
+                   if ( id_curso_alvo > 0 )
+                   {
                         $.ajax({
                         url: '/compare/' + id_curso_atual + "/" + id_curso_alvo,
                         type:'GET',
@@ -45,27 +47,37 @@ $(document).ready( function() {
                                     let percentual_total = percentual_corresp.get(Number(d.cod_cc_corresp));
                                     if ( percentual_total >= 1 ) 
                                     {   
-                                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(33,94,33)");    
+                                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(62,143,62)");    
                                         $("#"  + d.cod_cc_corresp ).css("color","white");
                     
-                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(33,94,33," + d.percentual_corresp + ")");    
+                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(62,143,62," + d.percentual_corresp + ")");    
                                         $("#"  + d.cod_comp_curricular ).css("color", "white" )
                                     } else if (percentual_total > 0 )
                                     {
-                                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(33,94,33," + percentual_total + ")")
+                                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(62,143,62," + percentual_total + ")")
                                         $("#"  + d.cod_cc_corresp ).css("color","black");
                     
-                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(33,94,33," + d.percentual_corresp + ")");    
+                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(62,143,62," + d.percentual_corresp + ")");    
                                         $("#"  + d.cod_comp_curricular ).css("color", "black" )
                                     }
                                 } else if ( percentual_corresp.get(Number(d.cod_cc_corresp)) == 0)
                                 {
                                     $("#"  + d.cod_cc_corresp ).css("background-color","white");    
                                     $("#"  + d.cod_cc_corresp ).css("color", "gray" )
+
                                 }
 
                             }
-                            // console.log( disciplinas_selec.get(1) )
+
+                            for( var [k,v] of disciplinas_selec )
+                            {
+                                if ( !corresp.has(k) )
+                                {
+                                    $("#"  + k ).css("background-color","#E95159");    
+                                    $("#"  + k ).css("color", "white" )                                    
+                                }
+                            }
+                            console.log( disciplinas_selec )
                             console.log(percentual_corresp)
                             console.log(corresp)
                             
@@ -95,8 +107,8 @@ $(document).ready( function() {
                                 qtd_horas +=  Number( disciplinas_selec.get( Number(item.cod_comp_curricular) ).carga_horaria );
                                 // if ( perc[ % 100 ] < 1 )
                                 {
-                                    $("#"  + item.cod_comp_curricular ).css("background-color","#ff0");    
-                                    $("#"  + item.cod_comp_curricular ).css("color", "black" )
+                                    $("#"  + item.cod_comp_curricular ).css("background-color","#00B4FF");    
+                                    $("#"  + item.cod_comp_curricular ).css("color", "white" )
                                 }
                             } })
 
@@ -109,8 +121,8 @@ $(document).ready( function() {
                                 {
                                 var j =  corresp.get(id).cod_cc_corresp ;
 
-                                $("#"  + j ).css("background-color","#ff0");    
-                                $("#"  + j ).css("color", "black" )
+                                $("#"  + j ).css("background-color","#00B4FF");    
+                                $("#"  + j ).css("color", "white" )
                                     
                                 }
                             }
@@ -125,6 +137,9 @@ $(document).ready( function() {
 
                         console.log("optativas")
                         console.log(opt_pendentes)
+                   } else {
+                        alert('Um curso alvo deve ser selecionado!')
+                   }
                     
                 } else
                 {
