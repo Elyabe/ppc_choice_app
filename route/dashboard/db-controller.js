@@ -18,7 +18,7 @@ router.get( '/db/home', ensureAuthenticated, function( req, res ) {
 
 
         db.getRecords( get_qtd_cursos, (result) => {
-            res.render( './page/db/home', { title: "PPC Choice - Home", cursos: result.rows, user: req.user });
+            res.render( './page/db/home', { title: "PPC Choice - Dashboard", cursos: result.rows, user: req.user });
         })
 
 });

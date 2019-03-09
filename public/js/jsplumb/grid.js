@@ -32,6 +32,8 @@ $(document).ready( function() {
                             if ( data.length == 0 )
                             {
                                 alert('Oops! Não existe em nosso sistema um mapeamento entre esses cursos. Estamos trabalhando nisso.')
+                                disciplinas_selec.clear();
+                                return;
                             }
 
                             percentual_corresp.clear();
