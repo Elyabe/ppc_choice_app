@@ -36,7 +36,7 @@
 }
 
 .w:hover {
-    background-color: #5c96bc;
+    background-color: #4993a3;
     color: white;
 
 }
@@ -48,8 +48,19 @@
 }
 
 .aLabel.jtk-hover, .jtk-source-hover, .jtk-target-hover {
-    background-color: #1e8151;
+    background-color: #006575;
     color: white;
+}
+
+/*Add by Elyabe*/
+.jtk-source-hover {
+    background-color: #009eb6;
+}
+
+.selected {
+    background-color: #fff;
+    color: red;
+    border-color: red ;
 }
 
 .aLabel {

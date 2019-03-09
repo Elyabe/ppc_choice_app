@@ -45,6 +45,9 @@ $(document).ready( function() {
                                 {
                                     percentual_corresp.set( Number(d.cod_cc_corresp), percentual_corresp.get(Number(d.cod_cc_corresp)) + Number(d.percentual_corresp) );
                                     let percentual_total = percentual_corresp.get(Number(d.cod_cc_corresp));
+
+                                    $("#"  + d.cod_comp_curricular ).removeClass('selected');    
+
                                     if ( percentual_total >= 1 ) 
                                     {   
                                         $("#"  + d.cod_cc_corresp ).css("background-color","rgba(62,143,62)");    
@@ -73,7 +76,8 @@ $(document).ready( function() {
                             {
                                 if ( !corresp.has(k) )
                                 {
-                                    $("#"  + k ).css("background-color","#E95159");    
+                                    $("#"  + k ).removeClass('selected');    
+                                    $("#"  + k ).css("background-color","#925b8e");    
                                     $("#"  + k ).css("color", "white" )                                    
                                 }
                             }
@@ -107,7 +111,7 @@ $(document).ready( function() {
                                 qtd_horas +=  Number( disciplinas_selec.get( Number(item.cod_comp_curricular) ).carga_horaria );
                                 // if ( perc[ % 100 ] < 1 )
                                 {
-                                    $("#"  + item.cod_comp_curricular ).css("background-color","#00B4FF");    
+                                    $("#"  + item.cod_comp_curricular ).css("background-color","#ed9121");    
                                     $("#"  + item.cod_comp_curricular ).css("color", "white" )
                                 }
                             } })
@@ -121,7 +125,7 @@ $(document).ready( function() {
                                 {
                                 var j =  corresp.get(id).cod_cc_corresp ;
 
-                                $("#"  + j ).css("background-color","#00B4FF");    
+                                $("#"  + j ).css("background-color","#ed9121");    
                                 $("#"  + j ).css("color", "white" )
                                     
                                 }
@@ -296,14 +300,17 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                 if ( disciplinas_selec.has( Number(item.cod_comp_curricular)) )
                                 {   
                                     disciplinas_selec.delete( Number(item.cod_comp_curricular) );
-                                    $("#"+item.cod_comp_curricular).css("background-color","white")
-                                    $("#"+item.cod_comp_curricular).css("color","gray")   
+                                    // $("#"+item.cod_comp_curricular).css("background-color","white")
+                                    // $("#"+item.cod_comp_curricular).css("color","gray")   
+                                    $("#"+item.cod_comp_curricular).removeClass('selected')
                                 }
                                 else
                                 {
                                     disciplinas_selec.set( Number(item.cod_comp_curricular), item)
-                                    $("#"+item.cod_comp_curricular).css("background-color","blue")
-                                    $("#"+item.cod_comp_curricular).css("color","white")
+                                    // $("#"+item.cod_comp_curricular).css("background-color","#e9e9e9")
+                                    // $("#"+item.cod_comp_curricular).css("color","white")
+                                    
+                                    $("#"+item.cod_comp_curricular).addClass('selected')
                                 }
                                 
                                 // console.log(disciplinas_selec)
