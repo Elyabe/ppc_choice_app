@@ -53,15 +53,22 @@ $(document).ready( function() {
                                         $("#"  + d.cod_cc_corresp ).css("background-color","rgba(62,143,62)");    
                                         $("#"  + d.cod_cc_corresp ).css("color","white");
                     
-                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(62,143,62," + d.percentual_corresp + ")");    
-                                        $("#"  + d.cod_comp_curricular ).css("color", "white" )
+                                        if ( d.percentual_corresp == 1 )
+                                        {
+                                            $("#"  + d.cod_comp_curricular ).css("background-color","rgba(62,143,62)");    
+                                            $("#"  + d.cod_comp_curricular ).css("color", "white" )
+                                        } else
+                                        {
+                                            $("#"  + d.cod_comp_curricular ).css("background-color","#84ab0d");    
+                                            $("#"  + d.cod_comp_curricular ).css("color", "white" )                        
+                                        }
                                     } else if (percentual_total > 0 )
                                     {
-                                        $("#"  + d.cod_cc_corresp ).css("background-color","rgba(62,143,62," + percentual_total + ")")
-                                        $("#"  + d.cod_cc_corresp ).css("color","black");
+                                        $("#"  + d.cod_cc_corresp ).css("background-color","#84ab0d")
+                                        $("#"  + d.cod_cc_corresp ).css("color","white");
                     
-                                        $("#"  + d.cod_comp_curricular ).css("background-color","rgba(62,143,62," + d.percentual_corresp + ")");    
-                                        $("#"  + d.cod_comp_curricular ).css("color", "black" )
+                                        $("#"  + d.cod_comp_curricular ).css("background-color","#84ab0d");    
+                                        $("#"  + d.cod_comp_curricular ).css("color", "white" )
                                     }
                                 } else if ( percentual_corresp.get(Number(d.cod_cc_corresp)) == 0)
                                 {
@@ -300,8 +307,8 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                 if ( disciplinas_selec.has( Number(item.cod_comp_curricular)) )
                                 {   
                                     disciplinas_selec.delete( Number(item.cod_comp_curricular) );
-                                    // $("#"+item.cod_comp_curricular).css("background-color","white")
-                                    // $("#"+item.cod_comp_curricular).css("color","gray")   
+                                    $("#"+item.cod_comp_curricular).css("background-color","white")
+                                    $("#"+item.cod_comp_curricular).css("color","gray")   
                                     $("#"+item.cod_comp_curricular).removeClass('selected')
                                 }
                                 else

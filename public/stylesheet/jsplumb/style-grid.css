@@ -140,3 +140,9 @@
 }
 
 path, .jtk-endpoint { cursor:pointer; }
+
+
+.partial-aprov {
+    background-color: #84ad0b;
+    color: #fff;
+}
