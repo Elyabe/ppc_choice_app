@@ -29,6 +29,11 @@ $(document).ready( function() {
                             console.log(response)
                             data = response
 
+                            if ( data.length == 0 )
+                            {
+                                alert('Oops! Não existe em nosso sistema um mapeamento entre esses cursos. Estamos trabalhando nisso.')
+                            }
+
                             percentual_corresp.clear();
                             corresp.clear();
                             data.forEach( (item) => { 
@@ -321,6 +326,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                 }
                                 
                                 // console.log(disciplinas_selec)
+                                $("#comparar").click()
                                 })
                             })
                         }    

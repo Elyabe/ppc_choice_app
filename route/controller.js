@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db_functions');
 const bodyParser = require('body-parser')
- const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
@@ -10,10 +10,16 @@ router.use(bodyParser.json())
 const { ensureAuthenticated } = require('../config/auth');
 const passport = require('passport');
 
+
+const ws_controller = require('./workspace/ws-controller')
+
+router.get('/ws/*', ws_controller )
+
+
 router.post( '/login', (req, res, next) => {
     passport.authenticate('local', {
     session: true,
-    successRedirect: '/home',
+    successRedirect: '/ws/home',
     failureRedirect: '/login',
     failureFlash: true
   })(req, res, next);
@@ -27,48 +33,18 @@ router.get('/logout', (req, res) => {
   // req.flash('success_msg', 'You are logged out');
   // req.user = null;
   req.session.destroy();
-  res.redirect('/home')
+  res.redirect('/ws/home')
 });
 
 
 router.get( '/', function( req, res ) {
-    res.redirect('/home');
+    res.redirect('/ws/home');
 });
 
 router.get( '/login', function( req, res ) {
     res.render( './page/db/login', { title: "Login" } );
 });
 
-router.get( '/home', function( req, res ) {
-     
-     // res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
-
-    if ( !res.locals.login )
-    {
-      var nome = ['Gazela', 'Corno', 'Lebre'], sobrenome = ['Saltitante', 'Alegre', 'do Norte'];
-      var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
-      var nick = nome[i] + ' ' + sobrenome[j];
-
-      req.user = { 'email': 'john.doe@ppc', 'nickname': nick }
-    }
-        db.getRecords( get_qtd_cursos, (result) => {
-            res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });
-        })
-    
-
-});
-
-
-
-router.get( '/comparison', ensureAuthenticated, function( req, res ) {
-    const get_cursos = "SELECT C.cod_curso, C.nome, C.cod_ppc, C.ch_total_curso, P.status FROM curso as C, projeto_pedagogico_curso as P WHERE C.cod_ppc = P.cod_ppc;"
-
-    db.getRecords( get_cursos, (result) => {
-        res.render('./page/ws/comparison', { title: 'PPC Choice - Comparison', cursos : result.rows, user: req.user } )
-    })
-
-});
 
 router.get( '/getGrade/:idCurso', function( req, res ) {
     
