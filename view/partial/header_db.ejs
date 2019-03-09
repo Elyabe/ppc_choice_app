@@ -1,5 +1,5 @@
   <!-- Start Navigation -->
-    <nav class="navbar navbar-default navbar-fixed white bootsnav on no-full no-background" >
+    <nav class="navbar navbar-default navbar-fixed white bootsnav on no-full no-background">
 
         <!-- Start Top Search -->
         <div class="top-search">
@@ -45,7 +45,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="/ws/home">
+                <a class="navbar-brand" href="/db/home">
                     <img src="/image/layout/logo-light.png" class="logo logo-display" alt="">
                     <img src="/image/layout/logo-dark.png" class="logo logo-scrolled" alt="">
                     <span class="badge">Prototype</span>
@@ -56,9 +56,35 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li><a href="/ws/home">Home</a></li>
-                    <li><a href="#">Contato</a></li>
-                    <li><a href="/ws/comparison">Comparar PPCs</a></li>
+                    <li><a href="/ws/home">Workspace</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdowns</a>
+                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                            <li><a href="#">Custom Menu</a></li>
+                            <li><a href="#">Custom Menu</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                <ul class="dropdown-menu animated">
+                                    <li><a href="#">Custom Menu</a></li>
+                                    <li><a href="#">Custom Menu</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                        <ul class="dropdown-menu animated">
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Custom Menu</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Custom Menu</a></li>
+                            <li><a href="#">Custom Menu</a></li>
+                            <li><a href="#">Custom Menu</a></li>
+                            <li><a href="#">Custom Menu</a></li>
+                        </ul>
+                    </li>
                      <li><a href="#"> <span class="glyphicon glyphicon-user"></span>  
                       <%=user.nickname%>  
                     
