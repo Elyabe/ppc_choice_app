@@ -1,0 +1,46 @@
+<% layout('../../template/db_layout') -%>
+        
+
+    <div class="clearfix"></div>
+
+    <!-- Start Home -->
+    <div class="pageheader dashboard fixed-demo dark">
+        <div class="container" >
+        </div>
+    </div>
+    <!-- End Home -->
+
+    <!-- Start Content -->
+
+    <div class="section gray padding-bot50">
+        <div class="container">
+            <h6 class="margin-top20">Cursos cadastrados</h6>
+           <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Departamento Responsável</th>
+                  <th scope="col">Qtd períodos</th>
+                  <th scope="col">Carga Horária Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% cursos.forEach( (curso) => {  %>
+                <tr>
+                  <th scope="row"> <%= curso.cod_curso%></th>
+                  <td><%= curso.nome%></td>
+                  <td> <%= curso.cod_depto_resp%></td>
+                  <td> <%= curso.qtd_periodos%></td>
+                  <td><%= curso.ch_total_curso%></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+        </div>
+     
+    </div>
+   
+    <!-- End Content -->
+
+    <div class="clearfix"></div>

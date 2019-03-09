@@ -12,8 +12,10 @@ const passport = require('passport');
 
 
 const ws_controller = require('./workspace/ws-controller')
+const db_controller = require('./dashboard/db-controller')
 
 router.get('/ws/*', ws_controller )
+router.get('/db/*', db_controller )
 
 
 router.post( '/login', (req, res, next) => {

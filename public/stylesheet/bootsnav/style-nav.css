@@ -149,6 +149,12 @@ footer a:hover,
     background-color: #f43438;
 }
 
+.pageheader.dashboard {
+    background-image: url(/image/db/bg-db.png);
+    background-color: #666;
+    opacity: 0.8;   
+}
+
 .pageheader.fixed-demo{
     padding-top: 120px;
 }
