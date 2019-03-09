@@ -255,7 +255,6 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
             $("#"+bar_progress).css("width", "25%");
             $("#"+nome_container).empty();
 
-
             $.ajax({
             url: '/getGrade/' + cursoSelecionado,
             type:'GET',
@@ -359,6 +358,9 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                     jsPlumb.fire("jsPlumbDemoLoaded", instance);
                     $("#"+bar_progress).hide()
                     $("#cont-"+bar_progress).hide()
+                    $("#canvas-"+nome_container).addClass('in')
+                    $("#canvas-"+nome_container).css("height","")
+
                     $('#canvas-' + nome_container).show()
 
                     // console.log(response)
