@@ -319,11 +319,28 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                 }
                                 else
                                 {
-                                    disciplinas_selec.set( Number(item.cod_comp_curricular), item)
+                                    // disciplinas_selec.set( Number(item.cod_comp_curricular), item)
                                     // $("#"+item.cod_comp_curricular).css("background-color","#e9e9e9")
                                     // $("#"+item.cod_comp_curricular).css("color","white")
                                     
-                                    $("#"+item.cod_comp_curricular).addClass('selected')
+                                    // $("#"+item.cod_comp_curricular).addClass('selected')
+
+                                    var t = [];
+                                    t.push(item.cod_comp_curricular)
+
+                                    for ( var j = 0; j < t.length; j++ )
+                                    {
+                                        response.filter( (item) => {
+                                            return item.cod_comp_curricular == t[j]
+                                        }).forEach( (item) => { t.push(item.cod_cc_pre_requisito) })
+                                    }
+                                    
+                                    t.forEach( (item) => {
+                                       disciplinas_selec.set( Number(item), grid.get(Number(item)) )
+                                        $("#"+item).addClass('selected')
+                                        
+                                    }) 
+                                    console.log(t)
                                 }
                                 
                                 // console.log(disciplinas_selec)
