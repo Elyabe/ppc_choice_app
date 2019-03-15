@@ -17,14 +17,16 @@
             <!-- Start Atribute Navigation -->
             <div class="attr-nav">
                 <ul>
-                    <% if (login) { %> 
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-cog"></i>
                             <!-- <span class="badge">2</span> -->
                         </a>
                         <ul class="dropdown-menu cart-list animated fadeOutUp" style="display: none; opacity: 1;">
-                            
+                            <li><a href="/ws/home"> <span class="glyphicon glyphicon-log-out"></span> 
+                                Workspace
+                            </a></li>
                             <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> 
                                 logout
                             </a></li>
@@ -33,7 +35,6 @@
                             </a></li> 
                         </ul>
                     </li>
-                    <% } %>
                     <li class="search"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
                     <li class="side-menu"><a href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>
                 </ul>
@@ -43,7 +44,7 @@
             <!-- Start Header Navigation -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                    <i class="fa fa-bars"></i>
+                    <i class="glyphicon glyphicon-align-justify"></i>
                 </button>
                 <a class="navbar-brand" href="/db/home">
                     <img src="/image/layout/logo-light.png" class="logo logo-display" alt="">
@@ -56,7 +57,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li><a href="/ws/home">Workspace</a></li>
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdowns</a>
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
