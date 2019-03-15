@@ -151,18 +151,6 @@ $(document).ready( function() {
 
                         })
 
-
-                        const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
-                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-                                      <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
-                                      <br> Você pode retirar a seleção, se for o caso. \
-                                    </div>';
-
-                        
-                        $('#canvas-current-grid').prepend(alert)
-                        setTimeout( function(){
-                            $('.alert').fadeOut(300, () => $(this).remove() );
-                        }, 5000 )
                         } });
 
                         console.log("optativas")
@@ -353,6 +341,21 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                                         
                                     }) 
                                     console.log(t)
+
+                                    if ( t.length > 1 )
+                                    {
+                                        const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
+                                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                                                      <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
+                                                      <br> Você pode retirar a seleção, se for o caso. \
+                                                        </div>';
+
+                        
+                                        $('#canvas-current-grid').prepend(alert)
+                                        setTimeout( function(){
+                                            $('.alert').fadeOut(300, () => $(this).remove() );
+                                        }, 5000 )
+                                    }
                                 }
                                 
                                 // console.log(disciplinas_selec)
