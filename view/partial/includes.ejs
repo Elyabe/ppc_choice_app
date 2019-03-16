@@ -12,23 +12,6 @@
 <script src="/js/jsplumb/grid.js"></script> 
 <% } %>
 
-<script> 
-$(document).ready(function(){
-$('.pass_show').append('<span class="ptxt">Show</span>');  
-});
-  
-
-$(document).on('click','.pass_show .ptxt', function(){ 
-
-$(this).text($(this).text() == "Show" ? "Hide" : "Show"); 
-
-$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
-
-});  
-</script>
-
-
-
 <!-- START JAVASCRIPT -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- <script type="text/javascript" src="/js/bootstrap/jquery.min.js"></script> -->
