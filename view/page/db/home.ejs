@@ -1,4 +1,47 @@
 <% layout('../../template/db_layout') -%>
+ <script type="text/javascript">
+        function criar_modal(cod_curso){
+        
+
+            // var cod_curso = $(this).attr("data-target");
+            $.ajax({
+                        url: "/getGrade/" + cod_curso,
+                        type:'GET',
+                        cache:true,
+                        success: function (response) 
+                        {
+                            var course = response;
+                            var modal_graduation = ' <!-- Modal -->\
+                                <div class="modal" id="modal" $this tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">\
+                                  <div class="modal-dialog" role="document">\
+                                    <div class="modal-content">\
+                                      <div class="modal-header">\
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>\
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">\
+                                          <span aria-hidden="true">&times;</span>\
+                                        </button>\
+                                      </div>\
+                                      <div class="modal-body">';
+
+                                         course.forEach( (disciplina) =>{ 
+                                            modal_graduation += '<h5>' +  disciplina.nome + '</h5> <br>\n';
+                                        }) 
+                                      modal_graduation += '</div>\
+                                      <div class="modal-footer">\
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
+                                        <button type="button" class="btn btn-primary">Save changes</button>\
+                                      </div>\
+                                    </div>\
+                                  </div>\
+                                  <!-- Fim modal -->';
+
+                            $(".container").append(modal_graduation)
+                            $(".modal").modal('show')
+
+                        }
+            });
+        }
+    </script>
         
 
     <div class="clearfix"></div>
@@ -29,42 +72,24 @@
                 <% cursos.forEach( (curso) => {  %>
                 <tr>
                   <th scope="row"> <%= curso.cod_curso%></th>
-                  <td><a data-toggle="modal" data-target="#grade" href="/getGrade/<%= curso.cod_curso %>" > <%= curso.nome%> </a></td>
+                  <td><a class="link-graduation"  href="#" onclick="criar_modal(<%=curso.cod_curso%>);"> <%= curso.nome%> </a></td>
                   <td> <%= curso.cod_depto_resp%></td>
                   <td> <%= curso.qtd_periodos%></td>
                   <td><%= curso.ch_total_curso%></td>
                 </tr>
+                    
                 <% }) %>
               </tbody>
             </table>
 
-        
-
-            <!-- Modal -->
-            <div class="modal fade" id="grade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                        
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Fim modal -->
             </div>
         </div>
      
-    </div>
    
     <!-- End Content -->
 
     <div class="clearfix"></div>
+
+   
+
+
