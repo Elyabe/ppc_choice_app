@@ -18,7 +18,7 @@ router.get( '/ws/home', function( req, res ) {
 
     if ( !res.locals.login )
     {
-      var nome = ['Gazela', 'Corno', 'Lebre'], sobrenome = ['Saltitante', 'Alegre', 'do Norte'];
+      var nome = ['Gazela', 'Falcão', 'Lebre', 'Coruja', 'Gado', 'Leke'], sobrenome = ['Saltitante', 'Alegre', 'do Norte', 'da UFES', 'do Réu'];
       var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
       var nick = nome[i] + ' ' + sobrenome[j];
 
