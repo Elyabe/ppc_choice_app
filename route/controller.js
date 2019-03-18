@@ -100,7 +100,7 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
 });
 
 router.get( '/settings/password', ensureAuthenticated, function( req, res ) {
-        res.render('./page/db/password_change', { title: 'Settings - Password'} )
+        res.render('./page/db/password_change', { title: 'Settings - Password', user : req.user} )
 });
 
 
