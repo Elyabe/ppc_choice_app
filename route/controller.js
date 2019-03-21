@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db_functions');
+const db = require('../config/db-functions');
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs');
 
@@ -100,7 +100,7 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
 });
 
 router.get( '/settings/password', ensureAuthenticated, function( req, res ) {
-        res.render('./page/db/password_change', { title: 'Settings - Password', user : req.user} )
+        res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
 });
 
 

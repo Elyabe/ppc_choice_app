@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../config/db_functions');
+const db = require('../../config/db-functions');
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs');
 
