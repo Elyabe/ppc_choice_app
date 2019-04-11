@@ -15,7 +15,7 @@ router.get( '/ws/home', function( req, res ) {
      
     const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
     
-    req.user = define_user(res.locals.login);
+    req.user = res.locals.login ? req.user : define_user();
     db.getRecords( get_qtd_cursos, (result) => {
         res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });
     })
@@ -25,7 +25,7 @@ router.get( '/ws/home', function( req, res ) {
 
 router.get( '/ws/contact', function( req, res ) {
     
-  req.user = define_user(res.locals.login);
+  req.user = res.locals.login ? req.user : define_user();
   res.render( './page/ws/contact', { title: "PPC Choice - Contato", user: req.user });
 
 });
@@ -41,17 +41,13 @@ router.get( '/ws/comparison', ensureAuthenticated, function( req, res ) {
 
 });
 
-function define_user( isLogged )
+function define_user()
 {
-  if ( !isLogged ) 
-  {
     var nome = ['Gazela', 'Falcão', 'Lebre', 'Coruja', 'Gado', 'Leke'], sobrenome = ['Saltitante', 'Alegre', 'do Norte', 'da UFES', 'do Réu'];
     var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
     var nick = nome[i] + ' ' + sobrenome[j];
 
     user = { 'email': 'john.doe@ppc', 'nickname': nick }
-  }
-
   return user;
 }
 
