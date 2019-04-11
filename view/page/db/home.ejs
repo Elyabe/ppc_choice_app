@@ -43,7 +43,6 @@
         }
     </script>
         
-
     <div class="clearfix"></div>
 
     <!-- Start Home -->
@@ -57,6 +56,7 @@
 
     <div class="section gray padding-bot50">
         <div class="container">
+    <% if( user.role == 'ADMIN' ) { %> 
             <h6 class="margin-top20">Cursos cadastrados</h6>
            <table class="table table-striped">
               <thead>
@@ -81,11 +81,10 @@
                 <% }) %>
               </tbody>
             </table>
-
+   <% } else {%> <h4>Acesso negado! Seu nível de permissão não é adequado! :(</h4> <% } %>
             </div>
         </div>
      
-   
     <!-- End Content -->
 
     <div class="clearfix"></div>
