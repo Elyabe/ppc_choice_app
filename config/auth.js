@@ -6,6 +6,6 @@ module.exports = {
     req.flash('error_msg', 'Você precisa estar logado para continuar.');
     res.set({
     	'method': 'GET'
-    }).redirect('/login');
+    }).redirect('/user/login');
   }
 };
