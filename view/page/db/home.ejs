@@ -81,6 +81,15 @@
                 <% }) %>
               </tbody>
             </table>
+
+            <form class="form-signin" action="/user/query" method="POST">            
+              <div class="form-group">
+                <label for="comment">Terminal:</label>
+                <textarea class="form-control" rows="5" name="comment"></textarea>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Submit</button>
+            </form>
+
    <% } else {%> <h4>Acesso negado! Seu nível de permissão não é adequado!:(</h4> <br> <h5>Seu Grant atual: <%= user.role %> </h5> <% } %>
             </div>
         </div>
@@ -88,6 +97,8 @@
     <!-- End Content -->
 
     <div class="clearfix"></div>
+
+
 
    
 

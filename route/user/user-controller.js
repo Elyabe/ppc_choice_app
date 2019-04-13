@@ -15,7 +15,7 @@ router.post( '/user/login', (req, res, next) => {
     passport.authenticate('local', {
     session: true,
     successRedirect: '/ws/home',
-    failureRedirect: '/userx/login',
+    failureRedirect: '/user/login',
     failureFlash: true
   })(req, res, next);
   },
@@ -38,6 +38,12 @@ router.get( '/user/login', function( req, res ) {
 
 router.get( '/user/settings/password', ensureAuthenticated, function( req, res ) {
         res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
+});
+
+router.post( '/user/query', ensureAuthenticated, function( req, res ) {
+    db.getRecords( req.body.comment, (result) => {
+      res.send(result.rows);
+    })
 });
 
 
