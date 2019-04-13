@@ -23,10 +23,11 @@ router.post( '/user/login', (req, res, next) => {
 
 router.get('/user/logout', (req, res) => {
   req.logout();
-  req.session = null;
+  // req.session = null;
   req.flash('success_msg', 'You are logged out');
   // req.user = null;
   req.session.destroy();
+  res.locals.login = false;
   res.redirect('/ws/home')
 });
 

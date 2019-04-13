@@ -157,7 +157,7 @@
                             <select class="form-control " id = "sl-target-grid"">
                              <option selected id = "0">Selecione seu curso-alvo </option>
                                 <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
-                                    if ( cursos[idDisc].status == "CORRENTE" ) { %>
+                                    if ( cursos[idDisc].status == "CORRENTE" && ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' )  ) { %>
                                 <option value = "<%= cursos[idDisc].cod_ppc %>" >
                                   <%= cursos[idDisc].nome %> ( <%= cursos[idDisc].ch_total_curso %> horas )
                                 </option>
