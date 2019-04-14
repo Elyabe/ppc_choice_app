@@ -163,7 +163,7 @@ $(document).ready( function() {
                 {
                     alert('Um curso atual deve ser selecionado.')
                 }
-            });
+            });   
         });
 
 
@@ -403,6 +403,12 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
 
                     $("#toggle-button-" + nome_container).prop("disabled",false);
 
+                    let foco = ( nome_container == 'current-grid') ? 'target-grid' : 'current-grid';
+                    $('body, html').animate({
+                    scrollTop: $("#sl-" + foco).offset().top
+                    }, 600);
+
+                    $("#sl-"+ foco).focus();
 
                         })
                     }
