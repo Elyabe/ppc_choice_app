@@ -35,6 +35,21 @@ router.get( '/user/login', function( req, res ) {
     res.render( './page/db/login', { title: "Login" } );
 });
 
+router.get( '/user/view', function( req, res ) {
+    if ( req.isAuthenticated() )
+      res.render( './page/db/user-profile', { title: "Profile" } );
+    else
+      res.redirect('/ws/home');
+});
+
+router.post( '/user/update', function( req, res ) {
+    const update = "UPDATE usuario SET nickname = '" +  req.body.nickname   + "' WHERE email = '" + user.email + "' ;"
+    db.getRecords( update, (result) => {
+      req.flash('success_msg', 'Suas alterações foram salvas e entrarão em vigor no seu próximo login. :)');
+      res.redirect( '/user/view' );
+    })
+});
+
 
 router.get( '/user/settings/password', ensureAuthenticated, function( req, res ) {
         res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
