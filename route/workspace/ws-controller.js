@@ -47,7 +47,7 @@ function define_user()
     var i = Math.floor(Math.random() * nome.length ), j = Math.floor(Math.random() * sobrenome.length );
     var nick = nome[i] + ' ' + sobrenome[j];
 
-    user = { 'email': 'john.doe@ppc', 'nickname': nick }
+    user = { 'nickname': nick }
   return user;
 }
 
