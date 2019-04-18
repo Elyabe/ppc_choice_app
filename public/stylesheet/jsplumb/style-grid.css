@@ -94,6 +94,31 @@
     z-index: 10;    
 }
 
+.label-periodo {
+    /*padding: 2px;*/
+    position: absolute;
+    z-index: 15;
+    /*border: 1px solid #2e6f9a;*/
+    box-shadow: 2px 2px 19px #e0e0e0;
+    -o-box-shadow: 2px 2px 19px #e0e0e0;
+    -webkit-box-shadow: 2px 2px 19px #e0e0e0;
+    -moz-box-shadow: 2px 2px 19px #e0e0e0;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    opacity: 0.8;
+    /*cursor: pointer;*/
+    /*background-color: white;*/
+    font-size: 14px;
+    /*-webkit-transition: background-color 0.25s ease-in;
+    -moz-transition: background-color 0.25s ease-in;
+    transition: background-color 0.25s ease-in;*/
+    width: 100px;
+    text-align: center;
+    line-height: normal;
+    word-wrap: break-word;
+    margin: 8px;
+}
+
 #opened {
     left: 10em;
     top: 5em;
