@@ -1,47 +1,4 @@
 <% layout('../../template/db-layout') -%>
- <script type="text/javascript">
-        function criar_modal(cod_curso){
-        
-
-            // var cod_curso = $(this).attr("data-target");
-            $.ajax({
-                        url: "/getGrade/" + cod_curso,
-                        type:'GET',
-                        cache:true,
-                        success: function (response) 
-                        {
-                            var course = response;
-                            var modal_graduation = ' <!-- Modal -->\
-                                <div class="modal" id="modal" $this tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">\
-                                  <div class="modal-dialog" role="document">\
-                                    <div class="modal-content">\
-                                      <div class="modal-header">\
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>\
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">\
-                                          <span aria-hidden="true">&times;</span>\
-                                        </button>\
-                                      </div>\
-                                      <div class="modal-body">';
-
-                                         course.forEach( (disciplina) =>{ 
-                                            modal_graduation += '<h5>' +  disciplina.nome + '</h5> <br>\n';
-                                        }) 
-                                      modal_graduation += '</div>\
-                                      <div class="modal-footer">\
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
-                                        <button type="button" class="btn btn-primary">Save changes</button>\
-                                      </div>\
-                                    </div>\
-                                  </div>\
-                                  <!-- Fim modal -->';
-
-                            $(".container").append(modal_graduation)
-                            $(".modal").modal('show')
-
-                        }
-            });
-        }
-    </script>
         
     <div class="clearfix"></div>
 
@@ -56,8 +13,29 @@
 
     <div class="section gray padding-bot50">
         <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+                <h2 class="title">Painel de gerência</h2>
+            </div>
+            
+          </div>
     <% if( user.role == 'ADMIN' ) { %> 
-            <h6 class="margin-top20">Cursos cadastrados</h6>
+              <div class="row">
+                <div class="col-sm-3">
+                  <a href="/db/subject/">
+                    <div class="card">
+                      <img class="card-img-top" src="http://www.myiconfinder.com/uploads/iconsets/256-256-ba33c22572830316754a0293c91526b4-books.png" alt="Imagem de capa do card" style="width: 180px;">
+                      <div class="card-body">
+                        <h5 class="card-title">Disciplina</h5>
+                        <p class="card-text">Faça cagadas com disciplinas e tudo o que quiser</p>
+                      </div>
+                  </a>
+                    </div>
+                </div>
+              </div>
+          
+
+<!--             <h6 class="margin-top20">Cursos cadastrados</h6>
            <table class="table table-striped">
               <thead>
                 <tr>
@@ -88,18 +66,18 @@
                 <textarea class="form-control" rows="5" name="comment"></textarea>
               </div>
               <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Submit</button>
-            </form>
+            </form> -->
 
-   <% } else {%> <h4>Acesso negado! Seu nível de permissão não é adequado!:(</h4> <br> <h5>Seu Grant atual: <%= user.role %> </h5> <% } %>
+   <% } else {%> 
+              <div class="alert alert-danger" role="alert">
+                <strong>Acesso negado!</strong><br>
+                    <h4> Seu nível de permissão não é adequado! :( </h4> <br> 
+                    <h5>Seu Grant atual: <%= user.role %> </h5> 
+              </div>
+              <% } %>
             </div>
         </div>
      
     <!-- End Content -->
 
     <div class="clearfix"></div>
-
-
-
-   
-
-
