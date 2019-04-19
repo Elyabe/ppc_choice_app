@@ -23,6 +23,12 @@ router.get( '/ws/home', function( req, res ) {
 });
 
 
+router.get( '/ws/team', function( req, res ) {
+    
+  req.user = res.locals.login ? req.user : define_user();
+  res.render( './page/ws/team', { title: "PPC Choice - Quem somos?", user: req.user });
+});
+
 router.get( '/ws/contact', function( req, res ) {
     
   req.user = res.locals.login ? req.user : define_user();
