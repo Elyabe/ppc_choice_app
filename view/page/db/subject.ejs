@@ -47,7 +47,7 @@
                           <a class="btn btn-default btn-xs pull-right"><span class="red glyphicon glyphicon-remove"></span></a>
                         <!-- </div> -->
                         <!-- <div class="col-md-4"> -->
-                          <a class="btn btn-default btn-xs pull-right"><span class="red glyphicon glyphicon-edit"></span></a>
+                          <a class="btn btn-default btn-xs pull-right" onclick="abrir(<%=disc.cod_disciplina%>)" data-toggle="modal" data-target="#exampleModal"><span class="red glyphicon glyphicon-edit"></span></a>
                   </td>
                         <!-- </div> -->
                       <!-- </div> -->
@@ -75,13 +75,13 @@
               <input type="number" class="form-control" id="codigo" placeholder="codigo">
             </div> -->
             <div class="form-group col-md-2">
-              <label for="inputNome">Código</label>
+              <label for="inputCodigo">Código</label>
               <input type="text" class="form-control" id="inputCodigo" placeholder="Código da disciplina">
             </div>
 
             <div class="form-group col-md-10">
-              <label for="inputDepto">Departamento </label>
-              <select class="form-control " id = "sl-current-grid"">
+              <label for="selectDepto">Departamento </label>
+              <select class="form-control " id = "selectDepto"">
                <option selected id = "0">Selecione o Departamento</option>
                 <% deptos.forEach( (item) => {%> 
                   <option value = "<%= item.cod_departamento %>" >
@@ -98,7 +98,7 @@
               <input type="text" class="form-control" id="inputNome" placeholder="Nome da disciplina">
             </div>
             <div class="form-group col-md-2">
-              <label for="inputAddress2">CH</label>
+              <label for="inputCH">CH</label>
               <input type="text" class="form-control" id="inputCH" placeholder="Carga Horária">
             </div>
          <!--  <div class="form-row">
@@ -147,3 +147,25 @@
     <!-- End Content -->
 
     <div class="clearfix"></div>
+
+<script type="text/javascript">
+   
+   function abrir( id )
+   {
+     $.ajax({
+              url: '/db/subject/update/' + id,
+              type:'GET',
+              cache:true,
+              success: function (response) 
+              {
+                  $("#inputCodigo").val( response[0].cod_disciplina );
+                  $("#inputNome").val( response[0].nome );
+                  $("#selectDepto").val(response[0].cod_departamento).change();
+                  $("#inputCH").val(response[0].carga_horaria);
+
+              }
+            });
+
+
+   }
+</script>
