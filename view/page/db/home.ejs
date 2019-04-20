@@ -27,11 +27,24 @@
                       <img class="card-img-top" src="http://www.myiconfinder.com/uploads/iconsets/256-256-ba33c22572830316754a0293c91526b4-books.png" alt="Imagem de capa do card" style="width: 180px;">
                       <div class="card-body">
                         <h5 class="card-title">Disciplina</h5>
-                        <p class="card-text">Faça cagadas com disciplinas e tudo o que quiser</p>
+                        <!-- <p class="card-text">Faça cagadas com disciplinas e tudo o que quiser</p> -->
                       </div>
                   </a>
                     </div>
                 </div>
+
+                <div class="col-sm-3">
+                  <a href="#" data-toggle="modal" data-target="#terminalModal">
+                    <div class="card">
+                      <img class="card-img-top" src="http://www.hibrolab.it/wp-content/uploads/2014/09/website-icon.png" alt="Imagem de capa do card" style="width: 180px;">
+                      <div class="card-body">
+                        <h5 class="card-title">Terminal</h5>
+                        <!-- <p class="card-text">Console temporário</p> -->
+                      </div>
+                  </a>
+                    </div>
+                </div>
+
               </div>
           
 
@@ -68,13 +81,39 @@
               <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Submit</button>
             </form> -->
 
-   <% } else {%> 
-              <div class="alert alert-danger" role="alert">
-                <strong>Acesso negado!</strong><br>
-                    <h4> Seu nível de permissão não é adequado! :( </h4> <br> 
-                    <h5>Seu Grant atual: <%= user.role %> </h5> 
+            <!-- Modal -->
+            <div class="modal fade" id="terminalModal" tabindex="-1" role="dialog" aria-labelledby="terminalModal" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Terminal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form class="form-signin" action="/user/query" method="POST">            
+                  <div class="modal-body">
+                          <div class="form-group">
+                            <label for="comment">Query:</label>
+                            <textarea class="form-control" rows="5" name="comment"></textarea>
+                          </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="for-row">
+                      <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                      </div>
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      </div>
+                    </div>
+                  </div>
+                  </form> 
+                </div>
               </div>
-              <% } %>
+            </div>
+
+   <% } else { %>  <% include ../../partial/access-denied.ejs %>  <% } %>
             </div>
         </div>
      

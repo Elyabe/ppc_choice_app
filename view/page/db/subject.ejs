@@ -16,12 +16,13 @@
     <div class="section gray padding-bot50">
         <div class="container">
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          <span class="glyphicon glyphicon-plus"></span>
-        </button>
     
-    <% if( user.role != 'SUPERVISOR' ) { %> 
+    <% if( user.role == 'ADMIN' ) { %> 
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          
             <h6 class="margin-top20">Disciplinas cadastradas</h6>
            <table class="table table-striped">
               <thead>
@@ -56,16 +57,7 @@
               </tbody>
             </table>
 
-   <% } else {%> <h4>Acesso negado! Seu nível de permissão não é adequado!:(</h4> <br> <h5>Seu Grant atual: <%= user.role %> </h5> <% } %>
-            </div>
-        </div>
-     
-    <!-- End Content -->
-
-    <div class="clearfix"></div>
-
-
-<!-- Modal -->
+            <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -147,8 +139,11 @@
 </div>
 
 
+   <% } else { %>  <% include ../../partial/access-denied.ejs %>  <% } %>
 
-   
- <a href="#" class="btn btn-default btn-xs">More Info</a>
-              
+            </div>
+        </div>
+     
+    <!-- End Content -->
 
+    <div class="clearfix"></div>
