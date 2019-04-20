@@ -15,26 +15,27 @@ const ws_controller = require('./workspace/ws-controller')
 const db_controller = require('./dashboard/db-controller')
 const user_controller = require('./user/user-controller')
 
-
 router.get('/ws/*', ws_controller )
 router.get('/db/*', db_controller )
 router.get('/user/*', user_controller )
 router.post('/user/*', user_controller )
 
+
+
 router.get( '/', function( req, res ) {
     res.redirect('/ws/home');
 });
 
-router.get( '/getGrade/:idCurso', function( req, res ) {
+// router.get( '/getGrade/:idCurso', function( req, res ) {
     
-    const get_grade = "SELECT D.nome, D.carga_horaria, CC.cod_comp_curricular, CC.periodo from disciplina as D, componente_curricular as CC \
-        WHERE CC.cod_ppc = " + req.params.idCurso + " AND CC.cod_disciplina = D.cod_disciplina AND CC.cod_departamento = D.cod_departamento ORDER BY CC.cod_comp_curricular;"
+//     const get_grade = "SELECT D.nome, D.carga_horaria, CC.cod_comp_curricular, CC.periodo from disciplina as D, componente_curricular as CC \
+//         WHERE CC.cod_ppc = " + req.params.idCurso + " AND CC.cod_disciplina = D.cod_disciplina AND CC.cod_departamento = D.cod_departamento ORDER BY CC.cod_comp_curricular;"
     
 
-    db.getRecords( get_grade, (result) => {
-            res.send( result.rows );
-        })
-})
+//     db.getRecords( get_grade, (result) => {
+//             res.send( result.rows );
+//         })
+// })
 
     
 router.get( '/getDep/:idCurso', function( req, res ) {

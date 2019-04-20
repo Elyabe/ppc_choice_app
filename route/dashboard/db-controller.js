@@ -11,10 +11,13 @@ const { ensureAuthenticated } = require('../../config/auth');
 const passport = require('passport');
 
 const subject_controller = require('./subject-controller')
+const graduation_controller = require('./graduation-controller')
+
 
 router.get('/db/subject/*', subject_controller )
 router.post('/db/subject/*', subject_controller )
-
+router.get('/db/graduation/*', graduation_controller)
+router.post('/db/graduation/*', graduation_controller)
 
 router.get( '/db/home', ensureAuthenticated, function( req, res ) {
     

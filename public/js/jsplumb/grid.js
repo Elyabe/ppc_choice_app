@@ -279,7 +279,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
             $("#"+nome_container).empty();
 
             $.ajax({
-            url: '/getGrade/' + cursoSelecionado,
+            url: '/db/graduation/get/' + cursoSelecionado,
             type:'GET',
             cache:true,
             success: function(response) 
