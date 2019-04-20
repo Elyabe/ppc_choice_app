@@ -16,12 +16,13 @@
     <div class="section gray padding-bot50">
         <div class="container">
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          <span class="glyphicon glyphicon-plus"></span>
-        </button>
     
     <% if( user.role == 'ADMIN' ) { %> 
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          
             <h6 class="margin-top20">Disciplinas cadastradas</h6>
            <table class="table table-striped">
               <thead>
