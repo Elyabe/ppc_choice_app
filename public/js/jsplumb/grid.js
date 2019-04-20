@@ -222,17 +222,40 @@ var initNode = function(instance, el)
 
 
 var novaCC = function(instance, data, num ) {
+    var mg_top = 40;
+    if ( num == 0 )
+    {
+        createLabelPeriod( instance, data, num );
+    } 
+
     var d = document.createElement("div");
     var id = data["cod_comp_curricular"];
     d.className = "w";
     d.id = id;
     d.innerHTML = data.nome + "<br>(" + data.carga_horaria + " horas)";
     d.style.left = (data.periodo - 1)*140 + "px";
-    d.style.top = num*85 + "px";
+    d.style.top = (num*85 + mg_top) + "px";
     instance.getContainer().appendChild(d);
     initNode(instance, d);
+
     return d;
 };
+
+
+var createLabelPeriod = function(instance, data, num ) {
+
+    var d = document.createElement("div");
+    var id = "P" + data["periodo"];
+    d.className = "label-periodo";
+    d.id = id;
+    d.innerHTML = d.id ;
+    d.style.left = (data.periodo - 1)*140 + "px";
+    d.style.top = "10px";
+    instance.getContainer().appendChild(d);
+
+};
+
+
 
 
 function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress ) 
@@ -297,7 +320,11 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                         
                         for (var [cod, disciplina] of grid ) 
                         {
-                            if ( ult_periodo == disciplina.periodo ) {k++} else { k = 0 } ;
+                            if ( ult_periodo == disciplina.periodo ) 
+                                {k++} 
+                            else {
+                                    k = 0;
+                                };
                                 ult_periodo = disciplina.periodo;
 
                             novaCC(instance, disciplina, k )
