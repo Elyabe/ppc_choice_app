@@ -31,9 +31,9 @@ router.get( '/db/home', ensureAuthenticated, function( req, res ) {
 	            res.render( './page/db/home', { title: "PPC Choice - Dashboard", cursos: cursos, deptos:  deptos, user: req.user });
 	        })
         })
-
-
 });
+
+
 
 
 module.exports = router;
