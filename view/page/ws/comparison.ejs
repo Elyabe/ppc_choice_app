@@ -59,7 +59,7 @@
             <form>
             <!-- <div class="form-group" style=""> -->
             <select class="form-control " id = "sl-current-grid"">
-             <option selected id = "0">Selecione seu curso</option>
+             <option selected id = "0" disabled="true">Selecione seu curso</option>
                 <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) { 
                     if ( cursos[idDisc].status == "ATIVO ANTERIOR" ) { %>
                     <option value = "<%= cursos[idDisc].cod_ppc %>" >
@@ -159,8 +159,8 @@
                         <div class="col-md-11" >     
                             <form>
                             <div class="form-group" style="">
-                            <select class="form-control " id = "sl-target-grid"">
-                             <option selected id = "0">Selecione seu curso-alvo </option>
+                            <select class="form-control " id = "sl-target-grid">
+                             <option selected id = "0" selected id = "0" disabled="true">Selecione seu curso-alvo </option>
                                 <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
                                     if ( cursos[idDisc].status == "CORRENTE" && ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' )  ) { %>
                                 <option value = "<%= cursos[idDisc].cod_ppc %>" >

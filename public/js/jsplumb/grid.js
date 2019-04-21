@@ -112,7 +112,7 @@ $(document).ready( function() {
 
 
                         $.ajax({
-                        url: '/getReaprov/' + id_curso_alvo,
+                        url: '/db/graduation/reuse/' + id_curso_alvo,
                         type:'GET',
                         cache:true,
                         success: function (response) 
@@ -279,7 +279,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
             $("#"+nome_container).empty();
 
             $.ajax({
-            url: '/getGrade/' + cursoSelecionado,
+            url: '/db/graduation/grid/' + cursoSelecionado,
             type:'GET',
             cache:true,
             success: function(response) 
@@ -303,7 +303,7 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
                $("#"+bar_progress).css("width", "50%");
             
                  $.ajax({
-                    url: '/getDep/' + cursoSelecionado,
+                    url: '/db/graduation/dependency/' + cursoSelecionado,
                     type:'GET',
                     cache:true,
                     success: function(response) 
@@ -458,6 +458,5 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
         }); 
 
     }   
-
 
 
