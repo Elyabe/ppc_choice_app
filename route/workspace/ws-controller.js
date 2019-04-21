@@ -12,14 +12,8 @@ const passport = require('passport');
 
 
 router.get( '/ws/home', function( req, res ) {
-     
-    const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
-    
     req.user = res.locals.login ? req.user : define_user();
-    db.getRecords( get_qtd_cursos, (result) => {
-        res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });
-    })
-
+    res.render( './page/ws/home', { title: "PPC Choice - Home", user: req.user });
 });
 
 
