@@ -77,49 +77,4 @@ router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
     })
 });
 
-// router.get( '/settings/password', ensureAuthenticated, function( req, res ) {
-//         res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
-// });
-
-
-// router.post( '/update/password', ensureAuthenticated, (req, res, next) => {
-    
-//     const user_form = { current_password : req.body.current_password,
-//                    new_password : req.body.new_password,
-//                    confirm_new_password: req.body.confirm_new_password }
-
-//     const get_users = "SELECT * FROM usuario WHERE email = '" + user.email + "';"
-        
-//         db.getRecords( get_users, (result) => {
-//         if ( result.rows.length > 0 )
-//         {
-//               user = result.rows[0];
-//             bcrypt.compare(user_form.current_password, user.senha, (err, isMatch) => 
-//             {
-//               if (err) throw err;
-//               if (isMatch) 
-//               {
-//                 bcrypt.genSalt(10, (err, salt) => 
-//                 {
-//                     bcrypt.hash( user_form.new_password, salt, (err, hash) => 
-//                     {
-//                         if (err) throw err;
-                            
-//                         const update = "UPDATE usuario SET senha = '" +  hash   + "' WHERE email = '" + user.email + "' ;"
-                                
-//                         db.getRecords( update, (result) => 
-//                         {
-//                             console.log(result.rows)
-//                             res.send( "Senha alterada com sucesso!");
-//                         })   
-//                     });
-//                 });
-//               } else
-//                     res.send("senha atual nao confere!")
-//             });
-//         } else 
-//             res.send("usuario nao existe mais!")
-//         });
-//     });
-
 module.exports = router;

@@ -11,8 +11,13 @@ const { ensureAuthenticated } = require('../../config/auth');
 const passport = require('passport');
 
 
-router.post( '/db/subject/', (req, res, next) => {
-}
+router.get( '/db/subject/update/:id', (req, res, next) => {
+
+    const get_disciplina = "SELECT * FROM disciplina WHERE cod_disciplina = " + req.params.id + ";"; 
+    db.getRecords( get_disciplina, (result) => {
+              res.send( result.rows );
+          })
+  }
 );
 
 router.get('/db/subject/', ensureAuthenticated, (req, res) => { 
@@ -31,5 +36,6 @@ router.get('/db/subject/', ensureAuthenticated, (req, res) => {
         })
 
 });
+
 
 module.exports = router;
