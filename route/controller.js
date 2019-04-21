@@ -36,7 +36,7 @@ router.get( '/', function( req, res ) {
 //             res.send( result.rows );
 //         })
 // })
-
+/*
     
 router.get( '/getDep/:idCurso', function( req, res ) {
   
@@ -59,7 +59,7 @@ router.get( '/getReaprov/:idCurso', function( req, res ) {
              });
         })
 
-
+*/
 
 router.get('/compare/:idCursoAtual/:idCursoAlvo', function( req, res ){
    
