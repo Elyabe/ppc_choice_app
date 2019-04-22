@@ -422,3 +422,62 @@ left: 7px;
 .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
+
+
+/*BOTÃO ON/OFF*/ 
+
+body {
+  background: #eee;
+}
+
+.toggle {
+  margin-bottom: 20px;
+}
+
+.toggle > input {
+  display: none;
+}
+
+.toggle > label { /*CONFIGURAÇÃO DA BARRA DO TOGGLE ANTES DA SELEÇÃO*/
+  position: relative;
+  display: block;
+  height: 28px;
+  width: 52px;
+  background-color: #f7f7f7;
+  border: 1px #a2e3e6 solid;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle > label:after { /*CONFIGURAÇÃO DA BOLINHA DO TOGGLE ANTES DA SELEÇÃO*/
+  position: absolute;
+  left: 1px;
+  top: 0px;
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 100px;
+  background: #fff;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  content: '';
+  transition: all 0.3s ease;
+}
+
+.toggle > label:active:after {
+  transform: scale(1.15, 0.85);
+}
+.toggle > input:checked ~ label {
+  background-color: #4cda64;
+  border-color: #4cda64;
+}
+.toggle > input:checked ~ label:after {
+  left: 25px;
+}
+.toggle > input:disabled ~ label {
+  background-color: #d5d5d5;
+  pointer-events: none;
+}
+.toggle > input:disabled ~ label:after {
+  background-color: rgba(255, 255, 255, 0.3);
+}
