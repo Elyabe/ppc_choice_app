@@ -13,7 +13,10 @@ const passport = require('passport');
 
 router.get( '/ws/home', function( req, res ) {
     req.user = res.locals.login ? req.user : define_user();
-    res.render( './page/ws/home', { title: "PPC Choice - Home", user: req.user });
+    if ( req.user.email == 'cleisson.lauro@ppc' )
+      res.redirect('https://www.youtube.com/watch?v=ei2-RjJDBHc')
+    else
+      res.render( './page/ws/home', { title: "PPC Choice - Home", user: req.user });
 });
 
 
