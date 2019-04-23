@@ -55,7 +55,7 @@
             <!-- <h6 class="margin-top20">HTML</h6> -->
 <!-- <pre style="color:#000000;background:#ffffff;"> -->
      <div class="row">
-        <div class="col-sm-11">     
+        <div class="col-sm-10">     
             <form>
             <!-- <div class="form-group" style=""> -->
             <select class="form-control " id = "sl-current-grid"">
@@ -71,11 +71,19 @@
             <!-- </div> -->
             </form>
         </div>
-        <div class="col-md-1">
+        <div class="col-sm-1">
             <button id="toggle-button-current-grid" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-current-grid" aria-expanded="true" title="Ocultar/Mostrar PPC">
                 <span  class="glyphicon glyphicon-eye-open"></span>
             </button>
         </div> <!--Botao Ocultar/Mostrar-->   
+
+        <div class="col-sm-1">
+            <div class="toggle">
+                <input type="checkbox" id="foo" checked>
+                <label for="foo"></label>
+            </div>
+        </div> 
+
      </div><!-- /.row -->           
                     
     <div class="row">
@@ -156,7 +164,7 @@
 
 
                     <div class="row" style="margin-top: 30px"> 
-                        <div class="col-md-11" >     
+                        <div class="col-md-10" >     
                             <form>
                             <div class="form-group" style="">
                             <select class="form-control " id = "sl-target-grid">
