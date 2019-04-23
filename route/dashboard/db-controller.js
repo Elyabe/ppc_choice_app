@@ -29,7 +29,7 @@ router.get( '/db/home', ensureAuthenticated, function( req, res ) {
     const get_qtd_cursos = "SELECT * FROM curso;";
     const get_deptos = "SELECT * FROM departamento;";
 
-
+    
         db.getRecords( get_qtd_cursos, (result) => {
 	        cursos = result.rows;
 	        db.getRecords( get_deptos, (result) => {

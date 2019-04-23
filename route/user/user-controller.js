@@ -36,8 +36,8 @@ router.get( '/user/login', function( req, res ) {
 });
 
 router.get( '/user/view', function( req, res ) {
-    if ( req.isAuthenticated() )
-      res.render( './page/db/user-profile', { title: "Profile" } );
+    if ( res.locals.login == true )
+      res.render( './page/db/user-profile', { title: "Profile", user : req.user } );
     else
       res.redirect('/ws/home');
 });
