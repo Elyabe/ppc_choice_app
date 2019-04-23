@@ -13,6 +13,7 @@ const passport = require('passport');
 const subject_controller = require('./subject-controller')
 const graduation_controller = require('./graduation-controller')
 const department_controller = require('./department-controller')
+const curricular_component_controller = require('./curricular-component-controller')
 
 router.get('/db/subject/*', subject_controller )
 router.post('/db/subject/*', subject_controller )
@@ -20,6 +21,8 @@ router.get('/db/graduation/*', graduation_controller)
 router.post('/db/graduation/*', graduation_controller)
 router.get('/db/department/*', department_controller)
 router.post('/db/department/*', department_controller)
+router.get('/db/curricular-component/*', curricular_component_controller)
+router.post('/db/curricular-component/*', curricular_component_controller)
 
 router.get( '/db/home', ensureAuthenticated, function( req, res ) {
     
