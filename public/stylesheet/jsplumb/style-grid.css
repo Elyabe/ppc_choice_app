@@ -21,7 +21,7 @@
     -moz-box-shadow: 2px 2px 19px #e0e0e0;
     -moz-border-radius: 8px;
     border-radius: 8px;
-    opacity: 0.8;
+    /*opacity: 0.8;*/
     cursor: pointer;
     background-color: white;
     font-size: 11px;
@@ -50,6 +50,8 @@
 .aLabel.jtk-hover, .jtk-source-hover, .jtk-target-hover {
     background-color: #006575;
     color: white;
+    border-width: 2px;
+    padding: 1px;
 }
 
 /*Add by Elyabe*/
@@ -119,47 +121,6 @@
     margin: 8px;
 }
 
-#opened {
-    left: 10em;
-    top: 5em;
-}
-
-#phone1 {
-    left: 10em;
-    top: 12em;
-    /*width: 7em;*/
-}
-
-#inperson {
-    left: 10em;
-    top: 23em;
-}
-
-#phone2 {
-    left: 10em;
-    top: 24em;
-}
-
-#rejected {
-    left: 10em;
-    top: 35em;
-}
-
-#calculo2{
-    left: 50em;
-    top: 5em;
-}
-
-#probEst{
-    left: 50em;
-    top: 12em;
-}
-
-#algebraLin{
-    left: 50em;
-    top: 23em;
-}
-
 .dragHover {
     border: 2px solid orange;
 }
@@ -167,7 +128,30 @@
 path, .jtk-endpoint { cursor:pointer; }
 
 
-.partial-aprov {
-    background-color: #84ad0b;
+.ppc-partial-exploitation{
+    background-color: #3CB371;
     color: #fff;
 }
+
+.ppc-partial-exploitation > .ppc-partial50 {
+    background-color: #3CB371;
+}
+
+.ppc-total-exploitation {
+    background-color: rgba(62,143,62);
+    color: white;
+}
+
+.ppc-total-exploitation:hover {
+    background-color: rgba(62,143,62,0.8);
+    color: white;
+    border-color: rgba(62,143,62) 
+}
+
+.ppc-optative {
+    background-color: #81cb43;
+    color: white;
+}
+
+
+

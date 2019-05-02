@@ -48,5 +48,4 @@ express()
             error: {}
         });
       })
-  .listen(PORT, () => console.log(`Listening on ${ PORT } \n 
-    dotenv: ${ process.env.TESTE}`))
+  .listen(PORT, () => console.log(`[OK] Listening on port ${ PORT }\n${ process.env.TESTE}`))
