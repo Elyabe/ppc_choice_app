@@ -23,8 +23,8 @@ function load_algorithm() {
 
 // Monta e exibe a grade de um curso 
 // instance : instancia do JSPlumb sobre a qual a grade será criada
-// nome_container : nome do contêiner (div) sobre a qual a instancia do JSPlumb trabalha
-function  create_grid(instance, grid, nome_container) 
+// container_name : nome do contêiner (div) sobre a qual a instancia do JSPlumb trabalha
+function  create_grid(instance, grid, container_name) 
 {
     // Ajustar a função "carregar" e colocar aqui
 }   
@@ -37,10 +37,32 @@ function compare()
 
 
 // Cria e retorna uma instância do JSPlumb 
-// nome_container : nome do container sobre a qual a nova instância do JSPlumb deve trabalhar
-function create_instance_jsplumb( nome_container )
+// container_name : nome do container sobre a qual a nova instância do JSPlumb deve trabalhar
+function create_instance_jsplumb( container_name )
 {
-    // Implemtação 
+    let instance = jsPlumb.getInstance({
+    Endpoint: ["Dot", {radius: 2}],
+    Connector:"StateMachine",
+    HoverPaintStyle: {stroke: "#1e8151", strokeWidth: 1 },
+    ConnectionOverlays: [
+        [ "Arrow", {
+            location: 1,
+            id: "arrow",
+            length: 5,
+            foldback: 0.8,
+            width: 10
+        } ]/*,
+        [ "Label", { label: "FOO", id: "label", cssClass: "aLabel" }]*/
+    ],
+    Container: container_name
+    });
+
+    // instance.registerConnectionType("basic", { anchor:"Continuous", connector:"StateMachine" });
+    instance.registerConnectionType("basic", { anchor:"Continuous", 
+        connector:"Flowchart", 
+        paintStyle : { strokeWidth : 1} });
+
+    return instance;
 }
 
 // Inicializa uma componente curricular com todos os apetrechos necessários 
@@ -48,7 +70,27 @@ function create_instance_jsplumb( nome_container )
 // cc : Componenente curricular a ser inicializada 
 function initialize_component(instance, cc) 
 {
-    // Implementação da funcao initNode
+    instance.makeSource(cc, {
+        filter: ".ep",
+        anchor: "Continuous",
+        connectorStyle: { stroke: "#e9e9e9", strokeWidth: 1, outlineStroke: "transparent", outlineWidth: 4 },
+        connectionType:"basic",
+        extract:{
+            "action":"the-action"
+        },
+        maxConnections: 10,
+        onMaxConnections: function (info, e) {
+            alert("Maximum connections (" + info.maxConnections + ") reached");
+        }
+    });
+
+    instance.makeTarget(cc, {
+        dropOptions: { hoverClass: "dragHover" },
+        anchor: "Continuous",
+        allowLoopback: true
+    });
+
+    instance.fire("jsPlumbDemoNodeAdded", cc);
 };
 
 // Cria, adiciona a uma instancia e retorna uma componente curricular
@@ -57,14 +99,31 @@ function initialize_component(instance, cc)
 // num : Ordem da componente curricular no período no qual ela se encontra
 function create_curricular_component(instance, data, num ) 
 {
-    // Implementação da funcao novaCC
+    var d = document.createElement("div");
+    var id = data["cod_comp_curricular"];
+    d.className = "w";
+    d.id = id;
+    d.innerHTML = data.nome + "<br>(" + data.carga_horaria + " horas)";
+    d.style.left = (data.periodo - 1)*140 + "px";
+    d.style.top = num*85 + "px";
+    instance.getContainer().appendChild(d);
+    initNode(instance, d);
+    return d;
 };
 
 // Cria uma label com a numeração do período na grada
 // instance : Instância do JSPlumb na qual a label será inserida
 // period: Número do período para a label
 function create_label_period(instance, period ) {
-    // Implementação ajustada da função de mesmo nome
+    
+    var d = document.createElement("div");
+    var id = "P" + period;
+    d.className = "label-periodo";
+    d.id = id;
+    d.innerHTML = d.id ;
+    d.style.left = (period - 1)*140 + "px";
+    d.style.top = "10px";
+    instance.getContainer().appendChild(d);
 };
 
 
@@ -77,5 +136,4 @@ function remove_ppc_classes(cc)
 
     $("#"+cc.cod_comp_curricular).removeClass(ppc_classes.join(' '))
 }
-
 
