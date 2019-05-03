@@ -47,12 +47,12 @@ nav.navbar.bootsnav{
     border-radius: 0px;
     background-color: #fff;
     border: none;
-    border-bottom: solid 1px #6f6f6f;
+    border-bottom: solid 1px #e0e0e0;
     z-index: 500;
 }
 
 nav.navbar.bootsnav ul.nav > li > a{
-    color: #3c3c3c;
+    color: #6f6f6f;
     background-color: transparent;
     outline: none;
     margin-bottom: -2px;

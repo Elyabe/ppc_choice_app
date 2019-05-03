@@ -437,6 +437,11 @@ left: 7px;
 }
 
 
+/*BOTÃO ON/OFF*/ 
+
+body {
+  background: #eee;
+}
 
 .toggle {
   margin-bottom: 20px;
