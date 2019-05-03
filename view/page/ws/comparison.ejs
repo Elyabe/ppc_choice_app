@@ -4,31 +4,6 @@
      <!-- PIE  -->
     
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-      <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Categoria', 'Quantidade'],
-          ['Totalmente Aproveitadas ',     11],
-          ['Parcialmente Aproveitadas',      2],
-          ['Podem ser aproveitadas como optativa',  2],
-          ['Não foi aproveitada', 2],
-        ]);
-
-        var options = {
-          title: 'Sua situação'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-
     
     <div class="clearfix"></div>
 
@@ -255,3 +230,26 @@
     <!-- End Content -->
 
     <!-- <div class="clearfix"></div> -->
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      // google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart( statistics ) 
+      {
+        var data = google.visualization.arrayToDataTable(statistics);
+        var options = {
+          title: 'Sua situação',
+          pieSliceText: 'label',
+          slices: {  1: {offset: 0.2},
+                    2: {offset: 0.3},
+                    3: {offset: 0.4},
+                    4: {offset: 0.5},
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+
+    </script>

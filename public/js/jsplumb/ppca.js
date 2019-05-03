@@ -11,6 +11,12 @@ var current_grid = new Map();
 // Coleção de disciplinas da grade alvo selecionada
 var target_grid = new Map();
 
+var qtt_partial_exploitation = 0;
+var qtt_total_exploitation = 0;
+var qtt_not_exploitation = 0;
+var qtt_optt_exploitation = 0;
+
+var statistics;
 
 $(document).ready( load_algorithm() );
 
@@ -203,6 +209,10 @@ function  create_grid(instance, grid, container_name)
 function compare() 
 {
     var sum_pending_ch = 0.0;
+    qtt_total_exploitation = 0;
+    qtt_partial_exploitation = 0;
+    qtt_optt_exploitation = 0;
+    qtt_not_exploitation = 0;
                        
                 var id_current_graduation = $("#sl-current-grid").children("option:selected").val();
                 var id_target_graduation = $("#sl-target-grid").children("option:selected").val();
@@ -257,6 +267,7 @@ function compare()
                                             $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation');    
                                             $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50');    
                                         }
+                                        qtt_total_exploitation++;
                                     } else if (total_percentage > 0 )
                                     {
                                         $("#"  + disc.cod_cc_corresp ).addClass('ppc-partial-exploitation')
@@ -264,6 +275,7 @@ function compare()
                     
                                         $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation')    
                                         $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50')
+                                        qtt_partial_exploitation++;
                                     }
 
 
@@ -285,7 +297,9 @@ function compare()
                             }
 
                             var optatives_it = pending_optatives.keys();
-                            for ( var i = 0; i < Math.floor( sum_pending_ch / 60 ); i++ )
+                            console.log(optatives_it.length);
+                            qtt_optt_exploitation = Math.floor( sum_pending_ch / 60 );
+                            for ( var i = 0; i < qtt_optt_exploitation && i < optatives_it.size; i++ )
                             {
                                 var id = optatives_it.next().value;
 
@@ -294,6 +308,16 @@ function compare()
                                 })
                             }
 
+                            
+                            statistics = [
+                                      ["Categoria", "Quantidade"],
+                                      ["Totalmente Aproveitadas",  qtt_total_exploitation ],
+                                      ["Parcialmente Aproveitadas", qtt_partial_exploitation ],
+                                      ["Podem ser aproveitadas como optativa", qtt_optt_exploitation ],
+                                      ["Não foi aproveitada", current_grid.size - (qtt_total_exploitation+qtt_partial_exploitation)],
+                                    ];
+
+                            drawChart( statistics );
                         } 
 
                         })
@@ -427,5 +451,3 @@ function remove_ppc_classes(cc)
 
     $("#"+cc.cod_comp_curricular).removeClass(ppc_classes.join(' '))
 }
-
-
