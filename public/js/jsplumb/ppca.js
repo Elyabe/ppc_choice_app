@@ -1,3 +1,4 @@
+
 // Coleção de disicplinas selecionadas
 var cc_selected = new Map(); 
 // Coleção de soma totais dos percentuais de correspondência
@@ -64,7 +65,6 @@ function  create_grid(instance, grid, container_name)
 
                         var canvas = document.getElementById(container_name);
                         var windows = jsPlumb.getSelector(".statemachine-demo .w");
-                        console.log(grid);
 
                         $.ajax({
                             url: '/db/graduation/dependency/' + selected_course,
@@ -125,8 +125,6 @@ function  create_grid(instance, grid, container_name)
                                                         }
                                                         
 
-                                                        console.log(pre_requisites);
-
                                                         if (pre_requisites.length > 1)
                                                         {
                                                             const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
@@ -148,7 +146,6 @@ function  create_grid(instance, grid, container_name)
                                                     
                                                 }
                                                 //chamada da função comparar
-
                                                 compare();
 
                                             }  )
@@ -180,7 +177,6 @@ function  create_grid(instance, grid, container_name)
                                     $("#canvas-"+container_name).css("height","")
                                     $('#canvas-' + container_name).show()
 
-                                    // console.log(response)
                                     response.forEach( (dep) =>
                                     {
                                         instance.connect({ source: dep.cod_cc_pre_requisito, target: dep.cod_comp_curricular, type:"basic" })
@@ -227,7 +223,6 @@ function compare()
                         cache:true,
                         success: function (response) 
                         {
-                            console.log(response)
                             data = response
 
                             if ( data.length == 0 )
@@ -245,7 +240,6 @@ function compare()
                             })
 
                             target_grid.forEach((d)=>{
-                                console.log(d);
                                 remove_ppc_classes(d);
                             });
                             //depois ver nome melhor pra isso
@@ -305,8 +299,6 @@ function compare()
                             }
                         } });
 
-                        console.log("optativas")
-                        console.log(opt_pendentes)
                    } else {
                         alert('Um curso alvo deve ser selecionado!')
                    }
