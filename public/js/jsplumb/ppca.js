@@ -1,12 +1,11 @@
-
 // Coleção de disicplinas selecionadas
 var cc_selected = new Map(); 
 // Coleção de soma totais dos percentuais de correspondência
-var percentual_corresp = new Map();
+var percentage_corresp = new Map();
 // Coleção de disciplinas que podem ser aproveitadas (possuem correspondência)
 var corresp = new Map();
 // Coleção de optativas pendentes/não realizadas
-var opt_pendentes = new Map(); 
+var pending_optatives = new Map(); 
 // Coleção as disciplinas da grade atual selecionada
 var current_grid = new Map();
 // Coleção de disciplinas da grade alvo selecionada
@@ -18,11 +17,12 @@ $(document).ready( load_algorithm() );
 
 // Carrega todo o código pertinente
 function load_algorithm() {
-        // Criar uma instancia do JSPlumb pra cada grade
-        // Chamar a função de montar a grpm ade para cada uma das instâncias
-        var target_grid_instance, current_grid_instance;
-        create_grid(current_grid_instance,current_grid,"current-grid");
-        create_grid(target_grid_instance,target_grid,"target-grid");
+        var instance_current_grid;
+        var instance_targe_grid;
+
+        create_grid(instance_current_grid, current_grid,"current-grid");
+        create_grid(instance_targe_grid, target_grid,"target-grid");
+        
 }
 
 // Monta e exibe a grade de um curso 
@@ -30,32 +30,31 @@ function load_algorithm() {
 // container_name : nome do contêiner (div) sobre a qual a instancia do JSPlumb trabalha
 function  create_grid(instance, grid, container_name) 
 {
-    // Ajustar a função "carregar" e colocar aqui
-    // canvas_current_grid
-    // canvas_target_grid
     $("#cont-bar-progress-"+container_name).hide()
     $("#canvas-"+container_name).hide()
-    $("#toggle-button-" + container_name).prop("disabled",true);   
+    $("#toggle-button-" + container_name).prop("disabled",true);
+        
 
-    $("#sl-"+container_name).change(function()
+    $("#sl-"+container_name).change(function(){
+
+        grid.clear();
+        var id_graduation_selected = $(this).children("option:selected").val();
+        
+        if ( id_graduation_selected > 0 )
         {
-            grid.clear();
-            var selected_course = $(this).children("option:selected").val();
+            instance = create_instance_jsplumb( container_name );
+            $("#cont-bar-progress-"+container_name).show()
+            $("#bar-progress-"+container_name).show()
+            $("#bar-progress-"+container_name).css("width", "25%");
+            $("#"+container_name).hide();
+            $("#"+container_name).empty();
+            $("#canvas-"+container_name).removeClass('in');
 
-            if (selected_course > 0)
-            {
-                instance = create_instance_jsplumb(container_name);
-                $("#cont-bar-progress-"+container_name).show()
-                $("#bar-progress-"+container_name).show()
-                $("#bar-progress-"+container_name).css("width", "25%");
-                $("#"+container_name).empty();
-                $("#"+container_name).empty();
-
-                $.ajax({
-                    url: '/db/graduation/grid/' + selected_course,
+            $.ajax({
+                    url: '/db/graduation/grid/' + id_graduation_selected,
                     type:'GET',
                     cache:true,
-                    success: function(response)
+                    success: function(response) 
                     {
                         response.forEach( (item) => {
                             grid.set( Number(item.cod_comp_curricular), item );
@@ -66,119 +65,110 @@ function  create_grid(instance, grid, container_name)
                         var canvas = document.getElementById(container_name);
                         var windows = jsPlumb.getSelector(".statemachine-demo .w");
 
+                        $("#bar-progress-"+container_name).css("width", "50%");
+                    
                         $.ajax({
-                            url: '/db/graduation/dependency/' + selected_course,
+                            url: '/db/graduation/dependency/' + id_graduation_selected,
                             type:'GET',
                             cache:true,
-                            success: function(response)
+                            success: function(response) 
                             {
-                                instance.batch( function() {
-                                    /*for (i = 0; i < windows.length; i++) {
-                                        initNode(instance, windows[i], true);
-                                    }*/
-
-                                    var last_Period = 0, pos_subject_col=0;
-
+                                instance.batch( function (){
+                            
+                                    var last_period = 0, position_into_period;
+                                    
                                     for (var [cod, subject] of grid ) 
                                     {
-                                        //depois trocar periodo por period
-                                        //periodo eh referente ao BD
-                                        if ( last_Period == subject.periodo ) 
+                                        if ( last_period == subject.periodo ){
+                                            position_into_period++;
+                                        } else 
                                         {
-                                            pos_subject_col++
-                                        }else
-                                        {
-                                            pos_subject_col = 0;
-                                            create_label_period(instance,subject.periodo);
-                                        };
+                                            position_into_period = 0;
+                                            create_label_period( instance, subject.periodo );
+                                        }
 
-                                        last_Period = subject.periodo;
-                                        create_curricular_component(instance, subject, pos_subject_col )
+                                        last_period = subject.periodo;
+                                        create_curricular_component(instance, subject, position_into_period )
                                     }
 
-                                    if(container_name == 'current-grid')
+                                    if ( container_name == 'current-grid')
                                     {
                                         cc_selected.clear();
-                                        grid.forEach( (item) =>{
-                                            //mudar cod_comp_curricular dps que mexer no bd
-                                            let curricomp = document.getElementById(item.cod_comp_curricular);
+                                        grid.forEach( (item) => {
 
-                                            instance.on(curricomp, "click", function(e) {
-                                                if (cc_selected.has( Number(item.cod_comp_curricular)))
-                                                {
+                                            let obj_subject = document.getElementById(item.cod_comp_curricular);
+                                           
+                                            instance.on( obj_subject, "click", function(e) {
+
+                                                if ( cc_selected.has( Number(item.cod_comp_curricular)) )
+                                                {   
                                                     cc_selected.delete( Number(item.cod_comp_curricular) );
-
                                                     remove_ppc_classes(item);
-                                                }
-                                                else
-                                                {
-                                                    var pre_requisites = [];
-                                                    pre_requisites.push(item.cod_comp_curricular);
-                                                    //se estiver xecado ele ja marca os prerequisito
-                                                    if( $('#auto-select-dependency').prop('checked') )
-                                                    {
-                                                        for ( var j = 0; j < pre_requisites.length; j++ )
-                                                        {
-                                                            response.filter( (item) => {
-                                                                return item.cod_comp_curricular == pre_requisites[j];
-                                                            }).forEach( (item) => { pre_requisites.push(item.cod_cc_pre_requisito) })
-                                                        }
+                                                } else {
                                                         
+                                                            var auto_selected_tmp = [];
+                                                            auto_selected_tmp.push(item.cod_comp_curricular)
 
-                                                        if (pre_requisites.length > 1)
-                                                        {
-                                                            const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
-                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-                                                                <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
-                                                                <br> Você pode retirar a seleção, se for o caso. \
-                                                                </div>';
+                                                            if ( $('#auto-select-dependency').prop('checked') )
+                                                            {
+                                                                for ( var j = 0; j < auto_selected_tmp.length; j++ )
+                                                                {
+                                                                    response.filter( (item) => {
+                                                                        return item.cod_comp_curricular == auto_selected_tmp[j]
+                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) })
+                                                                }
+                                                            }
 
-                                                            $('#canvas-current-grid').prepend(alert)
-                                                            setTimeout( function(){
-                                                                $('.alert').fadeOut(300, () => $(this).remove() );
-                                                            }, 5000 )
+                                                            auto_selected_tmp.forEach( (item) => {
+                                                               cc_selected.set( Number(item), grid.get(Number(item)) )
+                                                                // $("#"+item).addClass('selected')
+                                                            }) 
+
+                                                            if ( auto_selected_tmp.length > 1 )
+                                                            {
+                                                                const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
+                                                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                                                                              <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
+                                                                              <br> Você pode retirar a seleção, se for o caso. \
+                                                                                </div>';
+
+                                                                $('#canvas-current-grid').prepend(alert)
+                                                                setTimeout( function(){
+                                                                    $('.alert').fadeOut(300, () => $(this).remove() );
+                                                                }, 5000 )
+                                                            }
                                                         }
-                                                    }
-                                                    pre_requisites.forEach( (item) => {
-                                                        cc_selected.set(Number(item), grid.get(Number(item)));
-                                                        // $("#"+item).addClass('selected');
-                                                    })
-                                                    
-                                                }
-                                                //chamada da função comparar
-                                                compare();
+                                                    compare()
+                                            });
+                                        
+                                            instance.on(obj_subject, "mouseover", function(e) {
+                                                instance.select({"source": item.cod_comp_curricular}).setHover(true);
+                                                instance.select({"target": item.cod_comp_curricular}).setHover(true);
+                                            });
 
-                                            }  )
+                                            instance.on(obj_subject, "mouseout", function(e) {
+                                                instance.select({"source": item.cod_comp_curricular}).setHover(false);
+                                                instance.select({"target": item.cod_comp_curricular}).setHover(false);
+                                            });
+
                                         })
-
                                     }
+                                    /*Fim current-grid*/    
 
-                                    grid.forEach( (item) => {
-                                        //mudar cod_comp_curricular dps q mexer no db
-                                        let curricomp = document.getElementById(item.cod_comp_curricular);
-                                     
-                                        instance.on(curricomp, "mouseover", function(e) {
-                                            instance.select({"source": item.cod_comp_curricular}).setHover(true);
-                                            instance.select({"target": item.cod_comp_curricular}).setHover(true);
-                                        });
-
-                                        instance.on(curricomp, "mouseout", function(e) {
-                                            instance.select({"source": item.cod_comp_curricular}).setHover(false);
-                                            instance.select({"target": item.cod_comp_curricular}).setHover(false);
-                                        });
-                                    })
-                                    
                                     $("#bar-progress-"+container_name).css("width", "75%");
-                                    $("#bar-progress-"+container_name).css("width", "100%");
+
+
+                                    $("#bar-progress-"+container_name).css("width", "100%");        
+                                    
                                     $("#bar-progress-"+container_name).hide()
                                     $("#cont-bar-progress-"+container_name).hide()
-                                    
                                     $("#canvas-"+container_name).addClass('in')
                                     $("#canvas-"+container_name).css("height","")
-                                    $('#canvas-' + container_name).show()
 
-                                    response.forEach( (dep) =>
-                                    {
+                                    $('#canvas-' + container_name).show()
+                                    $('#' + container_name).show()
+
+                                    response.forEach( (dep) => {
                                         instance.connect({ source: dep.cod_cc_pre_requisito, target: dep.cod_comp_curricular, type:"basic" })
                                     })
 
@@ -186,137 +176,150 @@ function  create_grid(instance, grid, container_name)
 
                                     let foco = ( container_name == 'current-grid') ? 'target-grid' : 'current-grid';
                                     $('body, html').animate({
-                                        scrollTop: $("#sl-" + foco).offset().top
+                                    scrollTop: $("#sl-" + foco).offset().top
                                     }, 600);
 
                                     $("#sl-"+ foco).focus();
-
-                                })
-                            } 
+                                }) /*Fim do batch*/
+            
+                            } /*End function success*/
                         })
                     }
-                })
-            }   
-            else
-            {
+            });/*End request grid*/
+                
+        } else 
+            { 
                 $('#' + container_name).empty();
                 $('#canvas-' + container_name).hide();
                 $("#toggle-button-" + container_name).prop("disabled",true);
-
             }
-        })
 
+        }); 
 }   
+
+
 
 // Realiza comparação entre as grades dos curso e exibe ao usuário.
 function compare() 
 {
-    var id_curso_atual = $("#sl-current-grid").children("option:selected").val();
-    var id_curso_alvo = $("#sl-target-grid").children("option:selected").val();
-    if ( id_curso_atual > 0 )
+    var sum_pending_ch = 0.0;
+                       
+                var id_current_graduation = $("#sl-current-grid").children("option:selected").val();
+                var id_target_graduation = $("#sl-target-grid").children("option:selected").val();
+                    
+                if ( id_current_graduation > 0 )
                 {
-                   if ( id_curso_alvo > 0 )
+                   if ( id_target_graduation > 0 )
                    {
                         $.ajax({
-                        url: '/compare/' + id_curso_atual + "/" + id_curso_alvo,
+                        url: '/compare/' + id_current_graduation + "/" + id_target_graduation,
                         type:'GET',
                         cache:true,
-                        success: function (response) 
+                        success: function (corresp_matrix) 
                         {
-                            data = response
 
-                            if ( data.length == 0 )
+                            if ( corresp_matrix.length == 0 )
                             {
                                 alert('Oops! Não existe em nosso sistema um mapeamento entre esses cursos. Estamos trabalhando nisso.')
                                 cc_selected.clear();
                                 return;
                             }
 
-                            percentual_corresp.clear();
+                            percentage_corresp.clear();
                             corresp.clear();
-                            data.forEach( (item) => { 
-                                percentual_corresp.set( Number( item.cod_cc_corresp), 0 );
-                                corresp.set( Number(item.cod_comp_curricular), item )
+                            corresp_matrix.forEach( (item) => { 
+                                percentage_corresp.set( Number( item.cod_cc_corresp), 0 );
                             })
 
-                            target_grid.forEach((d)=>{
-                                remove_ppc_classes(d);
-                            });
-                            //depois ver nome melhor pra isso
-                            var qtd_horas = 0;
-                            cc_selected.forEach((item)=>{
-                                var percent_equiv = data.filter((d)=>{
-                                    return d.cod_comp_curricular == item.cod_comp_curricular;
-                                });
+                            target_grid.forEach( (cc) => { 
+                                remove_ppc_classes(cc);
+                            })
 
-                                percent_equiv.forEach((d)=>{
-                                    percentual_corresp.set( Number(d.cod_cc_corresp), percentual_corresp.get(Number(d.cod_cc_corresp)) + Number(d.percentual_corresp) );
-                                    let percentual_total = percentual_corresp.get(Number(d.cod_cc_corresp));
-                                    
-                                    if ( percentual_total >= 1 ) 
+                            cc_selected.forEach( (cc) => {
+
+                                let equiv_matrix = corresp_matrix.filter( (item) => { return item.cod_comp_curricular == cc.cod_comp_curricular } );
+                                
+                                equiv_matrix.forEach( (disc) => {
+
+                                    percentage_corresp.set( Number(disc.cod_cc_corresp), percentage_corresp.get(Number(disc.cod_cc_corresp)) + Number(disc.percentual_corresp) );
+
+                                    let total_percentage = percentage_corresp.get(Number(disc.cod_cc_corresp));
+
+                                    $("#"  + disc.cod_comp_curricular ).removeClass('selected');    
+
+                                    if ( total_percentage >= 1 ) 
                                     {   
-                                        $("#"  + d.cod_cc_corresp ).addClass('ppc-total-exploitation') ; 
-                    
-                                        if ( d.percentual_corresp == 1 )
-                                        {
-                                            $("#"  + d.cod_comp_curricular ).addClass('ppc-total-exploitation');
-                                        } else
-                                        {
-                                            $("#"  + d.cod_comp_curricular ).addClass('ppc-partial-exploitation');                       
+                                        $("#"  + disc.cod_cc_corresp ).addClass('ppc-total-exploitation');    
+
+                                        if ( disc.percentual_corresp == 1 ){
+                                            $("#"  + disc.cod_comp_curricular ).addClass('ppc-total-exploitation');    
+                                        } else {
+                                            $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation');    
+                                            $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50');    
                                         }
-                                    } else if (percentual_total > 0 )
+                                    } else if (total_percentage > 0 )
                                     {
-                                        $("#"  + d.cod_cc_corresp ).addClass('ppc-partial-exploitation');
+                                        $("#"  + disc.cod_cc_corresp ).addClass('ppc-partial-exploitation')
+                                        $("#"  + disc.cod_cc_corresp ).addClass('ppc-partial50')
                     
-                                        $("#"  + d.cod_comp_curricular ).addClass('ppc-partial-exploitation');
+                                        $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation')    
+                                        $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50')
                                     }
+
+
                                 })
-                                if(percent_equiv.length == 0)
+
+                                if ( equiv_matrix.length == 0 )
                                 {
-                                    qtd_horas+= Number(item.carga_horaria);
-                                    $('#' + item.cod_comp_curricular).addClass('ppc-optative');
+                                    $("#"+cc.cod_comp_curricular).addClass('ppc-optative')
+                                    sum_pending_ch += Number(cc.carga_horaria);
+                                }    
 
-                                }
-                            });
+                            })
 
-                        opt_pendentes.clear();
-                        for( var [k,v] of current_grid )
-                        {
-                            if ( !cc_selected.has(k) && v.nome.includes("Optativa") )
-                            {
-                                opt_pendentes.set( k, v );
+
+                            pending_optatives.clear();
+                            for( var [k,v] of current_grid ){
+                                if ( v.nome.includes("Optativa") && !cc_selected.has(k) )
+                                    pending_optatives.set( k, v );
                             }
-                        }
-                        var mit = opt_pendentes.keys();
-                            for ( var i = 0; i < Math.floor( qtd_horas / 60 ); i++ )
+
+                            var optatives_it = pending_optatives.keys();
+                            for ( var i = 0; i < Math.floor( sum_pending_ch / 60 ); i++ )
                             {
-                                var id = mit.next().value;
+                                var id = optatives_it.next().value;
 
-                                if ( corresp.has(id) )
-                                {
-                                    $("#"  + corresp.get(id).cod_cc_corresp ).addClass('ppc-optative');                                    
-                                }
+                                corresp_matrix.filter( (disc) => { return disc.cod_comp_curricular == id }).forEach( (item) => {
+                                    $("#"  + item.cod_cc_corresp ).addClass('ppc-optative');
+                                })
                             }
-                        } });
 
+                        } 
+
+                        })
                    } else {
                         alert('Um curso alvo deve ser selecionado!')
+                        
+                        for ( var [k,v] in cc_selected )
+                            remove_ppc_classes(k);
+
+                        cc_selected.clear();
                    }
+
                     
                 } else
                 {
                     alert('Um curso atual deve ser selecionado.')
                 }
-    
-
 }
+
 
 
 // Cria e retorna uma instância do JSPlumb 
 // container_name : nome do container sobre a qual a nova instância do JSPlumb deve trabalhar
 function create_instance_jsplumb( container_name )
 {
-    let instance = jsPlumb.getInstance({
+  let instance = jsPlumb.getInstance({
     Endpoint: ["Dot", {radius: 2}],
     Connector:"StateMachine",
     HoverPaintStyle: {stroke: "#1e8151", strokeWidth: 1 },
@@ -346,6 +349,7 @@ function create_instance_jsplumb( container_name )
 // cc : Componenente curricular a ser inicializada 
 function initialize_component(instance, cc) 
 {
+
     instance.makeSource(cc, {
         filter: ".ep",
         anchor: "Continuous",
@@ -366,7 +370,6 @@ function initialize_component(instance, cc)
         allowLoopback: true
     });
 
-    instance.fire("jsPlumbDemoNodeAdded", cc);
 };
 
 // Cria, adiciona a uma instancia e retorna uma componente curricular
@@ -375,6 +378,7 @@ function initialize_component(instance, cc)
 // num : Ordem da componente curricular no período no qual ela se encontra
 function create_curricular_component(instance, data, num ) 
 {
+    
     var mg_top = 40;
     var d = document.createElement("div");
     var id = data["cod_comp_curricular"];
@@ -385,6 +389,7 @@ function create_curricular_component(instance, data, num )
     d.style.top = (num*85 + mg_top) + "px";
     instance.getContainer().appendChild(d);
     initialize_component(instance, d);
+
     return d;
 };
 
@@ -392,7 +397,7 @@ function create_curricular_component(instance, data, num )
 // instance : Instância do JSPlumb na qual a label será inserida
 // period: Número do período para a label
 function create_label_period(instance, period ) {
-    
+
     var d = document.createElement("div");
     var id = "P" + period;
     d.className = "label-periodo";
@@ -401,6 +406,15 @@ function create_label_period(instance, period ) {
     d.style.left = (period - 1)*140 + "px";
     d.style.top = "10px";
     instance.getContainer().appendChild(d);
+
+    $("#"+id).on('click', function(){
+        let vet = Array.from( current_grid.values() );
+        vet.filter( (item) => { return item.periodo == period } ).forEach( (d) => {
+            cc_selected.set( Number(d.cod_comp_curricular), d);
+        })
+        compare();
+    })
+
 };
 
 
@@ -413,3 +427,5 @@ function remove_ppc_classes(cc)
 
     $("#"+cc.cod_comp_curricular).removeClass(ppc_classes.join(' '))
 }
+
+
