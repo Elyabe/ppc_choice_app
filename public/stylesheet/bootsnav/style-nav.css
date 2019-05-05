@@ -22,9 +22,9 @@ html,body {
 body {
     font-family: 'Open Sans', sans-serif;
     position: relative;
-	font-size:14px;
-	line-height:24px;
-	color:#6f6f6f;
+    font-size:14px;
+    line-height:24px;
+    color:#6f6f6f;
 }
 
 .wraper {
@@ -39,57 +39,57 @@ a,
 a:active,
 a:focus,
 a:hover{
-	outline:none;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	-ms-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+    outline:none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 a:hover{
-	text-decoration:underline;
+    text-decoration:underline;
 }
 
 h1, h2, h3, h4, h5, h6{
-	color:#3f3f3f;
-	margin:0 0 15px 0;
+    color:#3f3f3f;
+    margin:0 0 15px 0;
     letter-spacing: 1px;
     font-weight: bold;
 }
 
 h1{
-	font-size:48px;
-	line-height:52px;
+    font-size:48px;
+    line-height:52px;
 }
 
 h2{
-	font-size:36px;
-	line-height:48px;
+    font-size:36px;
+    line-height:48px;
 }
 
 h3{
-	font-size:30px;
-	line-height:36px;
+    font-size:30px;
+    line-height:36px;
 }
 
 h4{
-	font-size:24px;
-	line-height:30px;
+    font-size:24px;
+    line-height:30px;
 }
 
 h5{
-	font-size:18px;
-	line-height:24px;
+    font-size:18px;
+    line-height:24px;
 }
 
 h6{
-	font-size:14px;
-	line-height:18px;
+    font-size:14px;
+    line-height:18px;
 }
 
 p{
-	margin-bottom:20px;
+    margin-bottom:20px;
 }
 
 /*
@@ -103,7 +103,7 @@ General
 footer a,
 footer a:hover,
 .section a{
-    color: #f43438;
+    color: #0a608a;
 }
 
 .gray{
@@ -136,7 +136,7 @@ footer a:hover,
     left: 50%;
     margin-left: -50px;
     width: 100px;
-    border-bottom: solid 1px #f43438;
+    border-bottom: solid 1px #0a608a;
 }
 
 .test-height{
@@ -146,7 +146,7 @@ footer a:hover,
 .pageheader{
     padding: 70px 0;
     background-image: url(/image/layout/brick-wall-dark.png);
-    background-color: #f43438;
+    background-color: #0a608a;
 }
 
 .pageheader.dashboard {
@@ -201,7 +201,7 @@ Home
 .section.home{
     padding: 100px 0;
     background-image: url(/image/layout/brick-wall-dark.png);
-    background-color: #f43438;
+    background-color: #0a608a;
 }
 
 .section.home.dark{
@@ -286,8 +286,8 @@ ol.menu-demo li a{
 
 ol.menu-demo li a:focus,
 ol.menu-demo li a:hover{
-    background-color: #f43438;
-    border: solid 1px #f43438; 
+    background-color: #0a608a;
+    border: solid 1px #0a608a; 
     color: #fff;
     text-decoration: none;
 }
@@ -319,7 +319,7 @@ Affiliates
 
 .affiliate a:hover h6,
 .affiliate a:focus h6{
-    color: #f43438;
+    color: #0a608a;
 }
 
 /*
@@ -338,257 +338,257 @@ footer .container{
 Clear spacer
 =========================== */
 .margin-clear{
-	margin:0 !important;
+    margin:0 !important;
 }
 
 .padding-clear{
-	padding:0 !important;
+    padding:0 !important;
 }
 
 .margintop-clear{
-	margin-top:0 !important;
+    margin-top:0 !important;
 }
 
 .paddingtop-clear{
-	padding-top:0 !important;
+    padding-top:0 !important;
 }
 
 .marginbot-clear{
-	margin-bottom:0 !important;
+    margin-bottom:0 !important;
 }
 
 .paddingbot-clear{
-	padding-bottom:0 !important;
+    padding-bottom:0 !important;
 }
 
 .marginleft-clear{
-	margin-left:0 !important;
+    margin-left:0 !important;
 }
 
 .paddingleft-clear{
-	padding-left:0 !important;
+    padding-left:0 !important;
 }
 
 .marginright-clear{
-	margin-right:0 !important;
+    margin-right:0 !important;
 }
 
 .paddingright-clear{
-	padding-right:0 !important;
+    padding-right:0 !important;
 }
 
 .padding-top40{
-	padding-top:40px !important;
+    padding-top:40px !important;
 }
 
 .padding-topt60{
-	padding-top:60px !important;
+    padding-top:60px !important;
 }
 
 .padding-top70{
-	padding-top:70px !important;
+    padding-top:70px !important;
 }
 
 .padding-bot5{
-	padding-bottom:5px !important;
+    padding-bottom:5px !important;
 }
 
 .padding-bot10{
-	padding-bottom:10px !important;
+    padding-bottom:10px !important;
 }
 
 .padding-bot15{
-	padding-bottom:15px !important;
+    padding-bottom:15px !important;
 }
 
 .padding-bot20{
-	padding-bottom:20px !important;
+    padding-bottom:20px !important;
 }
 
 .padding-bot30{
-	padding-bottom:30px !important;
+    padding-bottom:30px !important;
 }
 
 .padding-bot40{
-	padding-bottom:40px !important;
+    padding-bottom:40px !important;
 }
 
 .padding-bot50{
-	padding-bottom:50px !important;
+    padding-bottom:50px !important;
 }
 
 .padding-bot60{
-	padding-bottom:60px !important;
+    padding-bottom:60px !important;
 }
 
 .padding-bot70{
-	padding-bottom:70px !important;
+    padding-bottom:70px !important;
 }
 
 .margin-mintop10{
-	margin-top:-10px !important;
+    margin-top:-10px !important;
 }
 
 .margin-mintop20{
-	margin-top:-20px !important;
+    margin-top:-20px !important;
 }
 
 .margin-mintop30{
-	margin-top:-30px !important;
+    margin-top:-30px !important;
 }
 
 .margin-mintop60{
-	margin-top:-60px !important;
+    margin-top:-60px !important;
 }
 
 .margin-mintop110{
-	margin-top:-110px !important;
+    margin-top:-110px !important;
 }
 
 .margin-minbot10{
-	margin-bottom:-10px !important;
+    margin-bottom:-10px !important;
 }
 
 .margin-minbot20{
-	margin-bottom:-20px !important;
+    margin-bottom:-20px !important;
 }
 
 .margin-minbot30{
-	margin-bottom:-30px !important;
+    margin-bottom:-30px !important;
 }
 
 .margin-minbot60{
-	margin-bottom:-60px !important;
+    margin-bottom:-60px !important;
 }
 
 /*
 Custom left right spacer
 =========================== */
 .margin-left10{
-	margin-left:10px !important;
+    margin-left:10px !important;
 }
 
 .margin-right10{
-	margin-right:10px !important;
+    margin-right:10px !important;
 }
 
 .margin-left20{
-	margin-left:20px !important;
+    margin-left:20px !important;
 }
 
 .margin-right20{
-	margin-right:20px !important;
+    margin-right:20px !important;
 }
 
 /*
 Custom top spacer
 =========================== */
 .margintop5{
-	margin-top:5px !important;
+    margin-top:5px !important;
 }
 
 .margintop10{
-	margin-top:10px !important;
+    margin-top:10px !important;
 }
 
 .margintop15{
-	margin-top:15px !important;
+    margin-top:15px !important;
 }
 
 .margintop20{
-	margin-top:20px !important;
+    margin-top:20px !important;
 }
 
 .margintop25{
-	margin-top:25px !important;
+    margin-top:25px !important;
 }
 
 .margintop30{
-	margin-top:30px !important;
+    margin-top:30px !important;
 }
 
 .margintop35{
-	margin-top:35px !important;
+    margin-top:35px !important;
 }
 
 .margintop40{
-	margin-top:40px !important;
+    margin-top:40px !important;
 }
 
 .margintop45{
-	margin-top:45px !important;
+    margin-top:45px !important;
 }
 
 .margintop50{
-	margin-top:50px !important;
+    margin-top:50px !important;
 }
 
 .margintop55{
-	margin-top:55px !important;
+    margin-top:55px !important;
 }
 
 .margintop60{
-	margin-top:60px !important;
+    margin-top:60px !important;
 }
 
 .margintop80{
-	margin-top:80px !important;
+    margin-top:80px !important;
 }
 
 /*
 Custom bottom spacer
 =========================== */
 .marginbot5{
-	margin-bottom:5px !important;
+    margin-bottom:5px !important;
 }
 
 .marginbot10{
-	margin-bottom:10px !important;
+    margin-bottom:10px !important;
 }
 
 .marginbot15{
-	margin-bottom:15px !important;
+    margin-bottom:15px !important;
 }
 
 .marginbot20{
-	margin-bottom:20px !important;
+    margin-bottom:20px !important;
 }
 
 .marginbot25{
-	margin-bottom:25px !important;
+    margin-bottom:25px !important;
 }
 
 .marginbot30{
-	margin-bottom:30px !important;
+    margin-bottom:30px !important;
 }
 
 .marginbot35{
-	margin-bottom:35px !important;
+    margin-bottom:35px !important;
 }
 
 .marginbot40{
-	margin-bottom:40px !important;
+    margin-bottom:40px !important;
 }
 
 .marginbot45{
-	margin-bottom:45px !important;
+    margin-bottom:45px !important;
 }
 
 
 .marginbot50{
-	margin-bottom:50px !important;
+    margin-bottom:50px !important;
 }
 
 .marginbot55{
-	margin-bottom:55px !important;
+    margin-bottom:55px !important;
 }
 
 .marginbot60{
-	margin-bottom:60px !important;
+    margin-bottom:60px !important;
 }
 
 .marginbot80{
-	margin-bottom:80px !important;
+    margin-bottom:80px !important;
 }
 
 /*
@@ -620,7 +620,7 @@ pre {
 }
 
 pre span{
-    color: #f43438;
+    color: #0a608a;
 }
 
 /*
@@ -978,7 +978,7 @@ nav.navbar ul.nav > li > a:hover,
 nav.navbar ul.nav > li.active > a:hover,
 nav.navbar ul.nav li.active > a,
 nav.navbar li.dropdown ul.dropdown-menu > li a:hover{
-    color: #f43438;
+    color: #0a608a;
 }
 
 nav.navbar.navbar-transparent ul.nav > li > a:hover,
@@ -987,13 +987,13 @@ nav.navbar ul.nav li.scroll.active > a,
 nav.navbar.navbar-dark ul.nav li.dropdown ul.dropdown-menu  > li > a:hover,
 nav.navbar ul.nav li.dropdown.on > a,
 nav.navbar-dark ul.nav li.dropdown.on > a{
-    color: #f43438 !important;
+    color: #0a608a !important;
 }
 
 @media(max-width:920px){
     nav.navbar .dropdown .megamenu-content .col-menu ul > li > a:hover,
     nav.navbar.navbar-dark .dropdown .megamenu-content .col-menu .title:hover{
-        color: #f43438 !important;
+        color: #0a608a !important;
     }
 }
 
@@ -1001,11 +1001,11 @@ nav.navbar-dark ul.nav li.dropdown.on > a{
 Border
 =========================== */
 ul.cart-list > li.total > .btn{
-    border-color: #f43438;
+    border-color: #0a608a;
 }
 
 nav.navbar li.dropdown ul.dropdown-menu{
-    border-top-color: #f43438 !important;
+    border-top-color: #0a608a !important;
 }
 
 /*
@@ -1015,7 +1015,7 @@ ul.cart-list > li.total > .btn,
 .attr-nav > ul > li > a span.badge,
 nav.navbar .share ul > li > a:hover,
 nav.navbar .share ul > li > a:focus{
-    background-color: #f43438;
+    background-color: #0a608a;
 }
 
 ul.cart-list > li.total > .btn:hover,
