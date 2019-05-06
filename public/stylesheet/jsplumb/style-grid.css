@@ -97,7 +97,7 @@
 }
 
 .label-periodo {
-    /*padding: 2px;*/
+    padding: 2px;
     position: absolute;
     z-index: 15;
     /*border: 1px solid #2e6f9a;*/
@@ -108,7 +108,7 @@
     -moz-border-radius: 8px;
     border-radius: 8px;
     opacity: 0.8;
-    /*cursor: pointer;*/
+    cursor: pointer;
     /*background-color: white;*/
     font-size: 14px;
     /*-webkit-transition: background-color 0.25s ease-in;
@@ -119,6 +119,12 @@
     line-height: normal;
     word-wrap: break-word;
     margin: 8px;
+}
+
+
+.label-periodo:hover {
+    border: 2px solid #2e6f9a;
+    padding: 0px;
 }
 
 .dragHover {

@@ -33,72 +33,78 @@
         </div>
         <% } %>
 
-        <div class="row">
-            <div class="col-md-10 ">
-                <form action="/user/update" method="POST"> 
-                <!-- <fieldset> -->
-
-                <!-- Form Name -->
-                <legend>User profile</legend>
-
-                <!-- Text input-->
-                <div class="form-group">
+        <div class="row padding-bot20">
+            <!-- Form Name -->
+            <legend>Meu perfil</legend>
+            
+            <form action="/user/update" method="POST"> 
+            
+            <div class="col-md-3">
                   <label class="col-md-4 control-label" for="Name (Full name)">Nickname</label>  
-                  <div class="col-md-4">
-                    <div class="input-group">
-                       <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
-                       </div>
-                       <input id="nickname" name="nickname" type="text" value="<%= user.nickname %>" class="form-control input-md">
-                    </div>
-                  </div>
-                </div>
+            </div>                  
+            <div class="col-md-4">
+              <div class="input-group">
+                 <div class="input-group-addon">
+                  <i class="fa fa-user"></i>
+                 </div>
+                 <input id="nickname" name="nickname" type="text" value="<%= user.nickname %>" class="form-control input-md">
+              </div>
+            </div>
+        </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="Email Address">E-mail</label>  
-                  <div class="col-md-4">
-                  <div class="input-group">
-                       <div class="input-group-addon">
-                     <i class="fa fa-envelope-o"></i>
-                       </div>
-                    <input id="email" name="email" type="text" value= '<%= user.email %>' class="form-control input-md">
-                      </div>
-                  </div>
-                </div>
+        <div class="row padding-bot20">
+            <div class="col-md-3">
+              <label class="col-md-4 control-label" for="Email Address">E-mail</label>  
+            </div>
 
-                <!-- Multiple Radios (inline) -->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="role">Grant</label>
-                  <div class="col-md-4"> 
-                    <label class="radio-inline" for="admin">
-                      <input type="radio" name="role" id="admin" value="1"  <% if ( user.role == "ADMIN" ) {%> checked="checked" <%}%> >
-                      ADMIN
-                    </label> 
-                    <label class="radio-inline" for="Gender-1">
-                      <input type="radio" name="role" id="admin" value="2" <% if ( user.role == "SUPERVISOR" ) {%> checked="checked" <%}%> >
-                      SUPERVISOR
-                    </label> 
-                    <label class="radio-inline" for="Gender-2">
-                      <input type="radio" name="role" id="admin" value="3" <% if ( user.role == "VISITOR" ) {%> checked="checked" <%}%> >
-                      VISITOR
-                    </label>
-                  </div>
-                </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                   <div class="input-group-addon">
+                 <i class="fa fa-envelope-o"></i>
+                   </div>
+                <input id="email" name="email" type="text" value= '<%= user.email %>' class="form-control input-md">
+              </div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                  <label class="col-md-4 control-label" ></label>  
-                  <div class="col-md-4">
-                  <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span> Alterar</button>
-                  <!-- <a href="#" class="btn btn-danger" value=""><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
-                    
-                  </div>
-                </div>
+        <div class="row padding-bot20">
+            <div class="col-md-3">
+              <label class="col-md-4 control-label" for="role">Grant</label>
+            </div>
+
+            <div class="col-md-4"> 
+              <label class="radio-inline" for="admin">
+                <input type="radio" name="role" id="admin" value="1"  <% if ( user.role == "ADMIN" ) {%> checked="checked" <%}%> >
+                ADMIN
+              </label> 
+              <label class="radio-inline" for="Gender-1">
+                <input type="radio" name="role" id="admin" value="2" <% if ( user.role == "SUPERVISOR" ) {%> checked="checked" <%}%> >
+                SUPERVISOR
+              </label> 
+              <label class="radio-inline" for="Gender-2">
+                <input type="radio" name="role" id="admin" value="3" <% if ( user.role == "VISITOR" ) {%> checked="checked" <%}%> >
+                VISITOR
+              </label>
+            </div>
+        </div>
+        
+        <div class="row padding-bot20">
+            <div class="col-md-3">
+            </div>
+            
+            <div class="col-md-4">
+            <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-floppy-saved"></span> Alterar</button>
+            <!-- <a href="#" class="btn btn-danger" value=""><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
+            </div>
+        </div>  
+
+        </div>
+
 
                 <!-- </fieldset> -->
-                </form>
-               </div>
+        </form>
         </div>
+       </div>
     </div>
 </div>
 

@@ -16,7 +16,9 @@ const db_controller = require('./dashboard/db-controller')
 const user_controller = require('./user/user-controller')
 
 router.get('/ws/*', ws_controller )
+router.post('/ws/*', ws_controller )
 router.get('/db/*', db_controller )
+router.post('/db/*', db_controller )
 router.get('/user/*', user_controller )
 router.post('/user/*', user_controller )
 

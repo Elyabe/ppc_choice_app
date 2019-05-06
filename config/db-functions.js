@@ -16,9 +16,8 @@ module.exports = {
                         callback( result )
                     }) 
                     .catch(e => console.error(e.stack)) 
-                    .then(() => client.end(console.log('Conexao fechada')))
             })
             
-        pool.end( ()=>{console.log("pool finalizado")} ) 
+        pool.end( ()=> {console.log('[OK] Request dabase accepted')}) 
   }
 }

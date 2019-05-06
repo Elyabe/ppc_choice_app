@@ -12,14 +12,11 @@ const passport = require('passport');
 
 
 router.get( '/ws/home', function( req, res ) {
-     
-    const get_qtd_cursos = "SELECT COUNT(cod_curso) FROM curso;"
-    
     req.user = res.locals.login ? req.user : define_user();
-    db.getRecords( get_qtd_cursos, (result) => {
-        res.render( './page/ws/home', { title: "PPC Choice - Home", qtd_cursos: result.rows[0].count, user: req.user });
-    })
-
+    if ( req.user.email == 'cleisson.lauro@ppc' )
+      res.redirect('https://www.youtube.com/watch?v=ei2-RjJDBHc')
+    else
+      res.render( './page/ws/home', { title: "PPC Choice - Home", user: req.user });
 });
 
 
@@ -29,12 +26,26 @@ router.get( '/ws/team', function( req, res ) {
   res.render( './page/ws/team', { title: "PPC Choice - Quem somos?", user: req.user });
 });
 
+
+router.post( '/ws/contact/email', function( req, res ) {
+  
+  const serverMail = require('../../config/mailer');
+
+  const msg = { sender: { name: req.body.name, email: req.body.email }, content: req.body.content };
+  serverMail.sendMail( msg );
+
+  req.flash('success_msg', 'Sua mensagem foi enviada! Em até 48 h alguém da nossa equipe entrará em contato contigo.\n Fique de olho! :D')
+  res.redirect('/ws/contact');
+
+});
+
 router.get( '/ws/contact', function( req, res ) {
-    
+  
   req.user = res.locals.login ? req.user : define_user();
   res.render( './page/ws/contact', { title: "PPC Choice - Contato", user: req.user });
 
 });
+
 
 
 router.get( '/ws/comparison', ensureAuthenticated, function( req, res ) {
