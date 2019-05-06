@@ -11,14 +11,13 @@ module.exports = function(passport) {
             if ( result.rows.length > 0 )
             {
               user = result.rows[0];
-              console.log(user)
               bcrypt.compare(password, user.senha, (err, isMatch) => {
               if (err) throw err;
               if (isMatch) {
 
                 const rec_login = "UPDATE usuario SET ultimo_login = NOW() WHERE email = '"+ user.email +"';"
                   db.getRecords( rec_login, (result) => {
-                      console.log("Gravado o login")
+                      console.log("[OK] Database access granted!")
                   })
 
                   return done(null, user);

@@ -458,6 +458,3 @@ function  carregar(instance, grid,  nome_seletor, nome_container, bar_progress )
         }); 
 
     }   
-
-
-

@@ -3,6 +3,19 @@
   width: 100%;
 }
 
+.carousel-caption {
+  background-color: rgba(30,30,30,0.8);
+  margin-bottom: 10%;
+  width: 25%;
+  color: #fff;
+  padding: 20px;
+  border-left: 2px solid #fff;
+  text-align: left;
+}
+
+.carousel-caption > h1 {
+  color: #fff;
+}
 /**
  * Team
  */

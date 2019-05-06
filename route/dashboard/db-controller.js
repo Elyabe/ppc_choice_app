@@ -18,14 +18,14 @@ const corresponding_matrix_controller = require('./corresponding-matrix-controll
 
 router.get('/db/subject/*', subject_controller )
 router.post('/db/subject/*', subject_controller )
-router.get('/db/graduation/*', graduation_controller)
-router.post('/db/graduation/*', graduation_controller)
-router.get('/db/department/*', department_controller)
-router.post('/db/department/*', department_controller)
-router.get('/db/curricular-component/*', curricular_component_controller)
-router.post('/db/curricular-component/*', curricular_component_controller)
-router.get('/db/corresponding-matrix/*', corresponding_matrix_controller)
-router.post('/db/corresponding-matrix/*', corresponding_matrix_controller)
+router.get('/db/graduation/*', graduation_controller )
+router.post('/db/graduation/*', graduation_controller )
+router.get('/db/department/*', department_controller )
+router.post('/db/department/*', department_controller )
+router.get('/db/curricular-component/*', curricular_component_controller )
+router.post('/db/curricular-component/*', curricular_component_controller )
+router.get('/db/corresponding/*', corresponding_matrix_controller )
+router.post('/db/corresponding/*', corresponding_matrix_controller )
 
 router.get( '/db/home', ensureAuthenticated, function( req, res ) {
     
@@ -34,7 +34,7 @@ router.get( '/db/home', ensureAuthenticated, function( req, res ) {
     const get_qtd_cursos = "SELECT * FROM curso;";
     const get_deptos = "SELECT * FROM departamento;";
 
-
+    
         db.getRecords( get_qtd_cursos, (result) => {
 	        cursos = result.rows;
 	        db.getRecords( get_deptos, (result) => {
