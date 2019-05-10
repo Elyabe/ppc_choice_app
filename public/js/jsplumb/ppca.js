@@ -295,9 +295,22 @@ function compare()
 
                                 corresp_matrix.forEach( (disc) => {
 
-                                    var popover_content = '<h5>' + disc.cod_comp_curricular + '->' + disc.cod_cc_corresp + '::' + disc.percentual_corresp + '</h5>';
+                                    var ccur = current_grid.get(Number(disc.cod_comp_curricular));
+                                    var popover_content =  '<table class="table table-bordered">\
+                                                  <thead>\
+                                                    <tr>\
+                                                      <th scope="col">Disciplina</th>\
+                                                      <th scope="col">Percentual</th>\
+                                                    </tr>\
+                                                  </thead>\
+                                                  <tbody>';
 
-
+                                                  popover_content += '<tr>\
+                                                      <th scope="row">'+  ccur.nome + '</th>\
+                                                      <td>' + disc.percentual_corresp + '</td>\
+                                                    </tr>\
+                                                  </tbody>\
+                                                </table>';
 
                                     $("#"+disc.cod_cc_corresp).attr( { 'data-toggle': 'popover',
                                         'data-trigger': 'focus',
