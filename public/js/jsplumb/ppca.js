@@ -301,6 +301,7 @@ function compare()
 
                                     $("#"+disc.cod_cc_corresp).attr( { 'data-toggle': 'popover',
                                         'data-trigger': 'focus',
+                                        'title': 'status',
                                         'data-content': popover_content,
                                         'role': 'button',
                                         'tabindex': '0' });
@@ -338,7 +339,7 @@ function compare()
 
                             drawChart( statistics );
                             
-                            $('[data-toggle="popover"]').popover();
+                            $('[data-toggle="popover"]').popover({ 'html': true });
                         } 
 
                         })
