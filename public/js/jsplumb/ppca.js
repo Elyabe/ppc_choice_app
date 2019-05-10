@@ -307,7 +307,7 @@ function compare()
 
                                                   popover_content += '<tr>\
                                                       <th scope="row">'+  ccur.nome + '</th>\
-                                                      <td>' + disc.percentual_corresp + '</td>\
+                                                      <td>' + disc.percentual_corresp*100 + '% </td>\
                                                     </tr>\
                                                   </tbody>\
                                                 </table>';
