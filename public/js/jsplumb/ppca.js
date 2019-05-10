@@ -28,7 +28,10 @@ function load_algorithm() {
 
         create_grid(instance_current_grid, current_grid,"current-grid");
         create_grid(instance_targe_grid, target_grid,"target-grid");
-        
+  
+        $(function () {
+        $('[data-toggle="popover"]').popover()
+        })
 }
 
 // Monta e exibe a grade de um curso 
@@ -121,7 +124,7 @@ function  create_grid(instance, grid, container_name)
                                                                 {
                                                                     response.filter( (item) => {
                                                                         return item.cod_comp_curricular == auto_selected_tmp[j]
-                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) })
+                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) }) 
                                                                 }
                                                             }
 
@@ -144,7 +147,8 @@ function  create_grid(instance, grid, container_name)
                                                                 }, 5000 )
                                                             }
                                                         }
-                                                    compare()
+                                                    compare();
+                                                    $('[data-toggle="popover"]').popover();
                                             });
                                         
                                             instance.on(obj_subject, "mouseover", function(e) {
@@ -278,6 +282,7 @@ function compare()
                                         qtt_partial_exploitation++;
                                     }
 
+                                    
 
                                 })
 
@@ -286,6 +291,20 @@ function compare()
                                     $("#"+cc.cod_comp_curricular).addClass('ppc-optative')
                                     sum_pending_ch += Number(cc.carga_horaria);
                                 }    
+
+
+                                corresp_matrix.forEach( (disc) => {
+
+                                    var popover_content = '<h5>' + disc.cod_comp_curricular + '->' + disc.cod_cc_corresp + '::' + disc.percentual_corresp + '</h5>';
+
+
+
+                                    $("#"+disc.cod_cc_corresp).attr( { 'data-toggle': 'popover',
+                                        'data-trigger': 'focus',
+                                        'data-content': popover_content,
+                                        'role': 'button',
+                                        'tabindex': '0' });
+                                })
 
                             })
 
@@ -318,6 +337,8 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+                            
+                            $('[data-toggle="popover"]').popover();
                         } 
 
                         })
@@ -335,6 +356,8 @@ function compare()
                 {
                     alert('Um curso atual deve ser selecionado.')
                 }
+
+
 }
 
 

@@ -9,7 +9,7 @@
              <%= error_msg %>
           </div>
           <% } %>
-            <form class="form-signin" action="/user/login" method="POST">
+            <form class="form-signin" action="/user/login<%= destiny %>" method="POST">
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" id="inputEmail" name="email" class="form-control" placeholder="nick.name@ppc" required autofocus>
                 <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
