@@ -10,11 +10,13 @@ router.use(bodyParser.json())
 const { ensureAuthenticated } = require('../../config/auth');
 const passport = require('passport');
 
-
-router.post( '/user/login', (req, res, next) => {
+router.post( '/user/login/*', (req, res, next) => {
+    
+    var urlDestiny = req.url.replace('/user/login', '');
+    
     passport.authenticate('local', {
     session: true,
-    successRedirect: '/ws/home',
+    successRedirect: urlDestiny,
     failureRedirect: '/user/login',
     failureFlash: true
   })(req, res, next);
@@ -31,8 +33,9 @@ router.get('/user/logout', (req, res) => {
   res.redirect('/ws/home')
 });
 
-router.get( '/user/login', function( req, res ) {
-    res.render( './page/db/login', { title: "Login" } );
+router.get( '/user/login/*', function( req, res, next ) {
+    var urlDestiny = req.url.replace('/user/login', '');
+    res.render( './page/db/login', { title: "Login", destiny: urlDestiny  } );
 });
 
 router.get( '/user/view', function( req, res ) {
