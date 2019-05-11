@@ -293,51 +293,8 @@ function compare()
                                 }    
 
 
-                                var corresp_keys = corresp_matrix.map( (item) => { return item.cod_cc_corresp } );
-                                var ccur;
-                                console.log(corresp_keys);
-
-                                corresp_keys.forEach( (key) => {
-
-                                    var stts, color, popover_content =  '<table class="table table-bordered">\
-                                                  <thead>\
-                                                    <tr>\
-                                                      <th scope="col">Disciplina</th>\
-                                                      <th scope="col">Percentual</th>\
-                                                      <th scope="col">stts</th>\
-                                                    </tr>\
-                                                  </thead>\
-                                                  <tbody>';
-
-                                                corresp_matrix.filter( (row) => { return row.cod_cc_corresp == key } ).forEach( (disc) => {
-                                                    ccur = current_grid.get(Number(disc.cod_comp_curricular));
-                                                    popover_content += '<tr>\
-                                                      <th scope="row">'+  ccur.nome + '</th>\
-                                                      <td>' + disc.percentual_corresp*100 + '% </td>';
-
-                                                    if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
-                                                    {
-                                                        stts = 'up';
-                                                        color = 'blue';
-                                                    } else
-                                                    {
-                                                        stts = 'down';
-                                                        color = 'red';
-                                                    }    
-
-                                                    popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
-                                                })
-
-
-                                                popover_content += '</tbody>\
-                                                </table>';
-
-                                    $("#"+key).attr( { 'data-toggle': 'popover',
-                                        'data-trigger': 'focus',
-                                        'title': 'status',
-                                        'data-content': popover_content,
-                                        'role': 'button',
-                                        'tabindex': '0' });
+                                corresp_matrix.map( (item) => { return item.cod_cc_corresp } ).forEach( (key) => {
+                                    create_popover_status( corresp_matrix, key );                                    
                                 })
 
                             })
@@ -509,4 +466,51 @@ function remove_ppc_classes(cc)
     let ppc_classes = classes.filter(className => { return className.match(/^ppc/) })
 
     $("#"+cc.cod_comp_curricular).removeClass(ppc_classes.join(' '))
+}
+
+// Cria as informações de stts acerca de aproveitamentos em balões
+// corresp_matrix : Matriz de correspondência entre os cursos 
+// key : Código da componente curricular em questão
+function create_popover_status( corresp_matrix, key )
+{
+    var stts, color, 
+    popover_content =  '<table class="table table-striped">\
+                          <thead>\
+                            <tr>\
+                              <th scope="col">Disciplina</th>\
+                              <th scope="col">Percentual</th>\
+                              <th scope="col">stts</th>\
+                            </tr>\
+                          </thead>\
+                          <tbody>';
+
+                        corresp_matrix.filter( (row) => { return row.cod_cc_corresp == key } ).forEach( (disc) => {
+                            ccur = current_grid.get(Number(disc.cod_comp_curricular));
+                            popover_content += '<tr>\
+                              <th scope="row">'+  ccur.nome + '</th>\
+                              <td>' + disc.percentual_corresp*100 + '% </td>';
+
+                            if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
+                            {
+                                stts = 'up';
+                                color = 'blue';
+                            } else
+                            {
+                                stts = 'down';
+                                color = 'red';
+                            }    
+
+                            popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                        })
+
+
+                        popover_content += '</tbody>\
+                        </table>';
+
+            $("#"+key).attr( { 'data-toggle': 'popover',
+                'data-trigger': 'focus',
+                'title': 'status',
+                'data-content': popover_content,
+                'role': 'button',
+                'tabindex': '0' });
 }
