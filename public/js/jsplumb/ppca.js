@@ -293,26 +293,46 @@ function compare()
                                 }    
 
 
-                                corresp_matrix.forEach( (disc) => {
+                                var corresp_keys = corresp_matrix.map( (item) => { return item.cod_cc_corresp } );
+                                var ccur;
+                                console.log(corresp_keys);
 
-                                    var ccur = current_grid.get(Number(disc.cod_comp_curricular));
-                                    var popover_content =  '<table class="table table-bordered">\
+                                corresp_keys.forEach( (key) => {
+
+                                    var stts, color, popover_content =  '<table class="table table-bordered">\
                                                   <thead>\
                                                     <tr>\
                                                       <th scope="col">Disciplina</th>\
                                                       <th scope="col">Percentual</th>\
+                                                      <th scope="col">stts</th>\
                                                     </tr>\
                                                   </thead>\
                                                   <tbody>';
 
-                                                  popover_content += '<tr>\
+                                                corresp_matrix.filter( (row) => { return row.cod_cc_corresp == key } ).forEach( (disc) => {
+                                                    ccur = current_grid.get(Number(disc.cod_comp_curricular));
+                                                    popover_content += '<tr>\
                                                       <th scope="row">'+  ccur.nome + '</th>\
-                                                      <td>' + disc.percentual_corresp*100 + '% </td>\
-                                                    </tr>\
-                                                  </tbody>\
+                                                      <td>' + disc.percentual_corresp*100 + '% </td>';
+
+                                                    if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
+                                                    {
+                                                        stts = 'up';
+                                                        color = 'blue';
+                                                    } else
+                                                    {
+                                                        stts = 'down';
+                                                        color = 'red';
+                                                    }    
+
+                                                    popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                                                })
+
+
+                                                popover_content += '</tbody>\
                                                 </table>';
 
-                                    $("#"+disc.cod_cc_corresp).attr( { 'data-toggle': 'popover',
+                                    $("#"+key).attr( { 'data-toggle': 'popover',
                                         'data-trigger': 'focus',
                                         'title': 'status',
                                         'data-content': popover_content,
@@ -330,15 +350,17 @@ function compare()
                             }
 
                             var optatives_it = pending_optatives.keys();
-                            console.log(optatives_it.length);
+
                             qtt_optt_exploitation = Math.floor( sum_pending_ch / 60 );
-                            for ( var i = 0; i < qtt_optt_exploitation && i < optatives_it.size; i++ )
+                            console.log( optatives_it, qtt_optt_exploitation, optatives_it, optatives_it.length );
+                            for ( var i = 0; i < qtt_optt_exploitation && !optatives_it.done; i++ )
                             {
                                 var id = optatives_it.next().value;
-
+                                console.log(id);
                                 corresp_matrix.filter( (disc) => { return disc.cod_comp_curricular == id }).forEach( (item) => {
                                     $("#"  + item.cod_cc_corresp ).addClass('ppc-optative');
                                 })
+
                             }
 
                             
