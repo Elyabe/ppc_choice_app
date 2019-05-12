@@ -28,7 +28,10 @@ function load_algorithm() {
 
         create_grid(instance_current_grid, current_grid,"current-grid");
         create_grid(instance_targe_grid, target_grid,"target-grid");
-        
+  
+        $(function () {
+        $('[data-toggle="popover"]').popover()
+        })
 }
 
 // Monta e exibe a grade de um curso 
@@ -121,7 +124,7 @@ function  create_grid(instance, grid, container_name)
                                                                 {
                                                                     response.filter( (item) => {
                                                                         return item.cod_comp_curricular == auto_selected_tmp[j]
-                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) })
+                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) }) 
                                                                 }
                                                             }
 
@@ -144,7 +147,8 @@ function  create_grid(instance, grid, container_name)
                                                                 }, 5000 )
                                                             }
                                                         }
-                                                    compare()
+                                                    compare();
+                                                    $('[data-toggle="popover"]').popover();
                                             });
                                         
                                             instance.on(obj_subject, "mouseover", function(e) {
@@ -278,6 +282,7 @@ function compare()
                                         qtt_partial_exploitation++;
                                     }
 
+                                    
 
                                 })
 
@@ -286,6 +291,11 @@ function compare()
                                     $("#"+cc.cod_comp_curricular).addClass('ppc-optative')
                                     sum_pending_ch += Number(cc.carga_horaria);
                                 }    
+
+
+                                corresp_matrix.map( (item) => { return item.cod_cc_corresp } ).forEach( (key) => {
+                                    create_popover_status( corresp_matrix, key );                                    
+                                })
 
                             })
 
@@ -297,15 +307,17 @@ function compare()
                             }
 
                             var optatives_it = pending_optatives.keys();
-                            console.log(optatives_it.length);
+
                             qtt_optt_exploitation = Math.floor( sum_pending_ch / 60 );
-                            for ( var i = 0; i < qtt_optt_exploitation && i < optatives_it.size; i++ )
+                            console.log( optatives_it, qtt_optt_exploitation, optatives_it, optatives_it.length );
+                            for ( var i = 0; i < qtt_optt_exploitation && !optatives_it.done; i++ )
                             {
                                 var id = optatives_it.next().value;
-
+                                console.log(id);
                                 corresp_matrix.filter( (disc) => { return disc.cod_comp_curricular == id }).forEach( (item) => {
                                     $("#"  + item.cod_cc_corresp ).addClass('ppc-optative');
                                 })
+
                             }
 
                             
@@ -318,6 +330,8 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+                            
+                            $('[data-toggle="popover"]').popover({ 'html': true });
                         } 
 
                         })
@@ -335,6 +349,8 @@ function compare()
                 {
                     alert('Um curso atual deve ser selecionado.')
                 }
+
+
 }
 
 
@@ -450,4 +466,51 @@ function remove_ppc_classes(cc)
     let ppc_classes = classes.filter(className => { return className.match(/^ppc/) })
 
     $("#"+cc.cod_comp_curricular).removeClass(ppc_classes.join(' '))
+}
+
+// Cria as informações de stts acerca de aproveitamentos em balões
+// corresp_matrix : Matriz de correspondência entre os cursos 
+// key : Código da componente curricular em questão
+function create_popover_status( corresp_matrix, key )
+{
+    var stts, color, 
+    popover_content =  '<table class="table table-striped">\
+                          <thead>\
+                            <tr>\
+                              <th scope="col">Disciplina</th>\
+                              <th scope="col">Percentual</th>\
+                              <th scope="col">stts</th>\
+                            </tr>\
+                          </thead>\
+                          <tbody>';
+
+                        corresp_matrix.filter( (row) => { return row.cod_cc_corresp == key } ).forEach( (disc) => {
+                            ccur = current_grid.get(Number(disc.cod_comp_curricular));
+                            popover_content += '<tr>\
+                              <th scope="row">'+  ccur.nome + '</th>\
+                              <td>' + disc.percentual_corresp*100 + '% </td>';
+
+                            if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
+                            {
+                                stts = 'up';
+                                color = 'blue';
+                            } else
+                            {
+                                stts = 'down';
+                                color = 'red';
+                            }    
+
+                            popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                        })
+
+
+                        popover_content += '</tbody>\
+                        </table>';
+
+            $("#"+key).attr( { 'data-toggle': 'popover',
+                'data-trigger': 'focus',
+                'title': 'status',
+                'data-content': popover_content,
+                'role': 'button',
+                'tabindex': '0' });
 }
