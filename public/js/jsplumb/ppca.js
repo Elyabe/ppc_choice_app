@@ -203,7 +203,7 @@ function  create_grid(instance, grid, container_name)
 
                                     let foco = ( container_name == 'current-grid') ? 'target-grid' : 'current-grid';
                                     $('body, html').animate({
-                                    scrollTop: $("#sl-" + foco).offset().top
+                                    scrollTop: $("#sl-" + foco).offset().top - 75
                                     }, 600);
 
                                     $("#sl-"+ foco).focus();
