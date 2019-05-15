@@ -32,6 +32,23 @@ function load_algorithm() {
         $(function () {
         $('[data-toggle="popover"]').popover()
         })
+
+        var section_1 = $('#comparison'),
+        section_2 = $('#team');
+
+        $(window).scroll(function() {
+          var scroll_lvl = $(document).scrollTop(),
+              section_1_lvl = section_1.offset().top,
+              section_2_lvl = section_2.offset().top;
+
+          if($('a[href="#comparison"]').hasClass('active')) {
+               $('#ppc-tools-box').show();
+          } else {
+               $('#ppc-tools-box').hide();
+          }
+
+
+        });
 }
 
 // Monta e exibe a grade de um curso 
@@ -330,6 +347,7 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+                            $('#statistics-card').toggle();
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
                         } 
@@ -500,7 +518,7 @@ function create_popover_status( corresp_matrix, key )
                                 color = 'red';
                             }    
 
-                            popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
                         })
 
 
@@ -513,4 +531,26 @@ function create_popover_status( corresp_matrix, key )
                 'data-content': popover_content,
                 'role': 'button',
                 'tabindex': '0' });
+}
+
+
+
+function printElem(divId) {
+    var content = document.getElementById(divId).innerHTML;
+    var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+    mywindow.document.write('<html><head> <title>Print</title>');
+    mywindow.document.write( '<link rel="stylesheet" href="/stylesheet/jsplumb/jsplumbtoolkit-defaults.css">\
+    <link rel="stylesheet" href="/stylesheet/jsplumb/jsplumbtoolkit-demo.css">\
+    <link rel="stylesheet" href="/stylesheet/jsplumb/style-grid.css">\
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(content);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus()
+    mywindow.print();
+    mywindow.close();
+    return true;
 }

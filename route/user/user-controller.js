@@ -17,7 +17,7 @@ router.post( '/user/login/*', (req, res, next) => {
     passport.authenticate('local', {
     session: true,
     successRedirect: urlDestiny,
-    failureRedirect: '/user/login',
+    failureRedirect: '/user/login' + urlDestiny,
     failureFlash: true
   })(req, res, next);
   },

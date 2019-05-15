@@ -1,4 +1,4 @@
-<% layout('../../template/ws-layout') -%>
+<!-- <% layout('../../template/ws-layout') -%> -->
 
 
      <!-- PIE  -->
@@ -48,16 +48,9 @@
         </div>
         <div class="col-sm-1">
             <button id="toggle-button-current-grid" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-current-grid" aria-expanded="true" title="Ocultar/Mostrar PPC">
-                <span  class="glyphicon glyphicon-eye-open"></span>
+                <span  class="fas fa-eye"></span>
             </button>
-        </div> <!--Botao Ocultar/Mostrar-->   
-
-        <!-- <div class="col-sm-1">
-            <div class="toggle">
-                <input type="checkbox" id="auto-select-dependency">
-                <label for="auto-select-dependency"></label>
-            </div>
-        </div>  -->
+        </div> <!--Botao Ocultar/Mostrar-->  
 
      </div><!-- /.row -->           
                     
@@ -74,57 +67,50 @@
             <!-- <div class="comparacao"> -->
               <!-- <div class="jtk-demo-main"> -->
                 
-                <div id="canvas-current-grid" class="collapse in">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <ul data-toggle="collapse" href="#legendaPPCatual"> 
-                                    <span class="glyphicon glyphicon-chevron-down"></span> 
+                <div id="canvas-current-grid" class="collapse">
+                    
+                    <div class="card">
+                      <ul data-toggle="collapse" href="#legendaPPCatual" class="card-header"> 
+                                    <span class="fas fa-chevron-down"></span> 
                                 Legenda de cores</ul>
-                            </h4>
-                        </div>
-                        <div id="legendaPPCatual" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <!-- Os id's ainda não estão sendo usados, quero usar dps
-                                    para deixar as cores iguais as cores dos baloes do canvas-->
+
+                      <div class="card-body collapse in" id="legendaPPCatual">
+                        <div class="row">
                                 <div class="col-md-4">
-                                  <!--   <p><span id="selecionado" class="glyphicon glyphicon-tint"
-                                    style="color: blue;"></span>
-                                    Disciplina Selecionada
-                                    </p> -->
-                                    <p><span id="apro100" class="glyphicon glyphicon-tint" 
+                                    <p><span id="apro100" class="fas fa-tint" 
                                         style="color: rgb(62,143,62);"></span>
                                         Disciplina Totalmente Aproveitada
                                     </p>
-                                    <p><span id="apro50" class="glyphicon glyphicon-tint"
+                                    <p><span id="apro50" class="fas fa-tint"
                                         style="color: #84ab0d;"></span>
                                         Disciplina Parcialmente Aproveitada
                                     </p>
                                    
                                 </div> <!--coluna legenda -->
                                 <div class="col-md-4">
-                                    <p><span id="prereq" class="glyphicon glyphicon-tint"
+                                    <p><span id="prereq" class="fas fa-tint"
                                     style="color: #006575;"></span>
                                     Disciplina Atual é Pré-requisito
                                     </p>
-                                    <p><span id="prereq" class="glyphicon glyphicon-tint"
+                                    <p><span id="prereq" class="fas fa-tint"
                                     style="color: #009eb6;"></span>
                                     Disciplina Atual é Pós-requisito
                                     </p>
                                 </div>
                                 <div class="col-md-4">
-                                     <p><span id="perdido" class="glyphicon glyphicon-tint"
+                                     <p><span id="perdido" class="fas fa-tint"
                                         style="color: #925b8e;"></span>
                                         Disciplina Eletiva
                                     </p>
-                                    <p><span id="perdido" class="glyphicon glyphicon-tint"
+                                    <p><span id="perdido" class="fas fa-tint"
                                         style="color: #ed9121;"></span>
                                         Disciplina aproveitada como optativa
                                     </p>
                                 </div>
-                            </div><!--legenda oculta-->
                         </div>
+                      </div>
                     </div>
+
                     <!-- container ppc atual -->
                     <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="current-grid">
                         <!-- <div class="row" id="periodos-current-grid"> 
@@ -156,7 +142,7 @@
                         </div><!--col md 12-->
                         <div class="col-md-1">
                             <button  id="toggle-button-target-grid" type="button" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-target-grid" aria-expanded="true" title="Ocultar/Mostrar PPC">
-                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="fas fa-eye"></span>
                             </button>
                         </div> <!--Botao Ocultar/Mostrar-->   
                     </div><!-- /.row -->           
@@ -184,13 +170,13 @@
                                 </div> -->
                                 <!-- canvas ppc alvo -->
                                 <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="target-grid" ></div>
-                                  <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"> 
-                                            <ul data-toggle="collapse" href="#statsPPCatual"> <span class="glyphicon glyphicon-chevron-down"></span> Estatísticas</ul>
-                                        </h4>
-                                    </div>
-                                    <div id="statsPPCatual" class="panel-collapse collapse in">
+                                  
+                                    <div class="card">
+                                      <ul data-toggle="collapse" href="#statistics-card" class="card-header"> 
+                                                    <span class="fas fa-chevron-down"></span> 
+                                                Estatísticas</ul>
+
+                                      <div class="card-body collapse in" id="statistics-card">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <!-- Teste -->
@@ -199,31 +185,14 @@
                                                 <div id="piechart" style="width: 400px; height: 200px;"></div>
                                             </div>
                                         </div>   
+                                      </div>
                                     </div>
-                                </div>   
-                                    <!-- </div> -->
+
                             </div> <!-- ocultado pelo botao hideshow--> 
 
                             <!-- </div>  comparacao -->
                         </div><!-- col-md-12 -->
                     </div><!-- /.row -->     
-
-
-
-                    <div class="row">
-                        <div class="col-md-12">     
-                      </div> <!-- col-md-12 -->
-                    </div> <!--row-->              
-                    <div class="row">
-                        <div class="text-center">
-                            <div class="col-md-12 ">     <!-- style="background:yellow" -->
-                            <button class="btn btn-danger ppcbutton " type="submit"  id = "comparar" style="visibility: hidden;">Comparar</button>   
-                            <!-- <button class="btn btn-danger ppcbutton ">
-                                <a href="javascript:window.print()" >Salvar</a>
-                            </button> -->
-                            </div> <!-- col-md-4 -->
-                        </div>
-                    </div>  
 
         </div>
     </div>
@@ -262,4 +231,7 @@
                 <label for="auto-select-dependency"></label>
             </div>
         </div>
-</div>
+<!--         <div class="row">
+            <button onclick="printElem('current-grid')">Print</button>
+        </div>
+ --></div>
