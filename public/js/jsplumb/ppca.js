@@ -189,7 +189,7 @@ function  create_grid(instance, grid, container_name)
                                     
                                     $("#bar-progress-"+container_name).hide()
                                     $("#cont-bar-progress-"+container_name).hide()
-                                    $("#canvas-"+container_name).addClass('in')
+                                    $("#canvas-"+container_name).addClass('show')
                                     $("#canvas-"+container_name).css("height","")
 
                                     $('#canvas-' + container_name).show()
