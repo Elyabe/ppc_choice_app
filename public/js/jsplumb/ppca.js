@@ -533,24 +533,60 @@ function create_popover_status( corresp_matrix, key )
                 'tabindex': '0' });
 }
 
+function show_popup(div_id) 
+{
+    var content = document.getElementById(div_id).innerHTML;
+    var newWindow = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
+    newWindow.document.write("<html><body " + 
+    "class='responsive light2012-home-switcher home switcher'" + content + 
+    "</body></html>");
+
+    var style = newWindow.document.createElement('link');
+    style.type = "text/css";
+    style.rel = "stylesheet";
+    style.href = "/stylesheet/jsplumb/jsplumbtoolkit-defaults.css"; 
+    style.media = "all";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+
+    style = newWindow.document.createElement('link');
+    style.type = "text/css";
+    style.rel = "stylesheet";
+    style.href = "/stylesheet/jsplumb/jsplumbtoolkit-demo.css"; 
+    style.media = "all";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+
+    style = newWindow.document.createElement('link');
+    style.type = "text/css";
+    style.rel = "stylesheet";
+    style.href = "/stylesheet/jsplumb/style-grid.css"; 
+    style.media = "all";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
 
 
-function printElem(divId) {
-    var content = document.getElementById(divId).innerHTML;
-    var mywindow = window.open('', 'Print', 'height=600,width=800');
+    style = newWindow.document.createElement('link');
+    style.type = "text/css";
+    style.rel = "stylesheet";
+    style.href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"; 
+    style.media = "all";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
 
-    mywindow.document.write('<html><head> <title>Print</title>');
-    mywindow.document.write( '<link rel="stylesheet" href="/stylesheet/jsplumb/jsplumbtoolkit-defaults.css">\
-    <link rel="stylesheet" href="/stylesheet/jsplumb/jsplumbtoolkit-demo.css">\
-    <link rel="stylesheet" href="/stylesheet/jsplumb/style-grid.css">\
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">');
-    mywindow.document.write('</head><body >');
-    mywindow.document.write(content);
-    mywindow.document.write('</body></html>');
+    var script = newWindow.document.createElement('script');
+    script.src = "/js/jsplumb/jsplumb.js";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(script);
 
-    mywindow.document.close();
-    mywindow.focus()
-    mywindow.print();
-    mywindow.close();
-    return true;
+    script = newWindow.document.createElement('script');
+    script.src = "https://use.fontawesome.com/releases/v5.8.2/js/all.js";
+    newWindow.document.getElementsByTagName("head")[0].appendChild(script);
+
+    /*script = newWindow.document.createElement('script');
+    script.type = "text/javascript";
+    script.innerHTML = "$(document).ready( window.print(); );";
+    newWindow.document.getElementsByTagName("body")[0].appendChild(script);*/
+
+    // newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+    newWindow.document.close();
+    // newWindow.focus();
+    // newWindow.print();
+    newWindow.focus();
+
 }
