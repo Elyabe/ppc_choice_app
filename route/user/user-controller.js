@@ -58,6 +58,10 @@ router.get( '/user/settings/password', ensureAuthenticated, function( req, res )
         res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
 });
 
+router.get( '/user/password/recovery', function( req, res ) {
+        res.send("Vergonha! Desgraaaaçaaa! Humilhação para toda uma raça! Vergonha! Ofensa!")
+});
+
 router.post( '/user/query', ensureAuthenticated, function( req, res ) {
     db.getRecords( req.body.comment, (result) => {
       res.send(result.rows);
