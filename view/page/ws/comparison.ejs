@@ -203,7 +203,7 @@
     <!-- End Content -->
 
     <!-- <div class="clearfix"></div> -->
-
+<% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       // google.charts.setOnLoadCallback(drawChart);
@@ -241,3 +241,5 @@
             </button>
         </div>
 </div>
+
+<%}%>
