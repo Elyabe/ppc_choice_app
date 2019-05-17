@@ -347,7 +347,8 @@ function compare()
                                     ];
 
                             drawChart( statistics );
-                            $('#statistics-card').toggle();
+                            if ( !$('#statistics-card').hasClass('show') )
+                                $('#statistics-card').toggle();
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
                         } 
@@ -578,15 +579,7 @@ function show_popup(div_id)
     script.src = "https://use.fontawesome.com/releases/v5.8.2/js/all.js";
     newWindow.document.getElementsByTagName("head")[0].appendChild(script);
 
-    /*script = newWindow.document.createElement('script');
-    script.type = "text/javascript";
-    script.innerHTML = "$(document).ready( window.print(); );";
-    newWindow.document.getElementsByTagName("body")[0].appendChild(script);*/
-
-    // newWindow.document.getElementsByTagName("head")[0].appendChild(style);
     newWindow.document.close();
-    // newWindow.focus();
-    // newWindow.print();
     newWindow.focus();
 
 }
