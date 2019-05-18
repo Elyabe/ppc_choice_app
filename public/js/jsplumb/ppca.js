@@ -74,7 +74,9 @@ function  create_grid(instance, grid, container_name)
             $("#bar-progress-"+container_name).css("width", "25%");
             $("#"+container_name).hide();
             $("#"+container_name).empty();
-            $("#canvas-"+container_name).removeClass('in');
+            $("#canvas-"+container_name).removeClass('show');
+            $('#cont-statistics-card').hide();
+            // $('#cont-statistics-card').attr('display','none');
 
             $.ajax({
                     url: '/db/graduation/grid/' + id_graduation_selected,
@@ -347,6 +349,7 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+                            $('#cont-statistics-card').show();
                             if ( !$('#statistics-card').hasClass('show') )
                                 $('#statistics-card').toggle();
                             
@@ -534,6 +537,9 @@ function create_popover_status( corresp_matrix, key )
                 'tabindex': '0' });
 }
 
+
+// Cria e exibe janela para impressao do resultado da comparação
+// div_id : id da div a ser impressa
 function show_popup(div_id) 
 {
     var content = document.getElementById(div_id).innerHTML;
@@ -542,7 +548,7 @@ function show_popup(div_id)
     + content + "</body></html>");
 
     var style, styles_href = ['/stylesheet/jsplumb/jsplumbtoolkit-defaults.css',  '/stylesheet/jsplumb/jsplumbtoolkit-demo.css',
-    '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ] ;
+    '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ];
     
     styles_href.forEach( (href) => {
         style = ppc_print_window.document.createElement('link');
@@ -563,5 +569,4 @@ function show_popup(div_id)
 
     ppc_print_window.document.close();
     ppc_print_window.focus();
-
 }
