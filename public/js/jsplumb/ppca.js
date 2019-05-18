@@ -537,49 +537,31 @@ function create_popover_status( corresp_matrix, key )
 function show_popup(div_id) 
 {
     var content = document.getElementById(div_id).innerHTML;
-    var newWindow = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
-    newWindow.document.write("<html><body " + 
-    "class='responsive light2012-home-switcher home switcher'" + content + 
-    "</body></html>");
+    var ppc_print_window = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
+    ppc_print_window.document.write("<html><body class='responsive light2012-home-switcher home switcher' >" 
+    + content + "</body></html>");
 
-    var style = newWindow.document.createElement('link');
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "/stylesheet/jsplumb/jsplumbtoolkit-defaults.css"; 
-    style.media = "all";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+    var style, styles_href = ['/stylesheet/jsplumb/jsplumbtoolkit-defaults.css',  '/stylesheet/jsplumb/jsplumbtoolkit-demo.css',
+    '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ] ;
+    
+    styles_href.forEach( (href) => {
+        style = ppc_print_window.document.createElement('link');
+        style.type = "text/css";
+        style.rel = "stylesheet";
+        style.href = href; 
+        style.media = "all";
+        ppc_print_window.document.getElementsByTagName("head")[0].appendChild(style);        
+    });
 
-    style = newWindow.document.createElement('link');
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "/stylesheet/jsplumb/jsplumbtoolkit-demo.css"; 
-    style.media = "all";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+    var script, script_src = ['/js/jsplumb/jsplumb.js', 'https://use.fontawesome.com/releases/v5.8.2/js/all.js'];
 
-    style = newWindow.document.createElement('link');
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "/stylesheet/jsplumb/style-grid.css"; 
-    style.media = "all";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
+    script_src.forEach( (src) => {
+        script = ppc_print_window.document.createElement('script');
+        script.src = src;
+        ppc_print_window.document.getElementsByTagName("head")[0].appendChild(script);        
+    });
 
-
-    style = newWindow.document.createElement('link');
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"; 
-    style.media = "all";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(style);
-
-    var script = newWindow.document.createElement('script');
-    script.src = "/js/jsplumb/jsplumb.js";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(script);
-
-    script = newWindow.document.createElement('script');
-    script.src = "https://use.fontawesome.com/releases/v5.8.2/js/all.js";
-    newWindow.document.getElementsByTagName("head")[0].appendChild(script);
-
-    newWindow.document.close();
-    newWindow.focus();
+    ppc_print_window.document.close();
+    ppc_print_window.focus();
 
 }
