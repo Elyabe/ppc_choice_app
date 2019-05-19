@@ -1178,11 +1178,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 
-
-
-
-
-
 /*Login*/
 :root {
   --input-padding-x: 1.5rem;
@@ -1195,8 +1190,9 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 
 .bg-image {
-  background-image: url('/image/layout/bg-footer-qb-250.jpg');
-  /*background-size: cover;*/
+  background-image: url('/image/layout/bg-login.jpg');
+  background-size: cover;
+  /*background-repeat: repeat-x;*/
   background-position: center;
 }
 
