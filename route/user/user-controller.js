@@ -17,7 +17,7 @@ router.post( '/user/login/*', (req, res, next) => {
     passport.authenticate('local', {
     session: true,
     successRedirect: urlDestiny,
-    failureRedirect: '/user/login',
+    failureRedirect: '/user/login' + urlDestiny,
     failureFlash: true
   })(req, res, next);
   },
@@ -56,6 +56,10 @@ router.post( '/user/update', function( req, res ) {
 
 router.get( '/user/settings/password', ensureAuthenticated, function( req, res ) {
         res.render('./page/db/password-change', { title: 'Settings - Password', user : req.user} )
+});
+
+router.get( '/user/password/recovery', function( req, res ) {
+        res.send("Vergonha! Desgraaaaçaaa! Humilhação para toda uma raça! Vergonha! Ofensa!")
 });
 
 router.post( '/user/query', ensureAuthenticated, function( req, res ) {

@@ -1,109 +1,56 @@
-  <!-- Start Navigation -->
-    <nav class="navbar navbar-default navbar-fixed white bootsnav on no-full no-background">
-
-        <!-- Start Top Search -->
-        <div class="top-search">
-            <div class="container">
-                <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span>  </span>
-                    <input type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-addon close-search"><span class="glyphicon glyphicon-remove"></span></span>
-                </div>
-            </div>
-        </div>
-        <!-- End Top Search -->
-
-        <div class="container">            
-            <!-- Start Atribute Navigation -->
-            <div class="attr-nav">
-                <ul>
-                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-cog"></i>
-                            <!-- <span class="badge">2</span> -->
-                        </a>
-                        <ul class="dropdown-menu cart-list animated fadeOutUp" style="display: none; opacity: 1;">
-                            <li><a href="/ws/home"> <span class="glyphicon glyphicon-random"></span> 
-                                Workspace
-                            </a></li>
-                            <li><a href="/user/logout"> <span class="glyphicon glyphicon-log-out"></span> 
-                                logout
-                            </a></li>
-                            <li><a href="/user/settings/password"> <span class="glyphicon glyphicon-lock"></span> 
-                                alterar senha
-                            </a></li> 
-                        </ul>
-                    </li>
-                    <li class="search"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                    <li class="side-menu"><a href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>
-                </ul>
-            </div>
-            <!-- End Atribute Navigation -->
-
-            <!-- Start Header Navigation -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                    <i class="glyphicon glyphicon-align-justify"></i>
-                </button>
-                <a class="navbar-brand" href="/db/home">
-                    <img src="/image/layout/logo-light.png" class="logo logo-display" alt="">
-                    <img src="/image/layout/logo-dark.png" class="logo logo-scrolled" alt="">
-                    <span class="badge">Prototype</span>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: black;">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#">
+        <img src="/image/layout/logo-light.png" class="logo logo-display" alt="">
+        <!-- <img src="/image/layout/logo-dark.png" class="logo logo-scrolled" alt=""> -->
+        <span class="badge" style="font-size: 8px;">Prototype</span>
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/db/subject/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Disciplina
                 </a>
-            </div>
-            <!-- End Header Navigation -->
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-menu">
-                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gerenciar</a>
-                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
-                            <li><a href="#">Componente Curricular</a></li>
-                            <li><a href="/db/subject/">Disciplina</a></li>
-                            <li><a href="/db/graduation/">Curso</a></li>
-                            <li><a href="#">Componente Curricular</a></li>
-                            <li><a href="#">Matriz de Equivalência</a></li>
-                            <!-- <li><a href="#"></a></li> -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Submenu</a>
-                                <ul class="dropdown-menu animated">
-                                    <li><a href="#">Custom Menu</a></li>
-                                    <li><a href="#">Custom Menu</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
-                                        <ul class="dropdown-menu animated">
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Custom Menu</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                     <li><a href="/user/view"> <span class="glyphicon glyphicon-user"></span>  
-                      <%=user.nickname%>  
-                    </a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div>   
-
-        <!-- Start Side Menu -->
-        <div class="side">
-            <a href="#" class="close-side"><span class="glyphicon glyphicon-remove"></span></a>
-            <div class="widget">
-                <h6 class="title">Mais</h6>
-                <ul class="link">
-                    <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>  Login</a></li>
-                    
-                </ul>
-            </div>
-        </div>
-        <!-- End Side Menu -->
-    </nav>
-    <!-- End Navigation -->
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/db/home"><span class="fas fa-chalkboard-teacher"></span> Dashboard</a>
+                      <a class="dropdown-item" href="/user/logout"><span class="fas fa-sign-out-alt"></span> Logout</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/user/settings/password"><span class="fas fa-unlock-alt"></span> Alterar Senha</a>
+                    </div>
+            </li>
+            
+            <% if (login) { %> 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="fas fa-user"></span>  
+                    <%=user.nickname%>
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/ws/home"><span class="fas fa-chalkboard-teacher"></span> Workspace</a>
+                      <a class="dropdown-item" href="/user/logout"><span class="fas fa-sign-out-alt"></span> Logout</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/user/settings/password"><span class="fas fa-unlock-alt"></span> Alterar Senha</a>
+                    </div>
+            </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#"> <span class="fas fa-user"></span>  
+                    <%=user.nickname%> </a>
+                </li>
+            <% } %>
+          <!-- <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
