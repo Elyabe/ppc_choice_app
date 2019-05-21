@@ -1,26 +1,42 @@
 <% layout('../../template/cm-layout') -%>
-
-      <div class="jumbotron mt-4" style="width: 400px; padding: 40px; margin-left: 35%; margin-top: 5%;"> 
-            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
-          <% if ( error_msg != '') { %>
-          <div class="alert alert-warning" role="alert">
-             <%= error_msg %>
-          </div>
-          <% } %>
-            <form class="form-signin" action="/user/login<%= destiny %>" method="POST">
-                <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="nick.name@ppc" required autofocus>
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-                <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">PPC Choice > Bem-vindo!</h3>
+               <% if ( error_msg != '') { %>
+                <div class="alert alert-warning" role="alert">
+                   <%= error_msg %>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-            </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Forgot the password?
-            </a>
-        </div><!-- /card-container -->
+                <% } %>
+
+              <form action="/user/login<%=destiny%>" method="POST">
+                <div class="form-label-group">
+                  <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus>
+                  <label for="inputEmail">Email</label>
+                </div>
+
+                <div class="form-label-group">
+                  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Senha" required>
+                  <label for="inputPassword">Senha</label>
+                </div>
+
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Lembrar-se de mim</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Entrar</button>
+                <div class="text-center">
+                  <a class="small" href="/user/password/recovery">Esqueci minha senha</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -32,6 +32,23 @@ function load_algorithm() {
         $(function () {
         $('[data-toggle="popover"]').popover()
         })
+
+        var section_1 = $('#comparison'),
+        section_2 = $('#team');
+
+        $(window).scroll(function() {
+          var scroll_lvl = $(document).scrollTop(),
+              section_1_lvl = section_1.offset().top,
+              section_2_lvl = section_2.offset().top;
+
+          if($('a[href="#comparison"]').hasClass('active')) {
+               $('#ppc-tools-box').show();
+          } else {
+               $('#ppc-tools-box').hide();
+          }
+
+
+        });
 }
 
 // Monta e exibe a grade de um curso 
@@ -57,7 +74,9 @@ function  create_grid(instance, grid, container_name)
             $("#bar-progress-"+container_name).css("width", "25%");
             $("#"+container_name).hide();
             $("#"+container_name).empty();
-            $("#canvas-"+container_name).removeClass('in');
+            $("#canvas-"+container_name).removeClass('show');
+            $('#cont-statistics-card').hide();
+            // $('#cont-statistics-card').attr('display','none');
 
             $.ajax({
                     url: '/db/graduation/grid/' + id_graduation_selected,
@@ -172,7 +191,7 @@ function  create_grid(instance, grid, container_name)
                                     
                                     $("#bar-progress-"+container_name).hide()
                                     $("#cont-bar-progress-"+container_name).hide()
-                                    $("#canvas-"+container_name).addClass('in')
+                                    $("#canvas-"+container_name).addClass('show')
                                     $("#canvas-"+container_name).css("height","")
 
                                     $('#canvas-' + container_name).show()
@@ -186,7 +205,7 @@ function  create_grid(instance, grid, container_name)
 
                                     let foco = ( container_name == 'current-grid') ? 'target-grid' : 'current-grid';
                                     $('body, html').animate({
-                                    scrollTop: $("#sl-" + foco).offset().top
+                                    scrollTop: $("#sl-" + foco).offset().top - 75
                                     }, 600);
 
                                     $("#sl-"+ foco).focus();
@@ -330,6 +349,9 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+                            $('#cont-statistics-card').show();
+                            if ( !$('#statistics-card').hasClass('show') )
+                                $('#statistics-card').toggle();
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
                         } 
@@ -500,7 +522,7 @@ function create_popover_status( corresp_matrix, key )
                                 color = 'red';
                             }    
 
-                            popover_content += '<td> <span class="glyphicon glyphicon-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
                         })
 
 
@@ -513,4 +535,38 @@ function create_popover_status( corresp_matrix, key )
                 'data-content': popover_content,
                 'role': 'button',
                 'tabindex': '0' });
+}
+
+
+// Cria e exibe janela para impressao do resultado da comparação
+// div_id : id da div a ser impressa
+function show_popup(div_id) 
+{
+    var content = document.getElementById(div_id).innerHTML;
+    var ppc_print_window = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
+    ppc_print_window.document.write("<html><body class='responsive light2012-home-switcher home switcher' >" 
+    + content + "</body></html>");
+
+    var style, styles_href = ['/stylesheet/jsplumb/jsplumbtoolkit-defaults.css',  '/stylesheet/jsplumb/jsplumbtoolkit-demo.css',
+    '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ];
+    
+    styles_href.forEach( (href) => {
+        style = ppc_print_window.document.createElement('link');
+        style.type = "text/css";
+        style.rel = "stylesheet";
+        style.href = href; 
+        style.media = "all";
+        ppc_print_window.document.getElementsByTagName("head")[0].appendChild(style);        
+    });
+
+    var script, script_src = ['/js/jsplumb/jsplumb.js', 'https://use.fontawesome.com/releases/v5.8.2/js/all.js'];
+
+    script_src.forEach( (src) => {
+        script = ppc_print_window.document.createElement('script');
+        script.src = src;
+        ppc_print_window.document.getElementsByTagName("head")[0].appendChild(script);        
+    });
+
+    ppc_print_window.document.close();
+    ppc_print_window.focus();
 }
