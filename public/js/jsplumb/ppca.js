@@ -6,6 +6,8 @@ var percentage_corresp = new Map();
 var corresp = new Map();
 // Coleção de optativas pendentes/não realizadas
 var pending_optatives = new Map(); 
+
+var cc_not_equiv = new Map();
 // Coleção as disciplinas da grade atual selecionada
 var current_grid = new Map();
 // Coleção de disciplinas da grade alvo selecionada
@@ -260,6 +262,8 @@ function compare()
 
                             percentage_corresp.clear();
                             corresp.clear();
+                            cc_not_equiv.clear();
+
                             corresp_matrix.forEach( (item) => { 
                                 percentage_corresp.set( Number( item.cod_cc_corresp), 0 );
                             })
@@ -309,6 +313,7 @@ function compare()
                                 {
                                     $("#"+cc.cod_comp_curricular).addClass('ppc-optative')
                                     sum_pending_ch += Number(cc.carga_horaria);
+                                    cc_not_equiv.set( Number(cc.cod_comp_curricular), Number(cc.carga_horaria) );
                                 }    
 
 
@@ -325,19 +330,91 @@ function compare()
                                     pending_optatives.set( k, v );
                             }
 
-                            var optatives_it = pending_optatives.keys();
+                            var pend_optt = [];
+                            current_grid.forEach( function(value){ 
+                                if ( value.nome.includes("Optativa") && !cc_selected.has( Number(value.cod_comp_curricular)) )
+                                    pend_optt.push( Number(value.cod_comp_curricular));  
+                            })
 
+                            console.log( pend_optt );
+
+                            var keys_cc_not_equiv = Array.from( cc_not_equiv.keys() );
+
+                            var temp;
+                            // var optatives_it = pending_optatives.keys();
+                            var i = 0;
+                            
+                            keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ) { return cc_not_equiv.get(cc_id_b) - cc_not_equiv.get(cc_id_a) } );
+                            while( pend_optt.length > 0 && keys_cc_not_equiv.length > 0 )
+                            {
+                                temp = [ keys_cc_not_equiv[i] ];
+                                var sum = cc_not_equiv.get(keys_cc_not_equiv[i]);
+                                var p;
+                                if ( sum > 60 ) 
+                                {
+                                    p = 1;
+                                    cc_not_equiv.set( keys_cc_not_equiv[i], cc_not_equiv.get( keys_cc_not_equiv[i] ) - 60 );
+                                    keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ) { return cc_not_equiv.get(cc_id_b) - cc_not_equiv.get(cc_id_a) } );
+                                } else if ( sum == 60 ) {
+                                    p = 1;
+                                    keys_cc_not_equiv.splice(i,1);
+                                } else {
+                                    var id_comp;
+
+                                    // if ( keys_cc_not_equiv <= 1 )
+                                    //     keys_cc_not_equiv.splice(i,1);
+
+                                    while (  sum < 60 && keys_cc_not_equiv.lenght > 1 )
+                                    {
+                                        var pend_value = 60 - sum;
+                                        id_comp = keys_cc_not_equiv.length - i - 1;
+                                        if ( cc_not_equiv.get( keys_cc_not_equiv[ id_comp ] ) >= pend_value )
+                                        {
+                                            sum += pend_value;
+                                            temp.push( keys_cc_not_equiv[id_comp] );
+                                            keys_cc_not_equiv.splice( id_comp, 1 );
+
+                                        } else
+                                            id_comp--;
+                                    }
+
+                                    if ( sum < 60 && keys_cc_not_equiv.length > 1)
+                                    {
+                                        temp.push( keys_cc_not_equiv[i+1] );
+                                        keys_cc_not_equiv.splice( i+1, 1 );                                        
+                                    }
+                                    
+                                    keys_cc_not_equiv.splice(i,1);
+                                }
+                                
+                                var rows = [], id = corresp_matrix.filter( (cc) => { return Number(cc.cod_comp_curricular) == pend_optt[0] } )[0].cod_cc_corresp;
+
+                                console.log(id);
+
+                                temp.forEach( (cc_cod) => { rows.push( { "cod_comp_curricular": cc_cod, 
+                                    "cod_cc_corresp": id, 
+                                    "percentual_corresp": cc_not_equiv.get(cc_cod)/60.0 } ) 
+                                });
+
+                                pend_optt.splice(0,1);
+
+                                $("#"  + id ).addClass('ppc-optative');
+                                create_popover_status( rows, id );
+
+                                console.log( "temp", temp );
+                                
+                            }
+
+                            /*var optatives_it = pending_optatives.keys();
                             qtt_optt_exploitation = Math.floor( sum_pending_ch / 60 );
-                            console.log( optatives_it, qtt_optt_exploitation, optatives_it, optatives_it.length );
                             for ( var i = 0; i < qtt_optt_exploitation && !optatives_it.done; i++ )
                             {
                                 var id = optatives_it.next().value;
-                                console.log(id);
                                 corresp_matrix.filter( (disc) => { return disc.cod_comp_curricular == id }).forEach( (item) => {
                                     $("#"  + item.cod_cc_corresp ).addClass('ppc-optative');
                                 })
 
-                            }
+                            }*/
 
                             
                             statistics = [
@@ -354,6 +431,8 @@ function compare()
                                 $('#statistics-card').toggle();
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
+
+                            console.log( cc_not_equiv );
                         } 
 
                         })
@@ -507,6 +586,50 @@ function create_popover_status( corresp_matrix, key )
                           <tbody>';
 
                         corresp_matrix.filter( (row) => { return row.cod_cc_corresp == key } ).forEach( (disc) => {
+                            ccur = current_grid.get(Number(disc.cod_comp_curricular));
+                            popover_content += '<tr>\
+                              <th scope="row">'+  ccur.nome + '</th>\
+                              <td>' + disc.percentual_corresp*100 + '% </td>';
+
+                            if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
+                            {
+                                stts = 'up';
+                                color = 'blue';
+                            } else
+                            {
+                                stts = 'down';
+                                color = 'red';
+                            }    
+
+                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                        })
+
+
+                        popover_content += '</tbody>\
+                        </table>';
+
+            $("#"+key).attr( { 'data-toggle': 'popover',
+                'data-trigger': 'focus',
+                'title': 'status',
+                'data-content': popover_content,
+                'role': 'button',
+                'tabindex': '0' });
+}
+
+function create_popover_status_2( corresp_matrix, key )
+{
+    var stts, color, 
+    popover_content =  '<table class="table table-striped">\
+                          <thead>\
+                            <tr>\
+                              <th scope="col">Disciplina</th>\
+                              <th scope="col">Percentual</th>\
+                              <th scope="col">stts</th>\
+                            </tr>\
+                          </thead>\
+                          <tbody>';
+
+                        corresp_matrix.filter( (row) => { return row.cod_comp_curricular == key } ).forEach( (disc) => {
                             ccur = current_grid.get(Number(disc.cod_comp_curricular));
                             popover_content += '<tr>\
                               <th scope="row">'+  ccur.nome + '</th>\
