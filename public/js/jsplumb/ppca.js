@@ -49,6 +49,15 @@ function load_algorithm() {
 
 
         });
+        //Botão Clear - Remove todas disciplinas selecionadas
+        $('button[id="remove-cc-selected"]').on('click',function(){
+            //remove_ppc_classes(cc_selected);
+            current_grid.forEach( (item) => {
+                remove_ppc_classes(item)
+            })
+            cc_selected.clear();
+            compare();
+        });
 }
 
 // Monta e exibe a grade de um curso 
@@ -169,7 +178,7 @@ function  create_grid(instance, grid, container_name)
                                                     compare();
                                                     $('[data-toggle="popover"]').popover();
                                             });
-                                        
+                                            
                                             instance.on(obj_subject, "mouseover", function(e) {
                                                 instance.select({"source": item.cod_comp_curricular}).setHover(true);
                                                 instance.select({"target": item.cod_comp_curricular}).setHover(true);
@@ -354,9 +363,13 @@ function compare()
                                 $('#statistics-card').toggle();
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
+
+                            //Verifica se tem alguma disciplina selecionada - Se sim, libera o botão para limpeza caso contrário o botão fica bloqueado
+                                $('#remove-cc-selected').prop("disabled",!(cc_selected.size > 0));                                    
                         } 
 
                         })
+
                    } else {
                         alert('Um curso alvo deve ser selecionado!')
                         
