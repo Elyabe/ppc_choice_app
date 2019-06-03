@@ -13,12 +13,16 @@ var current_grid = new Map();
 // Coleção de disciplinas da grade alvo selecionada
 var target_grid = new Map();
 
+var dependency_rows = [];
+
 var qtt_partial_exploitation = 0;
 var qtt_total_exploitation = 0;
 var qtt_not_exploitation = 0;
 var qtt_optt_exploitation = 0;
 
 var statistics;
+
+const CH_OPTATIVE = 60;
 
 $(document).ready( load_algorithm() );
 
@@ -31,26 +35,28 @@ function load_algorithm() {
         create_grid(instance_current_grid, current_grid,"current-grid");
         create_grid(instance_targe_grid, target_grid,"target-grid");
   
-        $(function () {
         $('[data-toggle="popover"]').popover()
-        })
-
-        var section_1 = $('#comparison'),
-        section_2 = $('#team');
 
         $(window).scroll(function() {
-          var scroll_lvl = $(document).scrollTop(),
-              section_1_lvl = section_1.offset().top,
-              section_2_lvl = section_2.offset().top;
-
           if($('a[href="#comparison"]').hasClass('active')) {
                $('#ppc-tools-box').show();
           } else {
                $('#ppc-tools-box').hide();
           }
-
-
         });
+
+        // Wellerson task
+        $('button[id="remove-cc-selected"]').on('click', function(){ 
+            current_grid.forEach( (cc) => {remove_ppc_classes(cc);} );
+            cc_selected.clear();             
+            compare() }); 
+
+        // Print
+        $('button[id="ppc-print"]').on('click', function(){ 
+            var print_window = show_popup('ppc-print');    
+            print_window.focus();
+        }); 
+
 }
 
 // Monta e exibe a grade de um curso 
@@ -78,7 +84,6 @@ function  create_grid(instance, grid, container_name)
             $("#"+container_name).empty();
             $("#canvas-"+container_name).removeClass('show');
             $('#cont-statistics-card').hide();
-            // $('#cont-statistics-card').attr('display','none');
 
             $.ajax({
                     url: '/db/graduation/grid/' + id_graduation_selected,
@@ -103,6 +108,11 @@ function  create_grid(instance, grid, container_name)
                             cache:true,
                             success: function(response) 
                             {
+
+                                response.forEach( (item) => {
+                                    dependency_rows.push(item);
+                                })
+
                                 instance.batch( function (){
                             
                                     var last_period = 0, position_into_period;
@@ -114,7 +124,7 @@ function  create_grid(instance, grid, container_name)
                                         } else 
                                         {
                                             position_into_period = 0;
-                                            create_label_period( instance, subject.periodo );
+                                            create_label_period( instance, subject.periodo, grid );
                                         }
 
                                         last_period = subject.periodo;
@@ -135,38 +145,7 @@ function  create_grid(instance, grid, container_name)
                                                     cc_selected.delete( Number(item.cod_comp_curricular) );
                                                     remove_ppc_classes(item);
                                                 } else {
-                                                        
-                                                            var auto_selected_tmp = [];
-                                                            auto_selected_tmp.push(item.cod_comp_curricular)
-
-                                                            if ( $('#auto-select-dependency').prop('checked') )
-                                                            {
-                                                                for ( var j = 0; j < auto_selected_tmp.length; j++ )
-                                                                {
-                                                                    response.filter( (item) => {
-                                                                        return item.cod_comp_curricular == auto_selected_tmp[j]
-                                                                    }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) }) 
-                                                                }
-                                                            }
-
-                                                            auto_selected_tmp.forEach( (item) => {
-                                                               cc_selected.set( Number(item), grid.get(Number(item)) )
-                                                                // $("#"+item).addClass('selected')
-                                                            }) 
-
-                                                            if ( auto_selected_tmp.length > 1 )
-                                                            {
-                                                                const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
-                                                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-                                                                              <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
-                                                                              <br> Você pode retirar a seleção, se for o caso. \
-                                                                                </div>';
-
-                                                                $('#canvas-current-grid').prepend(alert)
-                                                                setTimeout( function(){
-                                                                    $('.alert').fadeOut(300, () => $(this).remove() );
-                                                                }, 5000 )
-                                                            }
+                                                           auto_select_dependency(dependency_rows, item );
                                                         }
                                                     compare();
                                                     $('[data-toggle="popover"]').popover();
@@ -184,7 +163,7 @@ function  create_grid(instance, grid, container_name)
 
                                         })
                                     }
-                                    /*Fim current-grid*/    
+                                    // End current-grid
 
                                     $("#bar-progress-"+container_name).css("width", "75%");
 
@@ -211,12 +190,12 @@ function  create_grid(instance, grid, container_name)
                                     }, 600);
 
                                     $("#sl-"+ foco).focus();
-                                }) /*Fim do batch*/
+                                }) // End batch
             
-                            } /*End function success*/
+                            } //End function success
                         })
                     }
-            });/*End request grid*/
+            });//End request grid
                 
         } else 
             { 
@@ -324,99 +303,83 @@ function compare()
                             })
 
 
-                            pending_optatives.clear();
-                            for( var [k,v] of current_grid ){
-                                if ( v.nome.includes("Optativa") && !cc_selected.has(k) )
-                                    pending_optatives.set( k, v );
-                            }
-
+                            // Begin Transform Optatives case
                             var pend_optt = [];
                             current_grid.forEach( function(value){ 
                                 if ( value.nome.includes("Optativa") && !cc_selected.has( Number(value.cod_comp_curricular)) )
                                     pend_optt.push( Number(value.cod_comp_curricular));  
                             })
 
-                            console.log( pend_optt );
-
                             var keys_cc_not_equiv = Array.from( cc_not_equiv.keys() );
+                            sort_cc( keys_cc_not_equiv );
 
-                            var temp;
-                            // var optatives_it = pending_optatives.keys();
-                            var i = 0;
-                            
-                            keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ) { return cc_not_equiv.get(cc_id_b) - cc_not_equiv.get(cc_id_a) } );
                             while( pend_optt.length > 0 && keys_cc_not_equiv.length > 0 )
                             {
-                                temp = [ keys_cc_not_equiv[i] ];
-                                var sum = cc_not_equiv.get(keys_cc_not_equiv[i]);
-                                var p;
-                                if ( sum > 60 ) 
+                                var rows = [], id = Number( corresp_matrix.filter( (cc) => { return Number(cc.cod_comp_curricular) == pend_optt[0] } )[0].cod_cc_corresp );
+                                
+                                var cc_cod = keys_cc_not_equiv[0];
+                                var sum = cc_not_equiv.get(cc_cod);
+                                if ( sum > CH_OPTATIVE ) 
                                 {
-                                    p = 1;
-                                    cc_not_equiv.set( keys_cc_not_equiv[i], cc_not_equiv.get( keys_cc_not_equiv[i] ) - 60 );
-                                    keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ) { return cc_not_equiv.get(cc_id_b) - cc_not_equiv.get(cc_id_a) } );
-                                } else if ( sum == 60 ) {
-                                    p = 1;
-                                    keys_cc_not_equiv.splice(i,1);
+                                    add_row( rows, cc_cod, id, 1);
+
+                                    cc_not_equiv.set( cc_cod, cc_not_equiv.get( cc_cod ) - CH_OPTATIVE );
+                                    sort_cc( keys_cc_not_equiv );
+
+                                    percentage_corresp.set( id, 1);
+                                } else if ( sum == CH_OPTATIVE ) {
+
+                                    add_row( rows, cc_cod, id, 1);
+                                    keys_cc_not_equiv.splice(0,1);
+                                    percentage_corresp.set( id, 1);
                                 } else {
+                                    
                                     var id_comp;
+                                    var pend_value;
 
-                                    // if ( keys_cc_not_equiv <= 1 )
-                                    //     keys_cc_not_equiv.splice(i,1);
-
-                                    while (  sum < 60 && keys_cc_not_equiv.lenght > 1 )
+                                    add_row( rows, cc_cod, id, cc_not_equiv.get(cc_cod)/CH_OPTATIVE );
+                                    percentage_corresp.set( id, percentage_corresp.get(id) + cc_not_equiv.get(cc_cod)/CH_OPTATIVE );
+                                    keys_cc_not_equiv.splice(0,1);
+                                    
+                                    id_comp = keys_cc_not_equiv.length - 1;
+                                    while (  sum < CH_OPTATIVE && id_comp >= 0 )
                                     {
-                                        var pend_value = 60 - sum;
-                                        id_comp = keys_cc_not_equiv.length - i - 1;
+                                        pend_value = CH_OPTATIVE - sum;
                                         if ( cc_not_equiv.get( keys_cc_not_equiv[ id_comp ] ) >= pend_value )
                                         {
                                             sum += pend_value;
-                                            temp.push( keys_cc_not_equiv[id_comp] );
-                                            keys_cc_not_equiv.splice( id_comp, 1 );
+                                            cc_cod = keys_cc_not_equiv[id_comp];
+                                            add_row( rows, cc_cod, id, pend_value/CH_OPTATIVE );
+                                            percentage_corresp.set( id, percentage_corresp.get(id) + pend_value/CH_OPTATIVE );
+                                            cc_not_equiv.set(cc_cod, cc_not_equiv.get(cc_cod) - pend_value );
 
+                                            if ( cc_not_equiv.get(cc_cod) <= 0 )
+                                                keys_cc_not_equiv.splice( id_comp, 1 );
+
+                                            sort_cc( keys_cc_not_equiv );
+                                            id_comp = keys_cc_not_equiv.length - 1;
                                         } else
                                             id_comp--;
                                     }
-
-                                    if ( sum < 60 && keys_cc_not_equiv.length > 1)
-                                    {
-                                        temp.push( keys_cc_not_equiv[i+1] );
-                                        keys_cc_not_equiv.splice( i+1, 1 );                                        
-                                    }
                                     
-                                    keys_cc_not_equiv.splice(i,1);
+                                    
+                                    if ( id_comp < 0 && sum < CH_OPTATIVE && keys_cc_not_equiv.length > 0 )
+                                    {
+                                        cc_cod = keys_cc_not_equiv[0];
+                                        percentage_corresp.set( id, percentage_corresp.get(id) + cc_not_equiv.get(cc_cod)/CH_OPTATIVE );
+                                        add_row( rows, cc_cod, id, cc_not_equiv.get(cc_cod)/CH_OPTATIVE );
+                                        keys_cc_not_equiv.splice( 0, 1 );                                        
+                                    }
                                 }
                                 
-                                var rows = [], id = corresp_matrix.filter( (cc) => { return Number(cc.cod_comp_curricular) == pend_optt[0] } )[0].cod_cc_corresp;
-
-                                console.log(id);
-
-                                temp.forEach( (cc_cod) => { rows.push( { "cod_comp_curricular": cc_cod, 
-                                    "cod_cc_corresp": id, 
-                                    "percentual_corresp": cc_not_equiv.get(cc_cod)/60.0 } ) 
-                                });
-
                                 pend_optt.splice(0,1);
 
                                 $("#"  + id ).addClass('ppc-optative');
                                 create_popover_status( rows, id );
-
-                                console.log( "temp", temp );
-                                
                             }
 
-                            /*var optatives_it = pending_optatives.keys();
-                            qtt_optt_exploitation = Math.floor( sum_pending_ch / 60 );
-                            for ( var i = 0; i < qtt_optt_exploitation && !optatives_it.done; i++ )
-                            {
-                                var id = optatives_it.next().value;
-                                corresp_matrix.filter( (disc) => { return disc.cod_comp_curricular == id }).forEach( (item) => {
-                                    $("#"  + item.cod_cc_corresp ).addClass('ppc-optative');
-                                })
+                            // End Transforme Optative
 
-                            }*/
-
-                            
                             statistics = [
                                       ["Categoria", "Quantidade"],
                                       ["Totalmente Aproveitadas",  qtt_total_exploitation ],
@@ -432,7 +395,9 @@ function compare()
                             
                             $('[data-toggle="popover"]').popover({ 'html': true });
 
-                            console.log( cc_not_equiv );
+                            // Wellerson - task
+                            $('button[id="remove-cc-selected"]').prop("disabled", cc_selected.size <= 0 );
+
                         } 
 
                         })
@@ -537,7 +502,7 @@ function create_curricular_component(instance, data, num )
 // Cria uma label com a numeração do período na grada
 // instance : Instância do JSPlumb na qual a label será inserida
 // period: Número do período para a label
-function create_label_period(instance, period ) {
+function create_label_period(instance, period, grid ) {
 
     var d = document.createElement("div");
     var id = "P" + period;
@@ -551,7 +516,7 @@ function create_label_period(instance, period ) {
     $("#"+id).on('click', function(){
         let vet = Array.from( current_grid.values() );
         vet.filter( (item) => { return item.periodo == period } ).forEach( (d) => {
-            cc_selected.set( Number(d.cod_comp_curricular), d);
+            auto_select_dependency( dependency_rows, d );
         })
         compare();
     })
@@ -575,12 +540,12 @@ function remove_ppc_classes(cc)
 function create_popover_status( corresp_matrix, key )
 {
     var stts, color, 
-    popover_content =  '<table class="table table-striped">\
+    popover_content =  '<table class="table table-striped" style="table-layout: fixed;">\
                           <thead>\
                             <tr>\
-                              <th scope="col">Disciplina</th>\
+                              <th scope="col" style="width:120px; word-wrap:break-word;">Disciplina</th>\
                               <th scope="col">Percentual</th>\
-                              <th scope="col">stts</th>\
+                              <th scope="col">Status</th>\
                             </tr>\
                           </thead>\
                           <tbody>';
@@ -616,51 +581,6 @@ function create_popover_status( corresp_matrix, key )
                 'tabindex': '0' });
 }
 
-function create_popover_status_2( corresp_matrix, key )
-{
-    var stts, color, 
-    popover_content =  '<table class="table table-striped">\
-                          <thead>\
-                            <tr>\
-                              <th scope="col">Disciplina</th>\
-                              <th scope="col">Percentual</th>\
-                              <th scope="col">stts</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody>';
-
-                        corresp_matrix.filter( (row) => { return row.cod_comp_curricular == key } ).forEach( (disc) => {
-                            ccur = current_grid.get(Number(disc.cod_comp_curricular));
-                            popover_content += '<tr>\
-                              <th scope="row">'+  ccur.nome + '</th>\
-                              <td>' + disc.percentual_corresp*100 + '% </td>';
-
-                            if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
-                            {
-                                stts = 'up';
-                                color = 'blue';
-                            } else
-                            {
-                                stts = 'down';
-                                color = 'red';
-                            }    
-
-                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
-                        })
-
-
-                        popover_content += '</tbody>\
-                        </table>';
-
-            $("#"+key).attr( { 'data-toggle': 'popover',
-                'data-trigger': 'focus',
-                'title': 'status',
-                'data-content': popover_content,
-                'role': 'button',
-                'tabindex': '0' });
-}
-
-
 // Cria e exibe janela para impressao do resultado da comparação
 // div_id : id da div a ser impressa
 function show_popup(div_id) 
@@ -691,5 +611,57 @@ function show_popup(div_id)
     });
 
     ppc_print_window.document.close();
-    ppc_print_window.focus();
+    // ppc_print_window.focus();
+
+    return ppc_print_window;
+}
+
+
+function auto_select_dependency( data_dependency, cc_root )
+{
+    var auto_selected_tmp = [ cc_root.cod_comp_curricular ];
+
+    if ( $('#auto-select-dependency').prop('checked') )
+    {
+        for ( var j = 0; j < auto_selected_tmp.length; j++ )
+        {
+            data_dependency.filter( (item) => {
+                return item.cod_comp_curricular == auto_selected_tmp[j]
+            }).forEach( (item) => { auto_selected_tmp.push(item.cod_cc_pre_requisito) }) 
+        }
+    }
+
+    auto_selected_tmp.forEach( (d) => {
+       cc_selected.set( Number(d), current_grid.get(Number(d)) )
+    }) 
+
+    if ( auto_selected_tmp.length > 1 )
+    {
+        const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                      <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
+                      <br> Você pode retirar a seleção, se for o caso. \
+                        </div>';
+
+        $('#canvas-current-grid').prepend(alert)
+        setTimeout( function(){
+            $('.alert').fadeOut(300, () => $(this).remove() );
+        }, 5000 )
+    }
+
+}
+
+function sort_cc( keys_cc_not_equiv )
+{
+    keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ){ 
+        return cc_not_equiv.get(cc_id_b) - cc_not_equiv.get(cc_id_a) } );
+
+    return keys_cc_not_equiv;
+}
+
+function add_row( rows, cc_cod, cod_cc_corresp, percent )
+{
+    rows.push( { "cod_comp_curricular": cc_cod, 
+                "cod_cc_corresp": cod_cc_corresp, 
+                "percentual_corresp": percent });
 }
