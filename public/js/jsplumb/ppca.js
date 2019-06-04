@@ -295,7 +295,7 @@ function compare()
                                     cc_not_equiv.set( Number(cc.cod_comp_curricular), Number(cc.carga_horaria) );
                                 }    
 
-
+                                // Create basics popover
                                 corresp_matrix.map( (item) => { return item.cod_cc_corresp } ).forEach( (key) => {
                                     create_popover_status( corresp_matrix, key );                                    
                                 })
@@ -380,6 +380,10 @@ function compare()
 
                             // End Transforme Optative
 
+                            $('[data-toggle="popover"]').popover({ 'html': true });
+                            
+                            // Begin statistics
+
                             statistics = [
                                       ["Categoria", "Quantidade"],
                                       ["Totalmente Aproveitadas",  qtt_total_exploitation ],
@@ -389,11 +393,12 @@ function compare()
                                     ];
 
                             drawChart( statistics );
+
                             $('#cont-statistics-card').show();
                             if ( !$('#statistics-card').hasClass('show') )
                                 $('#statistics-card').toggle();
                             
-                            $('[data-toggle="popover"]').popover({ 'html': true });
+                            // End statistics
 
                             // Wellerson - task
                             $('button[id="remove-cc-selected"]').prop("disabled", cc_selected.size <= 0 );
@@ -617,6 +622,9 @@ function show_popup(div_id)
 }
 
 
+// Seleção automática de pré-requisitos de uma componente curricular
+// data_dependency : Array com valores de pré-requisitos
+// cc_root : Código da componente curricular raiz (a originalmente selecionada)
 function auto_select_dependency( data_dependency, cc_root )
 {
     var auto_selected_tmp = [ cc_root.cod_comp_curricular ];
@@ -651,6 +659,8 @@ function auto_select_dependency( data_dependency, cc_root )
 
 }
 
+// Ordena os códigos de disciplinas de acordo com sua carga horária não aproveitada
+// keys_cc_not_equiv : Array de códigos de disciplinas
 function sort_cc( keys_cc_not_equiv )
 {
     keys_cc_not_equiv.sort( function( cc_id_a, cc_id_b ){ 
@@ -659,6 +669,11 @@ function sort_cc( keys_cc_not_equiv )
     return keys_cc_not_equiv;
 }
 
+// Adiciona uma linha ao conjunto de matriz de equivalẽncia
+// rows : Array de equivalẽncias
+// cc_cod : Código da componente curricular 
+// cod_cc_corresp : Código da componente curricular correspondente à cc_cod
+// percent : Percentual de correspondência
 function add_row( rows, cc_cod, cod_cc_corresp, percent )
 {
     rows.push( { "cod_comp_curricular": cc_cod, 
