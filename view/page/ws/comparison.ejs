@@ -184,7 +184,8 @@
                                       <div class="card-body collapse show" id="statistics-card">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <!-- Teste -->
+                                                <h1 id="ppc-percent" class="display-1"></h1>
+                                                <br><h6> do curso alvo completado </h6>
                                             </div>
                                             <div class="col-md-6">
                                                 <div id="piechart" style="width: 400px; height: 200px;"></div>
@@ -205,27 +206,37 @@
     <!-- <div class="clearfix"></div> -->
 <% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      // google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {'packages':['corechart']});
+    // google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart( statistics ) 
-      {
-        var data = google.visualization.arrayToDataTable(statistics);
-        var options = {
-          title: 'Sua situação',
-          pieSliceText: 'label',
-          slices: {  1: {offset: 0.2},
-                    2: {offset: 0.3},
-                    3: {offset: 0.4},
-                    4: {offset: 0.5},
-          },
-        };
+    function drawChart( statistics ) 
+    {
+      var data = google.visualization.arrayToDataTable(statistics);
+      var options = {
+          width: 500,
+          height: 240,
+          chartArea: {  width: "50%", height: "70%" },
+          is3D: true,
+            
+          enableInteractivity: 'start',
+          legend: 
+          {
+            position: 'right',
+            alignment: 'start',
+            layout: 'vertical',
+            maxLines: 3,
+            margin: -4,
+            padding: 0,
+            textStyle: {fontSize: 10}
+          }
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
-      }
+      };
 
-    </script>
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+</script>
+
 
 
 <div id=ppc-tools-box>

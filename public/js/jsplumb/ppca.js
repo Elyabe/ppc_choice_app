@@ -15,12 +15,13 @@ var target_grid = new Map();
 
 var dependency_rows = [];
 
-var qtt_partial_exploitation = 0;
-var qtt_total_exploitation = 0;
-var qtt_not_exploitation = 0;
-var qtt_optt_exploitation = 0;
-
+// Variaveis para uso nas Estatisticas
 var statistics;
+var qtt_total_obg_hours_exploitation = 0;
+var qtt_total_hours_exploitation = 0;
+var qtt_total_partial_hours_exploitation = 0;
+
+
 var first_auto_select;
 const CH_OPTATIVE = 60;
 
@@ -215,10 +216,6 @@ function  create_grid(instance, grid, container_name)
 function compare() 
 {
     var sum_pending_ch = 0.0;
-    qtt_total_exploitation = 0;
-    qtt_partial_exploitation = 0;
-    qtt_optt_exploitation = 0;
-    qtt_not_exploitation = 0;
                        
                 var id_current_graduation = $("#sl-current-grid").children("option:selected").val();
                 var id_target_graduation = $("#sl-target-grid").children("option:selected").val();
@@ -233,6 +230,10 @@ function compare()
                         cache:true,
                         success: function (corresp_matrix) 
                         {
+                            qtt_total_obg_hours_exploitation = 0;
+                            qtt_total_partial_hours_exploitation = 0;
+                            qtt_total_hours_exploitation = 0;
+
 
                             if ( corresp_matrix.length == 0 )
                             {
@@ -251,6 +252,7 @@ function compare()
 
                             target_grid.forEach( (cc) => { 
                                 remove_ppc_classes(cc);
+                                qtt_total_hours_exploitation += Number(cc.carga_horaria);
                             })
 
                             cc_selected.forEach( (cc) => {
@@ -258,6 +260,10 @@ function compare()
                                 let equiv_matrix = corresp_matrix.filter( (item) => { return item.cod_comp_curricular == cc.cod_comp_curricular } );
                                 
                                 equiv_matrix.forEach( (disc) => {
+
+                                    if( percentage_corresp.get(Number(disc.cod_cc_corresp)) > 0) 
+                                        qtt_total_partial_hours_exploitation -=  Number(target_grid.get(Number(disc.cod_cc_corresp)).carga_horaria);
+
 
                                     percentage_corresp.set( Number(disc.cod_cc_corresp), percentage_corresp.get(Number(disc.cod_cc_corresp)) + Number(disc.percentual_corresp) );
 
@@ -271,11 +277,13 @@ function compare()
 
                                         if ( disc.percentual_corresp == 1 ){
                                             $("#"  + disc.cod_comp_curricular ).addClass('ppc-total-exploitation');    
+                                             qtt_total_obg_hours_exploitation += Number(target_grid.get(Number(disc.cod_cc_corresp)).carga_horaria);  
                                         } else {
                                             $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation');    
                                             $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50');    
+
+                                            qtt_total_obg_hours_exploitation += Number(target_grid.get(Number(disc.cod_cc_corresp)).carga_horaria);  
                                         }
-                                        qtt_total_exploitation++;
                                     } else if (total_percentage > 0 )
                                     {
                                         $("#"  + disc.cod_cc_corresp ).addClass('ppc-partial-exploitation')
@@ -283,7 +291,8 @@ function compare()
                     
                                         $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial-exploitation')    
                                         $("#"  + disc.cod_comp_curricular ).addClass('ppc-partial50')
-                                        qtt_partial_exploitation++;
+                                        
+                                        qtt_total_partial_hours_exploitation += Number(target_grid.get(Number(disc.cod_cc_corresp)).carga_horaria);
                                     }
 
                                     
@@ -388,11 +397,12 @@ function compare()
 
                             statistics = [
                                       ["Categoria", "Quantidade"],
-                                      ["Totalmente Aproveitadas",  qtt_total_exploitation ],
-                                      ["Parcialmente Aproveitadas", qtt_partial_exploitation ],
-                                      ["Podem ser aproveitadas como optativa", qtt_optt_exploitation ],
-                                      ["Não foi aproveitada", current_grid.size - (qtt_total_exploitation+qtt_partial_exploitation)],
+                                      ["Carga Horária obrigatória aproveitada.",  qtt_total_obg_hours_exploitation ],
+                                      ["Carga Horária de disciplinas \nobrigatórias não aproveitadas, mas que \npossui um dos pré-requisitos já realizados.", qtt_total_partial_hours_exploitation ],
+                                      ["Carga horária restante a cumprir.", (qtt_total_hours_exploitation - qtt_total_obg_hours_exploitation)],
+                                      ["Não foi aproveitada", 0],
                                     ];
+
 
                             drawChart( statistics );
 
@@ -400,6 +410,9 @@ function compare()
                             if ( !$('#statistics-card').hasClass('show') )
                                 $('#statistics-card').toggle();
                             
+                            $('h1[id="ppc-percent"]').empty();
+                            $('h1[id="ppc-percent"]').append( ((qtt_total_obg_hours_exploitation/qtt_total_hours_exploitation)*100).toFixed(2) + "%")
+
                             // End statistics
 
                             // Wellerson - task
