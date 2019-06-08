@@ -21,7 +21,7 @@ var qtt_not_exploitation = 0;
 var qtt_optt_exploitation = 0;
 
 var statistics;
-
+var first_auto_select;
 const CH_OPTATIVE = 60;
 
 $(document).ready( load_algorithm() );
@@ -190,6 +190,8 @@ function  create_grid(instance, grid, container_name)
                                     }, 600);
 
                                     $("#sl-"+ foco).focus();
+
+                                    first_auto_select = true;
                                 }) // End batch
             
                             } //End function success
@@ -643,18 +645,10 @@ function auto_select_dependency( data_dependency, cc_root )
        cc_selected.set( Number(d), current_grid.get(Number(d)) )
     }) 
 
-    if ( auto_selected_tmp.length > 1 )
+    if ( first_auto_select && auto_selected_tmp.length > 1 )
     {
-        const alert = '<div class="alert alert-warning alert-dismissible" role="alert">\
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-                      <strong>Opa!</strong> Imaginamos que vc já tenha cursado algumas disciplinas e as selecionamos automaticamente. \
-                      <br> Você pode retirar a seleção, se for o caso. \
-                        </div>';
-
-        $('#canvas-current-grid').prepend(alert)
-        setTimeout( function(){
-            $('.alert').fadeOut(300, () => $(this).remove() );
-        }, 5000 )
+        $('#warning-auto-select').modal('show');
+        first_auto_select = false;
     }
 
 }
