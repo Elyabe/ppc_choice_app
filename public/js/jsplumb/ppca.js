@@ -25,11 +25,6 @@ var qtt_total_partial_hours_exploitation = 0;
 var first_auto_select;
 const CH_OPTATIVE = 60;
 
-// Variaveis para uso nas Estatisticas
-var qtt_total_obg_hours_exploitation = 0;
-var qtt_total_hours_exploitation = 0;
-var qtt_total_partial_hours_exploitation = 0;
-
 $(document).ready( load_algorithm() );
 
 
@@ -156,7 +151,7 @@ function  create_grid(instance, grid, container_name)
                                                     compare();
                                                     $('[data-toggle="popover"]').popover();
                                             });
-                                            
+                                        
                                             instance.on(obj_subject, "mouseover", function(e) {
                                                 instance.select({"source": item.cod_comp_curricular}).setHover(true);
                                                 instance.select({"target": item.cod_comp_curricular}).setHover(true);
@@ -240,10 +235,6 @@ function compare()
                             qtt_total_hours_exploitation = 0;
 
 
-                            qtt_total_obg_hours_exploitation = 0;
-                            qtt_total_partial_hours_exploitation = 0;
-                            qtt_total_hours_exploitation = 0;
-
                             if ( corresp_matrix.length == 0 )
                             {
                                 alert('Oops! Não existe em nosso sistema um mapeamento entre esses cursos. Estamos trabalhando nisso.')
@@ -261,10 +252,6 @@ function compare()
 
                             target_grid.forEach( (cc) => { 
                                 remove_ppc_classes(cc);
-                                qtt_total_hours_exploitation += Number(cc.carga_horaria);
-                            })
-
-                            target_grid.forEach( (cc) => { 
                                 qtt_total_hours_exploitation += Number(cc.carga_horaria);
                             })
 
@@ -434,7 +421,6 @@ function compare()
                         } 
 
                         })
-
                    } else {
                         alert('Um curso alvo deve ser selecionado!')
                         
