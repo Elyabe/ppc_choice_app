@@ -183,42 +183,12 @@
 
                                       <div class="card-body collapse show" id="statistics-card">
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <div class="col-md-1" id="piechart" style="width: 100%; height: 300px;"></div>
-                                                <!-- <div class="clearfix"></div> -->
-                                                    <!-- <% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %> -->
-                                                        <script type="text/javascript">
-                                                            google.charts.load('current', {'packages':['corechart']});
-                                                            // google.charts.setOnLoadCallback(drawChart);
-                                                      
-                                                            function drawChart( statistics ) 
-                                                            {
-                                                              var data = google.visualization.arrayToDataTable(statistics);
-                                                              var options = {
-                                                                  width: 500,
-                                                                  height: 240,
-                                                                  chartArea: {  width: "50%", height: "70%" },
-                                                                  is3D: true,
-                                                                    
-                                                                  enableInteractivity: 'start',
-                                                                  legend: 
-                                                                  {
-                                                                    position: 'right',
-                                                                    alignment: 'start',
-                                                                    layout: 'vertical',
-                                                                    maxLines: 3,
-                                                                    margin: -4,
-                                                                    padding: 0,
-                                                                    textStyle: {fontSize: 10}
-                                                                  }
-                             
-                                                              };
-                                                      
-                                                              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                                                              chart.draw(data, options);
-                                                            }
-
-                                                        </script>
+                                            <div class="col-md-6">
+                                                <h1 id="ppc-percent" class="display-1"></h1>
+                                                <br><h6> do curso alvo completado </h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="piechart" style="width: 400px; height: 200px;"></div>
                                             </div>
                                         </div>   
                                       </div>
@@ -234,6 +204,42 @@
     <!-- End Content -->
 
 
+    <!-- <div class="clearfix"></div> -->
+<% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    // google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart( statistics ) 
+    {
+      var data = google.visualization.arrayToDataTable(statistics);
+      var options = {
+          width: 500,
+          height: 240,
+          chartArea: {  width: "50%", height: "70%" },
+          is3D: true,
+            
+          enableInteractivity: 'start',
+          legend: 
+          {
+            position: 'right',
+            alignment: 'start',
+            layout: 'vertical',
+            maxLines: 3,
+            margin: -4,
+            padding: 0,
+            textStyle: {fontSize: 10}
+          }
+
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+</script>
+
+
+
 <div id=ppc-tools-box>
         <div class="row">
             <div class="toggle">
@@ -242,14 +248,32 @@
             </div>
         </div>
         <div class="row">
-            <button onclick="show_popup('ppc-print')"> 
+            <button class="btn" id="ppc-print"> 
                 <span class="fas fa-print"></span> 
             </button>
         </div>
-        <div class="row">
-            <button class="btn " id="remove-cc-selected" title="Clear" disabled="true">
-                <span class="fas fa-trash-alt"></span>
-            </button>
+        <div class="row">             
+            <button class="btn" id="remove-cc-selected" title="Clear" disabled="true">                 
+                <span class="fas fa-trash-alt"></span>             
+            </button>         
         </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="warning-auto-select" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Aviso</h5>
+      </div>
+      <div class="modal-body">
+            Inferimos que você já cursou algumas disciplinas e as selecionamos automaticamente!
+            Não se preocupe! Você pode desmarcar se não for este o caso.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Entendi</button>
+      </div>
+    </div>
+  </div>
 </div>
 <%}%>

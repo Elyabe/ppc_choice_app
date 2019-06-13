@@ -37,7 +37,7 @@ router.post( '/ws/contact/email', function( req, res ) {
   serverMail.sendMail( msg );
 
   req.flash('success_msg', 'Sua mensagem foi enviada! Em até 48 h alguém da nossa equipe entrará em contato.\n Fique de olho! :D')
-  res.redirect('/ws/home');
+  res.redirect('/ws/home#contact');
 
 });
 
