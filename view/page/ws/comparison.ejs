@@ -1,5 +1,5 @@
 <!-- <% layout('../../template/ws-layout') -%> -->
-<!-- -->
+
 
      <!-- PIE  -->
     
@@ -51,12 +51,12 @@
             <!-- </div> -->
             </form>
         </div>
-
         <div class="col-sm-1">
             <button id="toggle-button-current-grid" class="btn btn-danger ppcbutton" data-toggle="collapse" data-target="#canvas-current-grid" title="Ocultar/Mostrar PPC">
                 <span  class="fas fa-eye"></span>
             </button>
-        </div>
+        </div> <!--Botao Ocultar/Mostrar-->  
+
      </div><!-- /.row -->           
                     
     <div class="row">
@@ -197,12 +197,11 @@
                             </div> <!-- ocultado pelo botao hideshow--> 
 
                             <!-- </div>  comparacao -->
-                        </div><!-- col-md-1 -->
+                        </div><!-- col-md-12 -->
                     </div><!-- /.row -->     
         </div>
     </div>
     <!-- End Content -->
-
 
     <!-- <div class="clearfix"></div> -->
 <% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
@@ -276,4 +275,5 @@
     </div>
   </div>
 </div>
+
 <%}%>
