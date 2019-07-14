@@ -569,12 +569,12 @@ function remove_ppc_classes(cc)
 function create_popover_status( corresp_matrix, key )
 {
     var stts, color, 
-    popover_content =  '<table class="table table-striped" style="table-layout: fixed;">\
+    popover_content =  '<table class="table table-striped text-center" ">\
                           <thead>\
                             <tr>\
-                              <th scope="col" style="width:120px; word-wrap:break-word;">Disciplina</th>\
-                              <th scope="col">Percentual</th>\
-                              <th scope="col">Status</th>\
+                              <th scope="col" style="width:80px; word-wrap:break-word;">Componente curricular</th>\
+                              <th scope="col">Contribuição</th>\
+                              <th scope="col">Realizada</th>\
                             </tr>\
                           </thead>\
                           <tbody>';
@@ -599,12 +599,11 @@ function create_popover_status( corresp_matrix, key )
                         })
 
 
-                        popover_content += '</tbody>\
-                        </table>';
+                        popover_content += '</tbody></table>';
 
             $("#"+key).attr( { 'data-toggle': 'popover',
                 'data-trigger': 'focus',
-                'title': 'status',
+                'title': 'Situação de aproveitamento',
                 'data-content': popover_content,
                 'role': 'button',
                 'tabindex': '0' });
