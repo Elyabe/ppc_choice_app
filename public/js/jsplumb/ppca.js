@@ -587,15 +587,15 @@ function create_popover_status( corresp_matrix, key )
 
                             if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
                             {
-                                stts = 'up';
-                                color = 'blue';
+                                stts = 'check';
+                                color = 'green';
                             } else
                             {
-                                stts = 'down';
+                                stts = 'times';
                                 color = 'red';
                             }    
 
-                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                            popover_content += '<td> <span class="fas fa-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
                         })
 
 
