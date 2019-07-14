@@ -49,8 +49,17 @@ function load_algorithm() {
         // Wellerson task
         $('button[id="remove-cc-selected"]').on('click', function(){ 
             current_grid.forEach( (cc) => {remove_ppc_classes(cc);} );
+            target_grid.forEach( (cc) => { 
+                $("#"+ cc.cod_comp_curricular).attr( { 'data-toggle': '',
+                'data-trigger': '',
+                'title': '',
+                'data-content': '',
+                'role': '',
+                'tabindex': '' }) 
+            });
             cc_selected.clear();             
-            compare() }); 
+            compare();
+        }); 
 
         // Print
         $('button[id="ppc-print"]').on('click', function(){ 
