@@ -39,6 +39,17 @@ router.get( '/db/graduation/dependency/:idCurso', function( req, res ) {
       res.send( result.rows );
    });
 })
+
+router.get( '/db/graduation/transition/:idCurso', function( req, res ) {
+
+    const get_grad_transition = "SELECT * FROM curso WHERE cod_ppc IN (\
+                    SELECT cod_ppc_alvo FROM transicao_ppc WHERE cod_ppc_corrente = " + req.params.idCurso + ") ;";
+
+
+    db.getRecords( get_grad_transition, (result) => {
+            res.send( result.rows );
+        })
+})
     
 
 router.get( '/db/graduation/reuse/:idCurso', function( req, res ) {

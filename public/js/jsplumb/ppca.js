@@ -33,6 +33,9 @@ function load_algorithm() {
         var instance_current_grid;
         var instance_targe_grid;
 
+        $("#sl-target-grid").prop("disabled",true);
+
+
         create_grid(instance_current_grid, current_grid,"current-grid");
         create_grid(instance_targe_grid, target_grid,"target-grid");
   
@@ -172,6 +175,35 @@ function  create_grid(instance, grid, container_name)
                                             });
 
                                         })
+
+
+                                        $.ajax({
+                                            url: '/db/graduation/transition/' + id_graduation_selected,
+                                            type:'GET',
+                                            cache:true,
+                                            success: function(response) 
+                                            {
+                                                $("#canvas-target-grid").removeClass('show');
+                                                $("#target-grid").empty();
+                                                $('#sl-target-grid').empty();
+                                                $('#sl-target-grid').append($('<option>', {
+                                                        value: 0,
+                                                        text: 'Selecione seu curso alvo'
+                                                    }));
+
+                                                response.forEach( graduation => {
+                                                    $('#sl-target-grid').append($('<option>', {
+                                                        value: graduation.cod_curso,
+                                                        text: graduation.nome + ' (' + graduation.ch_total_curso + ' horas)'
+                                                    }));
+
+                                                    $("#sl-target-grid").val(graduation.cod_curso).change();
+                                                })
+
+                                                $("#sl-target-grid").prop("disabled",false);
+                                            }
+                                        });
+
                                     }
                                     // End current-grid
 
@@ -194,10 +226,11 @@ function  create_grid(instance, grid, container_name)
 
                                     $("#toggle-button-" + container_name).prop("disabled",false);
 
+                                    
                                     let foco = ( container_name == 'current-grid') ? 'target-grid' : 'current-grid';
                                     $('body, html').animate({
                                     scrollTop: $("#sl-" + foco).offset().top - 75
-                                    }, 600);
+                                    }, 1000);
 
                                     $("#sl-"+ foco).focus();
 
