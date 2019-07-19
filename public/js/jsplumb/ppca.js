@@ -193,6 +193,8 @@ function  create_grid(instance, grid, container_name)
                                                         text: 'Selecione seu curso alvo'
                                                     }));
 
+                                                $('#sl-target-grid option[value="0"]').attr('disabled','true');
+
                                                 response.forEach( graduation => {
                                                     $('#sl-target-grid').append($('<option>', {
                                                         value: graduation.cod_curso,
