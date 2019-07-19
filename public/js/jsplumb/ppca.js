@@ -34,6 +34,8 @@ function load_algorithm() {
         var instance_targe_grid;
 
         $("#sl-target-grid").prop("disabled",true);
+        $("#sl-target-grid").hide();
+        $("#toggle-button-target-grid").hide();
 
 
         create_grid(instance_current_grid, current_grid,"current-grid");
@@ -200,6 +202,8 @@ function  create_grid(instance, grid, container_name)
                                                     $("#sl-target-grid").val(graduation.cod_curso).change();
                                                 })
 
+                                                $("#sl-target-grid").show();
+                                                $("#toggle-button-target-grid").show();
                                                 $("#sl-target-grid").prop("disabled",false);
                                             }
                                         });
