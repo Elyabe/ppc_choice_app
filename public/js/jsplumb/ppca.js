@@ -33,6 +33,11 @@ function load_algorithm() {
         var instance_current_grid;
         var instance_targe_grid;
 
+        $("#sl-target-grid").prop("disabled",true);
+        $("#sl-target-grid").hide();
+        $("#toggle-button-target-grid").hide();
+
+
         create_grid(instance_current_grid, current_grid,"current-grid");
         create_grid(instance_targe_grid, target_grid,"target-grid");
   
@@ -48,18 +53,18 @@ function load_algorithm() {
 
         // Wellerson task
         $('button[id="remove-cc-selected"]').on('click', function(){ 
-              target_grid.forEach( cc => {
-              $("#"+ cc.cod_comp_curricular).attr( { 'data-toggle': '',
+            current_grid.forEach( (cc) => {remove_ppc_classes(cc);} );
+            target_grid.forEach( (cc) => { 
+                $("#"+ cc.cod_comp_curricular).attr( { 'data-toggle': '',
                 'data-trigger': '',
                 'title': '',
                 'data-content': '',
                 'role': '',
-                'tabindex': '' });
-});
-
-current_grid.forEach( (cc) => {remove_ppc_classes(cc);} );
+                'tabindex': '' }) 
+            });
             cc_selected.clear();             
-            compare() }); 
+            compare();
+        }); 
 
         // Print
         $('button[id="ppc-print"]').on('click', function(){ 
@@ -172,6 +177,39 @@ function  create_grid(instance, grid, container_name)
                                             });
 
                                         })
+
+
+                                        $.ajax({
+                                            url: '/db/graduation/transition/' + id_graduation_selected,
+                                            type:'GET',
+                                            cache:true,
+                                            success: function(response) 
+                                            {
+                                                $("#canvas-target-grid").removeClass('show');
+                                                $("#target-grid").empty();
+                                                $('#sl-target-grid').empty();
+                                                $('#sl-target-grid').append($('<option>', {
+                                                        value: 0,
+                                                        text: 'Selecione seu curso alvo'
+                                                    }));
+
+                                                $('#sl-target-grid option[value="0"]').attr('disabled','true');
+
+                                                response.forEach( graduation => {
+                                                    $('#sl-target-grid').append($('<option>', {
+                                                        value: graduation.cod_curso,
+                                                        text: graduation.nome + ' (' + graduation.ch_total_curso + ' horas)'
+                                                    }));
+
+                                                    $("#sl-target-grid").val(graduation.cod_curso).change();
+                                                })
+
+                                                $("#sl-target-grid").show();
+                                                $("#toggle-button-target-grid").show();
+                                                $("#sl-target-grid").prop("disabled",false);
+                                            }
+                                        });
+
                                     }
                                     // End current-grid
 
@@ -194,10 +232,11 @@ function  create_grid(instance, grid, container_name)
 
                                     $("#toggle-button-" + container_name).prop("disabled",false);
 
+                                    
                                     let foco = ( container_name == 'current-grid') ? 'target-grid' : 'current-grid';
                                     $('body, html').animate({
                                     scrollTop: $("#sl-" + foco).offset().top - 75
-                                    }, 600);
+                                    }, 1000);
 
                                     $("#sl-"+ foco).focus();
 
@@ -569,12 +608,12 @@ function remove_ppc_classes(cc)
 function create_popover_status( corresp_matrix, key )
 {
     var stts, color, 
-    popover_content =  '<table class="table table-striped" style="table-layout: fixed;">\
+    popover_content =  '<table class="table table-striped text-center" ">\
                           <thead>\
                             <tr>\
-                              <th scope="col" style="width:120px; word-wrap:break-word;">Disciplina</th>\
-                              <th scope="col">Percentual</th>\
-                              <th scope="col">Status</th>\
+                              <th scope="col" style="width:80px; word-wrap:break-word;">Componente curricular</th>\
+                              <th scope="col">Contribuição</th>\
+                              <th scope="col">Realizada</th>\
                             </tr>\
                           </thead>\
                           <tbody>';
@@ -587,24 +626,23 @@ function create_popover_status( corresp_matrix, key )
 
                             if ( cc_selected.has( Number(disc.cod_comp_curricular) ) ) 
                             {
-                                stts = 'up';
-                                color = 'blue';
+                                stts = 'check';
+                                color = 'green';
                             } else
                             {
-                                stts = 'down';
+                                stts = 'times';
                                 color = 'red';
                             }    
 
-                            popover_content += '<td> <span class="fas fa-thumbs-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
+                            popover_content += '<td> <span class="fas fa-' + stts +'" style="color:'+ color +'"> </span></td></tr>';
                         })
 
 
-                        popover_content += '</tbody>\
-                        </table>';
+                        popover_content += '</tbody></table>';
 
             $("#"+key).attr( { 'data-toggle': 'popover',
                 'data-trigger': 'focus',
-                'title': 'status',
+                'title': 'Situação de aproveitamento',
                 'data-content': popover_content,
                 'role': 'button',
                 'tabindex': '0' });

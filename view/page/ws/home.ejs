@@ -52,7 +52,13 @@
     <!-- Start Content -->
       <section class="page-section" id="comparison">
         <% if ( login ) { %>
-          <% include /comparison.ejs%>
+
+          <%if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
+            <% include /comparison.ejs%>
+          <%} else {%>
+            <%include ../../partial/access-denied.ejs%>
+          <%}%>
+
         <% } else { %>
             
             <div class="card text-center">
