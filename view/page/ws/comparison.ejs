@@ -135,12 +135,12 @@
                             <div class="form-group" style="">
                             <select class="form-control " id = "sl-target-grid">
                              <option selected id = "0" selected id = "0" disabled="true">Selecione seu curso-alvo </option>
-                                <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
+                             <!--    <% for( var idDisc = 0; idDisc < cursos.length; idDisc++ ) {
                                     if ( cursos[idDisc].status == "CORRENTE" && ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' )  ) { %>
                                 <option value = "<%= cursos[idDisc].cod_ppc %>" >
                                   <%= cursos[idDisc].nome %> ( <%= cursos[idDisc].ch_total_curso %> horas )
                                 </option>
-                                <% } } %>
+                                <% } } %> -->
                             </select> 
                             </div>
                             </form>
@@ -239,7 +239,7 @@
 
 
 
-<div id=ppc-tools-box>
+<div  class="btn-group-vertical" id="ppc-tools-box">
         <div class="row">
             <div class="toggle">
                 <input type="checkbox" id="auto-select-dependency">
@@ -247,12 +247,12 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn" id="ppc-print"> 
+            <button class="btn btn-outline-info" id="ppc-print"> 
                 <span class="fas fa-print"></span> 
             </button>
         </div>
         <div class="row">             
-            <button class="btn" id="remove-cc-selected" title="Clear" disabled="true">                 
+            <button class="btn btn-outline-info" id="remove-cc-selected" title="Clear" disabled="true">                 
                 <span class="fas fa-trash-alt"></span>             
             </button>         
         </div>
