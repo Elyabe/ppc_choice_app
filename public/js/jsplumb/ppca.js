@@ -654,8 +654,9 @@ function show_popup(div_id)
 {
     var content = document.getElementById(div_id).innerHTML;
     var ppc_print_window = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
-    ppc_print_window.document.write("<html><body class='responsive light2012-home-switcher home switcher' >" 
-    + content + "</body></html>");
+    ppc_print_window.document.write("<html><body class='responsive light2012-home-switcher home switcher' >"
+    + "  <div  id='mainNav' style='background-color: black;'><div class='container'><a class='navbar-brand js-scroll-trigger' href='#'><img src='/image/layout/logo-light.png' class='logo logo-display' alt=''><span class='badge' style='font-size: 8px;'> Results Prototype</span></a></div> </div>" 
+    +content + "</body></html>");
 
     var style, styles_href = ['/stylesheet/jsplumb/jsplumbtoolkit-defaults.css',  '/stylesheet/jsplumb/jsplumbtoolkit-demo.css',
     '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ];

@@ -139,21 +139,23 @@ path, .jtk-endpoint { cursor:pointer; }
     color: #fff;
 }
 
+/* aproveitamento parcial*/
 .ppc-partial-exploitation > .ppc-partial50 {
     background-color: #3CB371;
 }
-
+/* aproveitamento total*/
 .ppc-total-exploitation {
     background-color: rgba(62,143,62);
     color: white;
 }
 
+/* aproveitamento total, mouse over*/
 .ppc-total-exploitation:hover {
     background-color: rgba(62,143,62,0.8);
     color: white;
     border-color: rgba(62,143,62) 
 }
-
+/* optativa*/
 .ppc-optative {
     background-color: #81cb43;
     color: white;
