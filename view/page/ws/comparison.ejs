@@ -82,39 +82,35 @@
                       <div class="card-body collapse show" id="legendaPPCatual">
                         <div class="row">
                                 <div class="col-md-4">
-                                    <p><span id="apro100" class="fas fa-tint" 
-                                        style="color: rgb(62,143,62);"></span>
-                                        Disciplina Totalmente Aproveitada
+                                    <p><span id="apro100" class="fa fa-square ppc-total-exploitation legend" ></span>
+                                        Disciplina foi aproveitada no novo ppc
                                     </p>
-                                    <p><span id="apro50" class="fas fa-tint"
-                                        style="color: #84ab0d;"></span>
-                                        Disciplina Parcialmente Aproveitada
+                                    <p><span id="apro50" class="fa fa-square ppc-partial-exploitation legend"></span>
+                                        Disciplina não aproveitada, a disciplina equivalente no ppc alvo provavelmente também requer alguma outra disciplina.
                                     </p>
                                    
                                 </div> <!--coluna legenda -->
                                 <div class="col-md-4">
-                                    <p><span id="prereq" class="fas fa-tint"
-                                    style="color: #006575;"></span>
-                                    Disciplina Atual é Pré-requisito
+                                    <p><span id="prereq" class="fa fa-square jtk-target-hover legend"></span>
+                                    Possui disciplina sob o mouse como pré-requisto direto.
                                     </p>
-                                    <p><span id="prereq" class="fas fa-tint"
-                                    style="color: #009eb6;"></span>
-                                    Disciplina Atual é Pós-requisito
+                                    <p><span id="prereq" class="fa fa-square jtk-source-hover legend"></span>
+                                    É pré-requisito direto da disciplina sob o mouse.
                                     </p>
                                 </div>
                                 <div class="col-md-4">
-                                     <p><span id="perdido" class="fas fa-tint"
+                                     <!-- <p><span id="perdido" class="fas fa-square"
                                         style="color: #925b8e;"></span>
                                         Disciplina Eletiva
-                                    </p>
-                                    <p><span id="perdido" class="fas fa-tint"
-                                        style="color: #ed9121;"></span>
+                                    </p> -->
+                                    <p><span id="perdido" class="fa fa-square ppc-optative legend"></span>
                                         Disciplina aproveitada como optativa
                                     </p>
                                 </div>
                         </div>
                       </div>
                     </div>
+
 
                     <!-- container ppc atual -->
                     <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="current-grid">
