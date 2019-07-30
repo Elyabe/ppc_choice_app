@@ -161,4 +161,8 @@ path, .jtk-endpoint { cursor:pointer; }
     color: white;
 }
 
+.legend {
+    color : rgba(0,0,0, 0);
+}
+
 
