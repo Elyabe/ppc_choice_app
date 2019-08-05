@@ -68,7 +68,7 @@ function load_algorithm() {
 
         // Print
         $('button[id="ppc-print"]').on('click', function(){ 
-            var print_window = show_popup('ppc-print');    
+            var print_window = show_popup(); 
             print_window.focus();
         }); 
 
@@ -649,14 +649,19 @@ function create_popover_status( corresp_matrix, key )
 }
 
 // Cria e exibe janela para impressao do resultado da comparação
-// div_id : id da div a ser impressa
-function show_popup(div_id) 
+// div_id : id da div a ser impressao
+function show_popup() 
 {
-    var content = document.getElementById(div_id).innerHTML;
+    const name_current_grid = $('select[id="sl-current-grid"]').find(':selected').text();
+    const name_target_grid = $('select[id="sl-target-grid"]').find(':selected').text(); 
+
+    var content = document.getElementById('canvas-current-grid').innerHTML;
+    var content2 = document.getElementById('canvas-target-grid').innerHTML;
+
     var ppc_print_window = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
     ppc_print_window.document.write("<html><body class='responsive light2012-home-switcher home switcher' >"
     + "  <div  id='mainNav' style='background-color: black;'><div class='container'><a class='navbar-brand js-scroll-trigger' href='#'><img src='/image/layout/logo-light.png' class='logo logo-display' alt=''><span class='badge' style='font-size: 8px;'> Results Prototype</span></a></div> </div>" 
-    +content + "</body></html>");
+    +'<h4>'+ name_current_grid +'</h4>' + content + '<h4>'+ name_target_grid +'</h4>'+ content2 + "</body></html>");
 
     var style, styles_href = ['/stylesheet/jsplumb/jsplumbtoolkit-defaults.css',  '/stylesheet/jsplumb/jsplumbtoolkit-demo.css',
     '/stylesheet/jsplumb/style-grid.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ];
