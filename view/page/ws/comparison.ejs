@@ -178,13 +178,23 @@
 
                                       <div class="card-body collapse show" id="statistics-card">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <h1 id="ppc-percent" class="display-1"></h1>
+                                            <div class="col-sm-6 ">
+                                                <div id="piechart-current" ></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div id="piechart-target" ></div>
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <h1 id="ppc-percent" class="display-4"></h1>
                                                 <br><h6> do curso alvo completado </h6>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div id="piechart" style="width: 400px; height: 200px;"></div>
+                                            <div class="col-sm-6 text-center">
+                                                <h1 id="ppc-percent" class="display-4"></h1>
+                                                <br><h6> do curso alvo completado </h6>
                                             </div>
+                                            
                                         </div>   
                                       </div>
                                     </div>
@@ -208,11 +218,11 @@
     {
       var data = google.visualization.arrayToDataTable(statistics);
       var options = {
-          width: 500,
-          height: 240,
-          chartArea: {  width: "50%", height: "70%" },
+          width: 450,
+          height: 250,
+          position: 'left',
+          chartArea: { left:30, width: "50%" },
           is3D: true,
-            
           enableInteractivity: 'start',
           legend: 
           {
@@ -220,7 +230,7 @@
             alignment: 'start',
             layout: 'vertical',
             maxLines: 3,
-            margin: -4,
+            //margin: -4,
             padding: 0,
             textStyle: {fontSize: 10}
           }

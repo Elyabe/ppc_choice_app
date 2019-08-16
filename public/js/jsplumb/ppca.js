@@ -446,12 +446,12 @@ function compare()
                             statistics = [
                                       ["Categoria", "Quantidade"],
                                       ["Carga Horária obrigatória aproveitada.",  qtt_total_obg_hours_exploitation ],
-                                      ["Carga Horária de disciplinas \nobrigatórias não aproveitadas, mas que \npossui um dos pré-requisitos já realizados.", qtt_total_partial_hours_exploitation ],
+                                      ["Carga Horária de disciplinas \nobrigatórias não aproveitadas, mas que \npossui um dos pré-requisitos\n já realizados.", qtt_total_partial_hours_exploitation ],
                                       ["Carga horária restante a cumprir.", (qtt_total_hours_exploitation - qtt_total_obg_hours_exploitation)],
                                       ["Não foi aproveitada", 0],
                                     ];
 
-
+                         
                             drawChart( statistics );
 
                             $('#cont-statistics-card').show();
