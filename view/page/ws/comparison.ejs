@@ -208,13 +208,12 @@
     </div>
     <!-- End Content -->
 
-    <!-- <div class="clearfix"></div> -->
+      <!-- <div class="clearfix"></div> -->
 <% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
     <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     // google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart( statistics ) 
+    function drawChart( statistics, div_name ) 
     {
       var data = google.visualization.arrayToDataTable(statistics);
       var options = {
@@ -222,7 +221,7 @@
           height: 250,
           position: 'left',
           chartArea: { left:30, width: "50%" },
-          is3D: true,
+          is3D: false,
           enableInteractivity: 'start',
           legend: 
           {
@@ -234,16 +233,11 @@
             padding: 0,
             textStyle: {fontSize: 10}
           }
-
       };
-
-      var chart = new google.visualization.PieChart(document.getElementById('piechart-target'));
+      var chart = new google.visualization.PieChart(document.getElementById(div_name));
       chart.draw(data, options);
     }
 </script>
-
-
-
 <div  class="btn-group-vertical" id="ppc-tools-box">
         <div class="row">
             <div class="toggle">
@@ -262,7 +256,6 @@
             </button>         
         </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="warning-auto-select" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -280,5 +273,4 @@
     </div>
   </div>
 </div>
-
 <%}%>
