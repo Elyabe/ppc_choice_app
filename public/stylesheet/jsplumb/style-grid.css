@@ -134,28 +134,31 @@ path, .jtk-endpoint { cursor:pointer; }
 
 
 .ppc-partial-exploitation{
-    background-color: #3CB371;
-    color: #fff;
+    background-color: #b7effc;
+    color: #3c3c3cdb;
+    border-color: #30b3d2;
 }
 
 .ppc-partial-exploitation > .ppc-partial50 {
-    background-color: #3CB371;
+    background-color: #fffaaf;
 }
 
 .ppc-total-exploitation {
-    background-color: rgba(62,143,62);
-    color: white;
+    background-color: #81dcb7;
+    color: #3c3c3cdb;
+    border-color: #069244 ;
 }
 
 .ppc-total-exploitation:hover {
-    background-color: rgba(62,143,62,0.8);
+    background-color: #81dcb7;
     color: white;
     border-color: rgba(62,143,62) 
 }
 
 .ppc-optative {
-    background-color: #81cb43;
-    color: white;
+    background-color: #ffd3d3;
+    color: #3c3c3cdb;
+    border-color: #f19191;
 }
 
 
