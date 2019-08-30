@@ -134,9 +134,9 @@ path, .jtk-endpoint { cursor:pointer; }
 
 
 .ppc-partial-exploitation{
-    background-color: #b7effc;
+    background-color: #bfbfbf;
     color: #3c3c3cdb;
-    border-color: #30b3d2;
+    border-color: #828a41;
 }
 
 .ppc-partial-exploitation > .ppc-partial50 {
@@ -144,9 +144,9 @@ path, .jtk-endpoint { cursor:pointer; }
 }
 
 .ppc-total-exploitation {
-    background-color: #81dcb7;
+    background-color: #b7effc;
     color: #3c3c3cdb;
-    border-color: #069244 ;
+    border-color: #4da1b5 ;
 }
 
 .ppc-total-exploitation:hover {
