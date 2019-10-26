@@ -135,30 +135,33 @@ path, .jtk-endpoint { cursor:pointer; }
 
 
 .ppc-partial-exploitation{
-    background-color: #3CB371;
-    color: #fff;
+    background-color: #bfbfbf;
+    color: #3c3c3cdb;
+    border-color: #828a41;
 }
 
 /* aproveitamento parcial*/
 .ppc-partial-exploitation > .ppc-partial50 {
-    background-color: #3CB371;
+    background-color: #fffaaf;
 }
 /* aproveitamento total*/
 .ppc-total-exploitation {
-    background-color: rgba(62,143,62);
-    color: white;
+    background-color: #b7effc;
+    color: #3c3c3cdb;
+    border-color: #4da1b5 ;
 }
 
 /* aproveitamento total, mouse over*/
 .ppc-total-exploitation:hover {
-    background-color: rgba(62,143,62,0.8);
+    background-color: #81dcb7;
     color: white;
     border-color: rgba(62,143,62) 
 }
 /* optativa*/
 .ppc-optative {
-    background-color: #81cb43;
-    color: white;
+    background-color: #ffd3d3;
+    color: #3c3c3cdb;
+    border-color: #f19191;
 }
 
 .legend {
@@ -166,3 +169,7 @@ path, .jtk-endpoint { cursor:pointer; }
 }
 
 
+
+.legend {
+    color : rgba(0,0,0, 0);
+}

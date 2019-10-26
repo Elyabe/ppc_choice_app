@@ -12,18 +12,9 @@
         <div class="container" >
             <div class="row">
                 <div class="col-lg-12 text-center">
-                  <h2 class="section-heading text-uppercase">Comparar PPCs</h2>
+                  <h2 class="section-heading">COMPARAR PPCs</h2>
                   <!-- <h3 class="section-subheading text-muted">.</h3> -->
                 </div>
-              </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    <h2 class="title">Escolha seu PPC.</h2>
-                    <p> Analise suas opções.</p>     
-                </div>
-                <!-- <div class="col-sm-4">
-                    <img src="/image/ws/boneco.png" style="width: 100px;">
-                </div> -->
               </div>
         </div>
     </div>
@@ -104,11 +95,13 @@
                                     </p> -->
                                     <p><span id="perdido" class="fa fa-square ppc-optative legend"></span>
                                         Disciplina aproveitada como horas optativas
+
                                     </p>
                                 </div>
                         </div>
                       </div>
                     </div>
+
 
                     <!-- container ppc atual -->
                     <div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="current-grid">
@@ -152,7 +145,7 @@
                         </div>
                     </div>
                     
-                    <div class="row">
+                       <div class="row">
                         <div class="col-md-12">     
                             <div id="canvas-target-grid" class="collapse">
                                 <!-- canvas ppc alvo -->
@@ -174,11 +167,11 @@
                                         </div> 
                                         <div class="row">
                                             <div class="col-sm-6 text-center">
-                                                <h1 id="ppc-percent" class="display-4"></h1>
+                                                <h1 id="ppc-percent-current" class="display-4"></h1>
                                                 <br><h6> do curso atual completado </h6>
                                             </div>
                                             <div class="col-sm-6 text-center">
-                                                <h1 id="ppc-percent" class="display-4"></h1>
+                                                <h1 id="ppc-percent-target" class="display-4"></h1>
                                                 <br><h6> do curso alvo completado </h6>
                                             </div>
                                         </div>   
@@ -194,13 +187,12 @@
     </div>
     <!-- End Content -->
 
-    <!-- <div class="clearfix"></div> -->
+      <!-- <div class="clearfix"></div> -->
 <% if ( user.role == 'ADMIN' || user.role == 'SUPERVISOR' ) { %>
     <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     // google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart( statistics ) 
+    function drawChart( statistics, div_name ) 
     {
       var data = google.visualization.arrayToDataTable(statistics);
       var options = {
@@ -208,7 +200,7 @@
           height: 250,
           position: 'left',
           chartArea: { left:30, width: "50%" },
-          is3D: true,
+          is3D: false,
           enableInteractivity: 'start',
           legend: 
           {
@@ -220,16 +212,11 @@
             padding: 0,
             textStyle: {fontSize: 10}
           }
-
       };
-
-      var chart = new google.visualization.PieChart(document.getElementById('piechart-target'));
+      var chart = new google.visualization.PieChart(document.getElementById(div_name));
       chart.draw(data, options);
     }
 </script>
-
-
-
 <div  class="btn-group-vertical" id="ppc-tools-box">
         <div class="row">
             <div class="toggle">
@@ -248,7 +235,6 @@
             </button>         
         </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="warning-auto-select" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -266,5 +252,4 @@
     </div>
   </div>
 </div>
-
 <%}%>
