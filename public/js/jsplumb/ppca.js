@@ -470,6 +470,7 @@ function compare()
                             drawChart( statistics_current,'piechart-current');
                             drawChart( statistics_target,'piechart-target');
 
+
                             $('#cont-statistics-card').show();
                             if ( !$('#statistics-card').hasClass('show') )
                                 $('#statistics-card').toggle();
